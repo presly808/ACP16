@@ -1,7 +1,16 @@
 package homeWeek1.collections;
 
-/**
- * Created by oleksandr.maslovskyj on 1/23/2017.
- */
-public interface MyArrayListInterface {
+import homeWeek1.exceptions.ElementNotFound;
+import homeWeek1.exceptions.InvalidIndex;
+import homeWeek1.exceptions.WrongElementFormat;
+
+import java.util.Collection;
+
+public interface MyArrayListInterface<E> {
+
+    void addElement(E e) throws WrongElementFormat;
+
+    void removeElement(int index) throws ElementNotFound;
+
+    E findElement(int index) throws InvalidIndex;
 }

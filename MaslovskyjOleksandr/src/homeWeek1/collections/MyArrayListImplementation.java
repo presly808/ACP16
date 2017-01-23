@@ -1,7 +1,24 @@
 package homeWeek1.collections;
 
-/**
- * Created by oleksandr.maslovskyj on 1/23/2017.
- */
-public class MyArrayListImplementation {
+
+import homeWeek1.exceptions.ElementNotFound;
+import homeWeek1.exceptions.InvalidIndex;
+import homeWeek1.exceptions.WrongElementFormat;
+
+public class MyArrayListImplementation<E> implements MyArrayListInterface<E>{
+
+    @Override
+    public void addElement(E e) throws WrongElementFormat {
+
+    }
+
+    @Override
+    public void removeElement(int index) throws ElementNotFound {
+
+    }
+
+    @Override
+    public E findElement(int index) throws InvalidIndex {
+        return null;
+    }
 }

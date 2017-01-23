@@ -1,4 +1,4 @@
-package homeWeek1.collections;
+package homeWeek1.tests;
 
 public class TestCollection {
 }

@@ -1,7 +1,8 @@
 package homeWeek1.exceptions;
 
-/**
- * Created by oleksandr.maslovskyj on 1/23/2017.
- */
-public class InvalidIndex {
+public class InvalidIndex extends Exception {
+
+    public InvalidIndex() {
+        super("Invalid index");
+    }
 }
