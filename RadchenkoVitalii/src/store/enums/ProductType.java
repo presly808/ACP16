@@ -1,4 +1,5 @@
 package store.enums;
 
-public class ProductType {
+public enum  ProductType {
+    Phone, Laptop;
 }

@@ -4,9 +4,14 @@ import store.enums.ProductType;
 
 public class Product {
     private String name;
-    private int id;
+    private Integer id;
+    private Double price;
     private String description;
     private ProductType type;
+
+    public Product(){
+        id = 10; //TODO: generateIt
+    }
 
     public String getName() {
         return name;
@@ -16,11 +21,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,6 +45,14 @@ public class Product {
         this.type = type;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,17 +60,15 @@ public class Product {
 
         Product product = (Product) o;
 
-        if (id != product.id) return false;
         if (!name.equals(product.name)) return false;
-        if (!description.equals(product.description)) return false;
+        if (!id.equals(product.id)) return false;
         return type.equals(product.type);
     }
 
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + id;
-        result = 31 * result + description.hashCode();
+        result = 31 * result + id.hashCode();
         result = 31 * result + type.hashCode();
         return result;
     }
