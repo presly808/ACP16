@@ -1,8 +1,8 @@
 package homeWeek1.exceptions;
 
-public class WrongElementFormat extends Exception {
+public class WrongElementFormatException extends Exception {
 
-    public WrongElementFormat() {
+    public WrongElementFormatException() {
         super("Wrong Element format");
     }
 }
