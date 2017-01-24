@@ -4,6 +4,7 @@ import store.exceptions.ProductNotFoundException;
 import store.model.Product;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static store.Messages.NOT_FOUND_PRODUCT_BY_ID;
 
@@ -30,18 +31,12 @@ public class StoreControllerImpl implements IStoreController {
 
     @Override
     public Product getProduct(String id) throws ProductNotFoundException {
-        //TODO: to think?
-//         Product foundedProduct = productList.stream().filter(product -> product.getId().equals(id)).findFirst().get();
-//         if (foundedProduct != null)
-//             return foundedProduct;
-//        throw new ProductNotFoundException(String.format(NOT_FOUND_PRODUCT_BY_ID, id));
-
-        for (Product product: productList){
-            if (product.getId().equals(id))
-                return product;
+        try {
+            Product foundedProduct = productList.stream().filter(product -> product.getId().equals(id)).findFirst().get();
+            return foundedProduct;
+        } catch (NoSuchElementException e){
+            throw new ProductNotFoundException(String.format(NOT_FOUND_PRODUCT_BY_ID, id));
         }
-
-        throw new ProductNotFoundException(String.format(NOT_FOUND_PRODUCT_BY_ID, id));
     }
 
     private static boolean isValid(Product product){

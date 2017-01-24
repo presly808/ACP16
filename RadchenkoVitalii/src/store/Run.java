@@ -13,9 +13,9 @@ public class Run {
     public static void main(String[] args){
         List<Product> products = getFromDB();
         IStoreController controller = new StoreControllerImpl(products);
-        IStoreView view = new  StoreConsoleViewImpl(controller);
+        IStoreView applicationView = new  StoreConsoleViewImpl(controller);
 
-        view.addProduct();
+        applicationView.run();
     }
 
     public static List<Product> getFromDB(){

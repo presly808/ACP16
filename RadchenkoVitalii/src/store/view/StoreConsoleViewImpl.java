@@ -19,18 +19,27 @@ public class StoreConsoleViewImpl implements IStoreView {
     }
 
     @Override
-    public int displayMenu() {
-        System.out.println("What would you like to do: ");
-        System.out.println("1. Add product");
-        System.out.println("2. Get product");
-        System.out.println("3. Remove product");
-        return consoleReader.enterInteger();
+    public void run() {
+        int choice = -1;
+        while (choice != 0){
+            displayMainMenu();
+            choice = userChoice();
+            if (choice == 1){
+                addProduct();
+            } else if (choice == 2){
+                getProduct();
+            } else if (choice == 3){
+                removeProduct();
+            }
+        }
     }
 
     @Override
-    public boolean addProduct() {
+    public void addProduct() {
         Product product = createProduct();
-        return controller.addProduct(product);
+        boolean result = controller.addProduct(product);
+        String addingResultMessage = result ? String.format("Done! Product was added. Product Id: %s\n", product.getId()) : "Error: Failed to add Product\n";
+        System.out.println(addingResultMessage);
     }
 
     @Override
@@ -41,6 +50,7 @@ public class StoreConsoleViewImpl implements IStoreView {
         try {
             product = controller.getProduct(id);
             controller.removeProduct(product);
+            System.out.println("Product was removed. Info:\n" + product + "\n");
         } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -53,7 +63,7 @@ public class StoreConsoleViewImpl implements IStoreView {
         Product product;
         try {
             product = controller.getProduct(id);
-            System.out.println(product);
+            System.out.println("Product Info:\n" + product + "\n");
         } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -77,5 +87,16 @@ public class StoreConsoleViewImpl implements IStoreView {
     private String enterData(int index, ProductField field){
         System.out.print(String.format("%d. %s: ", index, field.name()));
         return consoleReader.enterLine();
+    }
+
+    private void displayMainMenu(){
+            System.out.println("What would you like to do: \n1. Add product\n2. Get product\n3. Remove product\n0. Exit\n");
+    }
+
+    private int userChoice(){
+        System.out.print("Please, make your choice: ");
+        int choice = consoleReader.enterInteger();
+        System.out.println("Danke!\n");
+        return choice;
     }
 }
