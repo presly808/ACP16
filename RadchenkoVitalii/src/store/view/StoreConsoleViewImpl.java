@@ -69,10 +69,18 @@ public class StoreConsoleViewImpl implements IStoreView {
         }
     }
 
+    @Override
+    public void filterProduct() {
+        //TODO
+    }
+
+    @Override
+    public void sortProduct() {
+        //TODO
+    }
 
     private Product createProduct() {
         System.out.println(CREATION_PRODUCT);
-        //ProductField.displayCreationField();
 
         String name = enterData(1, ProductField.Name);// consoleReader.enterLine();
         Double price = Double.parseDouble(enterData(2, ProductField.Price)); //consoleReader.enterDouble();

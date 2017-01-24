@@ -39,6 +39,16 @@ public class StoreControllerImpl implements IStoreController {
         }
     }
 
+    @Override
+    public List<Product> filter(String filterBy, String value) {
+        return null;
+    }
+
+    @Override
+    public List<Product> sort(String sortBy, String value) {
+        return null;
+    }
+
     private static boolean isValid(Product product){
         if (product != null && product.getId() != null)
             return true;

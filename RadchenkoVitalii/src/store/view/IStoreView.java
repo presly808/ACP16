@@ -8,4 +8,8 @@ public interface IStoreView {
     void removeProduct();
 
     void getProduct();
+
+    void filterProduct();
+
+    void sortProduct();
 }
