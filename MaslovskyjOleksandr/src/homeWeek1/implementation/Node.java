@@ -5,12 +5,12 @@ import java.util.Objects;
 /**
  * Created by ubuntu on 23.01.17.
  */
-public class Node {
+public class Node<E> {
 
-    public Objects value;
+    public E value;
     public Node next;
 
-    public Node(Objects value, Node next) {
+    public Node(E value, Node next) {
         this.value = value;
         this.next = next;
     }
