@@ -12,6 +12,7 @@ public class CustomHashSet<E> implements Set<E> {
 
     private Node[] table;
     private int size;
+    private Node top;
 
     public CustomHashSet() {
         this.table = (Node[]) new Object[DEFAULT_SIZE];
@@ -86,6 +87,7 @@ public class CustomHashSet<E> implements Set<E> {
                 iterator = iterator.next;
             }
             lastPosition.next = new Node(e, null);
+            top = lastPosition.next;
         }
         size++;
         return true;
@@ -147,18 +149,18 @@ public class CustomHashSet<E> implements Set<E> {
 
     public class MyHashSetIterator implements Iterator{
 
-        private int iterator = CustomHashSet.this.table.length;
+        private Node iterator = top;
 
         @Override
         public boolean hasNext() {
-            return table[iterator + 1 ] == null;
+            return iterator.next != null;
         }
 
         @Override
         public Object next() {
             if (hasNext()) {
-                Node node = table[iterator];
-                table[iterator] = table[iterator + 1];
+                Node node = iterator;
+                iterator = iterator.next;
                 return node;
             }
             return new NoElementFoundException();
