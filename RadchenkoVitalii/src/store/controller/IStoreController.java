@@ -8,5 +8,5 @@ public interface IStoreController {
 
     Product removeProduct(Product product);
 
-    Product getProduct(int id) throws ProductNotFoundException;
+    Product getProduct(String id) throws ProductNotFoundException;
 }

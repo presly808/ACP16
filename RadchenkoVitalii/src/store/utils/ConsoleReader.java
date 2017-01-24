@@ -27,4 +27,8 @@ public class ConsoleReader {
 
         return null;
     }
+
+    public int enterInteger() {
+        return Integer.parseInt(enterLine());
+    }
 }

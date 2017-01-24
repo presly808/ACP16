@@ -13,7 +13,7 @@ public class Run {
     public static void main(String[] args){
         List<Product> products = getFromDB();
         IStoreController controller = new StoreControllerImpl(products);
-        IStoreView view = new  StoreConsoleViewImpl(controller, products);
+        IStoreView view = new  StoreConsoleViewImpl(controller);
 
         view.addProduct();
     }

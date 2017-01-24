@@ -1,13 +1,12 @@
 package store.view;
 
-import store.exceptions.ProductNotFoundException;
-import store.model.Product;
-
 public interface IStoreView {
+    int displayMenu();
+
     //TODO: should it be method with parameters in method signature, should data creates in view's methods?
     boolean addProduct();
 
-    Product removeProduct();
+    void removeProduct();
 
-    Product getProduct() throws ProductNotFoundException;
+    void getProduct();
 }

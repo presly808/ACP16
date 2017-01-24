@@ -2,15 +2,21 @@ package store.model;
 
 import store.enums.ProductType;
 
+import java.util.UUID;
+
 public class Product {
     private String name;
-    private Integer id;
+    private String id;
     private Double price;
     private String description;
     private ProductType type;
 
-    public Product(){
-        id = 10; //TODO: generateIt
+    public Product(String name, Double price, String description, ProductType productType){
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.type = productType;
+        id = UUID.randomUUID().toString();
     }
 
     public String getName() {
@@ -21,11 +27,11 @@ public class Product {
         this.name = name;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

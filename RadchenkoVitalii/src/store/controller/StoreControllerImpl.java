@@ -24,12 +24,18 @@ public class StoreControllerImpl implements IStoreController {
 
     @Override//TODO: no validation here for a product
     public Product removeProduct(Product product){
-            productList.remove(product);
-            return product;
+        productList.remove(product);
+        return product;
     }
 
     @Override
-    public Product getProduct(int id) throws ProductNotFoundException {
+    public Product getProduct(String id) throws ProductNotFoundException {
+        //TODO: to think?
+//         Product foundedProduct = productList.stream().filter(product -> product.getId().equals(id)).findFirst().get();
+//         if (foundedProduct != null)
+//             return foundedProduct;
+//        throw new ProductNotFoundException(String.format(NOT_FOUND_PRODUCT_BY_ID, id));
+
         for (Product product: productList){
             if (product.getId().equals(id))
                 return product;

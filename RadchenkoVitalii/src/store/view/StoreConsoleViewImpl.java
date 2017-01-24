@@ -7,19 +7,24 @@ import store.exceptions.ProductNotFoundException;
 import store.model.Product;
 import store.utils.ConsoleReader;
 
-import java.util.List;
-
 import static store.Messages.CREATION_PRODUCT;
 
 public class StoreConsoleViewImpl implements IStoreView {
     private IStoreController controller;
-    private List<Product> products;
     private ConsoleReader consoleReader;
 
-    public StoreConsoleViewImpl(IStoreController controller, List<Product> products){
+    public StoreConsoleViewImpl(IStoreController controller){
         this.controller = controller;
-        this.products = products;
         consoleReader = new ConsoleReader();
+    }
+
+    @Override
+    public int displayMenu() {
+        System.out.println("What would you like to do: ");
+        System.out.println("1. Add product");
+        System.out.println("2. Get product");
+        System.out.println("3. Remove product");
+        return consoleReader.enterInteger();
     }
 
     @Override
@@ -29,27 +34,48 @@ public class StoreConsoleViewImpl implements IStoreView {
     }
 
     @Override
-    public Product removeProduct(){
-        return null;
+    public void removeProduct(){
+        System.out.print("Enter product id: ");
+        String id = consoleReader.enterLine();
+        Product product;
+        try {
+            product = controller.getProduct(id);
+            controller.removeProduct(product);
+        } catch (ProductNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public Product getProduct() throws ProductNotFoundException {
-        return null;
+    public void getProduct() {
+        System.out.print("Enter product id: ");
+        String id = consoleReader.enterLine();
+        Product product;
+        try {
+            product = controller.getProduct(id);
+            System.out.println(product);
+        } catch (ProductNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
     private Product createProduct() {
         System.out.println(CREATION_PRODUCT);
-        ProductField.displayCreationField();
-        String name = consoleReader.enterLine();
-        Double price = consoleReader.enterDouble();
-        String description = consoleReader.enterLine();
-        String typeAsString = consoleReader.enterLine();
-        ProductType type = ProductType.valueOf(typeAsString);
+        //ProductField.displayCreationField();
 
-        return null; //TODO
+        String name = enterData(1, ProductField.Name);// consoleReader.enterLine();
+        Double price = Double.parseDouble(enterData(2, ProductField.Price)); //consoleReader.enterDouble();
+        String description = enterData(3, ProductField.Description); //consoleReader.enterLine();
+        String typeAsString = enterData(4, ProductField.Type); //consoleReader.enterLine();
+        ProductType productType = ProductType.valueOf(typeAsString);
+
+        return new Product(name, price, description, productType);
     }
 
-
+    //TODO: rename
+    private String enterData(int index, ProductField field){
+        System.out.print(String.format("%d. %s: ", index, field.name()));
+        return consoleReader.enterLine();
+    }
 }
