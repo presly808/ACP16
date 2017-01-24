@@ -78,7 +78,7 @@ public class CustomHashSet<E> implements Set<E> {
             Node iterator = table[position];
             Node lastPosition = iterator;
 
-            while (iterator().hasNext()) {
+            while (iterator != null) {
                 if (iterator.equals(e)) {
                     return false;
                 }
@@ -93,6 +93,30 @@ public class CustomHashSet<E> implements Set<E> {
 
     @Override
     public boolean remove(Object o) {
+        if (contains(o)) {
+            int position = getElementPosition(o);
+            Node current = table[position];
+
+            if (position == 0 && current.equals(o)) {
+                current = null;
+                return true;
+            }
+
+            Node before = null;
+            Node after = null;
+            while (!current.equals(o)){
+                before = current;
+                current = current.next;
+
+                if (current.next != null) {
+                    after = current.next;
+                } else {
+                    after = null;
+                }
+            }
+            before.next = after;
+            return true;
+        }
         return false;
     }
 
