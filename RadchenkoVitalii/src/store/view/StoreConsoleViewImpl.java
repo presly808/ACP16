@@ -21,17 +21,32 @@ public class StoreConsoleViewImpl implements IStoreView {
     @Override
     public void run() {
         int choice = -1;
-        while (choice != 0){
-            displayMainMenu();
+        boolean display = true;
+        while (choice != 0) {
+            if (display)
+                displayMainMenu();
             choice = userChoice();
-            if (choice == 1){
-                addProduct();
-            } else if (choice == 2){
-                getProduct();
-            } else if (choice == 3){
-                removeProduct();
+            switch (choice) {
+                case 1:
+                    addProduct();
+                    display = true;
+                    break;
+                case 2:
+                    getProduct();
+                    display = true;
+                    break;
+                case 3:
+                    removeProduct();
+                    display = true;
+                    break;
+                default:
+                    System.out.println("Error: Unknown command.\n");
+                    display = false;
+                    break;
             }
         }
+
+        System.out.println("Session is end. Thank you for using VR IT technologies solutions.");
     }
 
     @Override
