@@ -39,14 +39,15 @@ public class StoreConsoleViewImpl implements IStoreView {
                     removeProduct();
                     display = true;
                     break;
+                case 0:
+                    System.out.println("Session is end. Thank you for using VR IT technologies solutions.");
+                    break;
                 default:
                     System.out.println("Error: Unknown command.\n");
                     display = false;
                     break;
             }
         }
-
-        System.out.println("Session is end. Thank you for using VR IT technologies solutions.");
     }
 
     @Override
