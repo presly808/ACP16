@@ -8,14 +8,14 @@ import java.util.Set;
 
 public class CustomHashSet<E> implements Set<E> {
 
-    private static final int DEFAULT_SIZE = 20;
+    private static int DEFAULT_SIZE = 20;
 
     private Node[] table;
     private int size;
     private Node top;
 
     public CustomHashSet() {
-        this.table = (Node[]) new Object[DEFAULT_SIZE];
+        this.table = new Node[DEFAULT_SIZE];
     }
 
     @Override
