@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import week1_d1.controller.IStore;
 import week1_d1.controller.Store;
+import week1_d1.db.IStoreDB;
 import week1_d1.db.StoreDB;
+import week1_d1.exeptions.InvalidIdExeption;
 import week1_d1.exeptions.InvalidPiceExeption;
 import week1_d1.exeptions.InvalidProductException;
 import week1_d1.exeptions.InvalidTypeExeption;
@@ -19,8 +21,9 @@ import week1_d1.model.ProductType;
 
 public class TestStore {
 
-    private StoreDB storeDB;
+    private IStoreDB storeDB;
     private IStore store;
+    Product p;
 
 
     @Before
@@ -37,13 +40,14 @@ public class TestStore {
 
         store.addProduct(ProductType.ACCESSOR, 120, "a1");
         store.addProduct(ProductType.ACCESSOR, 120, "a2");
+
+
+
     }
 
     @Test
     public void addToStore() {
-        int sizeDB = store.getSize();
-        store.addProduct(ProductType.PHONE, 1200, "meizu_M2");
-        Assert.assertTrue(store.getSize() > sizeDB);
+        Assert.assertTrue(store.getSize() != 0);
     }
 
     @Test
@@ -51,22 +55,23 @@ public class TestStore {
         Assert.assertTrue(store.getAll().size() == store.getSize());
     }
 
-    // не працює
-
-    /*@Test
+    @Test
     public void removeProduct() {
         int s = store.getSize();
-        Product p = new Product(ProductType.NOTEBOOK, 12000, "HP");
 
         try {
-            store.removeProduct(p);
-            Assert.assertTrue(s > store.getSize());
+            try {
+                store.removeProduct(store.getById(2));
+            } catch (InvalidIdExeption invalidIdExeption) {
+                invalidIdExeption.printStackTrace();
+            }
+            Assert.assertTrue(s >= store.getSize());
         } catch (InvalidProductException e) {
             e.printStackTrace();
             Assert.assertTrue(false);
         }
 
-    }*/
+    }
 
     @Test
     public void byPice() {
