@@ -1,13 +1,42 @@
 package store.enums;
 
+import store.model.Product;
+
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static store.Messages.DEFAULT_DISPLAY_FIELD_PATTERN;
 
-public enum ProductField {
-    Name, Id, Price, Description, Type;
+//TODO: is it good idea to implements Comparator if it implements not needed comparator for some enums
+public enum ProductField implements Comparator<Product> {
+    Name {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    }, Id {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return o1.getId().compareTo(o2.getId());
+        }
+    }, Price {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return o1.getPrice().compareTo(o2.getPrice());
+        }
+    }, Description {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return 0;
+        }
+    }, Type {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return o1.getType().compareTo(o2.getType());
+        }
+    };
 
     private static Set<ProductField> creationFields =
             new LinkedHashSet<>(Arrays.asList(Name, Price, Description, Type));

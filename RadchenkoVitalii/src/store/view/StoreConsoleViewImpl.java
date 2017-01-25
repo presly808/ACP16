@@ -7,6 +7,8 @@ import store.exceptions.ProductNotFoundException;
 import store.model.Product;
 import store.utils.ConsoleReader;
 
+import java.util.List;
+
 import static store.Messages.CREATION_PRODUCT;
 
 public class StoreConsoleViewImpl implements IStoreView {
@@ -37,6 +39,18 @@ public class StoreConsoleViewImpl implements IStoreView {
                     break;
                 case 3:
                     removeProduct();
+                    display = true;
+                    break;
+                case 4:
+                    filterByPriceRange();
+                    display = true;
+                    break;
+                case 5:
+                    filterByName();
+                    display = true;
+                    break;
+                case 6:
+                    sortProduct();
                     display = true;
                     break;
                 case 0:
@@ -91,8 +105,47 @@ public class StoreConsoleViewImpl implements IStoreView {
     }
 
     @Override
+    public void filterByPriceRange() {
+        System.out.print("Enter start price: ");
+        Double startPrice = consoleReader.enterDouble();
+        System.out.print("Enter final price: ");
+        Double finalPrice = consoleReader.enterDouble();
+
+        List<Product> filtered = controller.filterByPriceRange(startPrice, finalPrice);
+        System.out.println("Filter Result: ");
+        filtered.stream().forEach(System.out::println);
+        System.out.println();
+    }
+
+    @Override
+    public void filterByName() {
+        System.out.print("Enter product name to filter by: ");
+        String name = consoleReader.enterLine();
+        List<Product> filtered = controller.filterByName(name);
+        System.out.println("Result: ");
+        filtered.stream().forEach(System.out::println);
+    }
+
+    @Override
     public void sortProduct() {
-        //TODO
+        displaySortMenu();
+        System.out.print("Enter value: ");
+        int choice = consoleReader.enterInteger();
+        List<Product> sorted = null;
+
+        switch (choice){
+            case 1:
+                sorted = controller.sort(ProductField.Name);
+                break;
+            case 2:
+                sorted = controller.sort(ProductField.Price);
+                break;
+            default:
+                System.out.print("Error. Unknown sort option.\n");
+        }
+        System.out.println("Sorting result: ");
+        sorted.stream().forEach(System.out::println);
+        System.out.println();
     }
 
     private Product createProduct() {
@@ -114,7 +167,12 @@ public class StoreConsoleViewImpl implements IStoreView {
     }
 
     private void displayMainMenu(){
-            System.out.println("What would you like to do: \n1. Add product\n2. Get product\n3. Remove product\n0. Exit\n");
+            System.out.println("What would you like to do: \n1. Add product\n2. Get product\n3. Remove product\n" +
+                    "4. Filter by Price\n5. Filter by Name\n6. Sort Menu\n0. Exit\n");
+    }
+
+    private void displaySortMenu(){
+        System.out.println("Choose field that you would like sort by:\n1. Name\n2. Price");
     }
 
     private int userChoice(){

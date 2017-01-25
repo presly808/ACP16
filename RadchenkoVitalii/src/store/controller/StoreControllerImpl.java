@@ -1,10 +1,12 @@
 package store.controller;
 
+import store.enums.ProductField;
 import store.exceptions.ProductNotFoundException;
 import store.model.Product;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import static store.Messages.NOT_FOUND_PRODUCT_BY_ID;
 
@@ -41,12 +43,28 @@ public class StoreControllerImpl implements IStoreController {
 
     @Override
     public List<Product> filter(String filterBy, String value) {
-        return null;
+        return null;//TODO
     }
 
     @Override
-    public List<Product> sort(String sortBy, String value) {
-        return null;
+    public List<Product> filterByPriceRange(Double startPrice, Double finalPrice) {
+        List<Product> filtered =
+                productList.stream().filter(product -> product.getPrice() >= startPrice
+                && product.getPrice() <= finalPrice).collect(Collectors.toList());
+        return filtered;
+    }
+
+    @Override
+    public List<Product> filterByName(String name) {
+        List<Product> filtered =
+                productList.stream().filter(product -> product.getName().contains(name)).collect(Collectors.toList());
+        return filtered;
+    }
+
+    @Override
+    public List<Product> sort(ProductField field) {
+        List<Product> sorted = productList.stream().sorted(field).collect(Collectors.toList());
+        return sorted;
     }
 
     private static boolean isValid(Product product){
