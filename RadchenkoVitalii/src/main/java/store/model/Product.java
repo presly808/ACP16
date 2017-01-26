@@ -11,6 +11,8 @@ public class Product {
     private String description;
     private ProductType type;
 
+    public Product(){}
+
     public Product(String name, Double price, String description, ProductType productType){
         this.name = name;
         this.price = price;

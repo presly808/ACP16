@@ -4,6 +4,7 @@ import store.enums.ProductField;
 import store.exceptions.ProductNotFoundException;
 import store.model.Product;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -24,6 +25,14 @@ public class StoreControllerImpl implements IStoreController {
         }
         return false;
     }
+
+    @Override
+    public boolean addProduct(Collection<Product> products) {
+
+        return false;
+    }
+
+
 
     @Override//TODO: no validation here for a product
     public Product removeProduct(Product product){

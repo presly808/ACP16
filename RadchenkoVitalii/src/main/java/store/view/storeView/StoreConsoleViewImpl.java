@@ -1,4 +1,4 @@
-package store.view;
+package store.view.storeView;
 
 import store.controller.IStoreController;
 import store.enums.ProductField;
@@ -6,6 +6,7 @@ import store.enums.ProductType;
 import store.exceptions.ProductNotFoundException;
 import store.model.Product;
 import store.utils.ConsoleReader;
+import store.view.storeView.components.ProductCreation;
 
 import java.util.List;
 
@@ -66,10 +67,13 @@ public class StoreConsoleViewImpl implements IStoreView {
 
     @Override
     public void addProduct() {
-        Product product = createProduct();
-        boolean result = controller.addProduct(product);
-        String addingResultMessage = result ? String.format("Done! Product was added. Product Id: %s\n", product.getId()) : "Error: Failed to add Product\n";
-        System.out.println(addingResultMessage);
+        ProductCreation productCreation = new ProductCreation();
+        List<Product> productList = productCreation.createProducts();
+        productList.stream().forEach(product -> {
+            String addingResultMessage = controller.addProduct(product) ? String.format("Done! Product was added. Product Id: %s\n", product.getId()) : "Error: Failed to add Product\n";
+            System.out.print(addingResultMessage);
+        });
+        System.out.println();
     }
 
     @Override
