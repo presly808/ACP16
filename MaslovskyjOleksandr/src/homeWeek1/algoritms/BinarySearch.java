@@ -15,8 +15,8 @@ public class BinarySearch {
 
     }
 
-    public void sort(int[] array){
-        Arrays.sort(array);
+    public void sort(){
+        Arrays.sort(mas);
     }
 
 
