@@ -1,6 +1,4 @@
-package homeWeek1.implementation;
-
-import java.util.Objects;
+package homeWeek1.data_structure.implementation;
 
 /**
  * Created by ubuntu on 23.01.17.
