@@ -1,4 +1,4 @@
-package homeWeek1.exceptions;
+package homeWeek1.data_structure.exceptions;
 
 public class NoElementFoundException extends Exception {
 

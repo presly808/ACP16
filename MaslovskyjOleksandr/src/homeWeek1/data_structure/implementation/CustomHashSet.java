@@ -1,6 +1,6 @@
-package homeWeek1.implementation;
+package homeWeek1.data_structure.implementation;
 
-import homeWeek1.exceptions.NoElementFoundException;
+import homeWeek1.data_structure.exceptions.NoElementFoundException;
 
 import java.util.Collection;
 import java.util.Iterator;

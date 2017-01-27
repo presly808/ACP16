@@ -1,7 +1,7 @@
-package homeWeek1.tests;
+package homeWeek1.data_structure.tests;
 
-import homeWeek1.implementation.CustomHashSet;
-import homeWeek1.implementation.Node;
+import homeWeek1.data_structure.implementation.CustomHashSet;
+import homeWeek1.data_structure.implementation.Node;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
