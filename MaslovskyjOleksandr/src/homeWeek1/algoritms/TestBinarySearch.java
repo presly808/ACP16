@@ -3,9 +3,7 @@ package homeWeek1.algoritms;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created by ubuntu on 26.01.17.
- */
+
 public class TestBinarySearch {
 
     private BinarySearch binarySearch;
