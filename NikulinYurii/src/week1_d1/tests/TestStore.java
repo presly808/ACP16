@@ -1,9 +1,7 @@
-package week1_d1.Tests;
+package week1_d1.tests;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import org.junit.*;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import week1_d1.controller.IStore;
 import week1_d1.controller.Store;
 import week1_d1.db.IStoreDB;
