@@ -5,6 +5,8 @@ import store.enums.ProductType;
 public class MobilePhone extends Product {
     private int screenSize;
 
+    public MobilePhone(){}
+
     public MobilePhone(String name, Double price, String description, int screenSize) {
         super(name, price, description, ProductType.Phone);
         this.screenSize = screenSize;

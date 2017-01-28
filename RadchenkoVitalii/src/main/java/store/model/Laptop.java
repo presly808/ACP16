@@ -5,6 +5,8 @@ import store.enums.ProductType;
 public class Laptop extends Product {
     private int memory;
 
+    public Laptop(){}
+
     public Laptop(String name, Double price, String description, int memory) {
         super(name, price, description, ProductType.Laptop);
         this.memory = memory;

@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class PropertyReader {
-    private static final String PROPERTIES_PATHS = Paths.get("resources", "application.properties").toString();
+    private static final String PROPERTIES_PATHS = Paths.get("RadchenkoVitalii", "src", "resources", "application.properties").toString();
     private static Properties properties = new Properties();
 
     public static String readProperty(String propertyName) {

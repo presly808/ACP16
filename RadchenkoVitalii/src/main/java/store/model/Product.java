@@ -4,7 +4,7 @@ import store.enums.ProductType;
 
 import java.util.UUID;
 
-public class Product {
+public abstract class Product {
     private String name;
     private String id;
     private Double price;

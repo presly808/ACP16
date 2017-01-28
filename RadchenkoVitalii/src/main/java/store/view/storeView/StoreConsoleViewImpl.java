@@ -152,24 +152,6 @@ public class StoreConsoleViewImpl implements IStoreView {
         System.out.println();
     }
 
-    private Product createProduct() {
-        System.out.println(CREATION_PRODUCT);
-
-        String name = enterData(1, ProductField.Name);// consoleReader.enterLine();
-        Double price = Double.parseDouble(enterData(2, ProductField.Price)); //consoleReader.enterDouble();
-        String description = enterData(3, ProductField.Description); //consoleReader.enterLine();
-        String typeAsString = enterData(4, ProductField.Type); //consoleReader.enterLine();
-        ProductType productType = ProductType.valueOf(typeAsString);
-
-        return new Product(name, price, description, productType);
-    }
-
-    //TODO: rename
-    private String enterData(int index, ProductField field){
-        System.out.print(String.format("%d. %s: ", index, field.name()));
-        return consoleReader.enterLine();
-    }
-
     private void displayMainMenu(){
             System.out.println("What would you like to do: \n1. Add product\n2. Get product\n3. Remove product\n" +
                     "4. Filter by Price\n5. Filter by Name\n6. Sort Menu\n0. Exit\n");
