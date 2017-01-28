@@ -1,15 +1,17 @@
-package ua.artcode.utils;
+package week2;
 
-import javax.jws.soap.SOAPBinding;
-import java.util.*;
-import java.util.function.Supplier;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 /**
- * Created by serhii on 28.01.17.
+ * Created by ubuntu on 28.01.17.
  */
-public class Java8Test {
+public class Java8Maslovskyj {
+
 
     public static final int MIN_USER_AGE = 18;
     public static final int MAX_USER_AGE = 80;
@@ -24,7 +26,6 @@ public class Java8Test {
         List<User> filteredList = getUsers(userList, MIN_AGE, MAX_AGE);
 
         System.out.println(filteredList.toString());
-
 
 
     }
@@ -52,7 +53,7 @@ public class Java8Test {
         }
     }
 
-    public static List<User> generateUserData(){
+    public static List<User> generateUserData() {
 
         List<User> users = Stream.generate(() -> {
 
@@ -95,6 +96,7 @@ public class Java8Test {
             this.health = health;
             return this;
         }
+
         public Pet build() {
             return new Pet(type, name, health);
         }
@@ -112,6 +114,7 @@ public class Java8Test {
             this.name = name;
             this.health = healt;
         }
+
         @Override
         public String toString() {
             return "Pet{" +
@@ -127,12 +130,12 @@ public class Java8Test {
         DOG, CAT, FISH;
     }
 
-    public static List<User> getUsers(List<User> userList, int userMinAge, int userMaxAge){
+    public static List<User> getUsers(List<User> userList, int userMinAge, int userMaxAge) {
         return userList.stream().
-                filter(user -> user.age >= userMinAge  && user.age <= userMaxAge).collect(Collectors.toList());
+                filter(user -> user.age >= userMinAge && user.age <= userMaxAge).collect(Collectors.toList());
     }
 
-    public static List<Pet> getUserPetsByType(List<User> userList, PetType petType){
+    public static List<Pet> getUserPetsByType(List<User> userList, PetType petType) {
         return userList.stream().flatMap(user -> user.pets.stream().
                 filter(pet -> pet.type.equals(petType))).collect(Collectors.toList());
     }
@@ -142,6 +145,8 @@ public class Java8Test {
     }*/
 
 }
+
+
 
 
 
