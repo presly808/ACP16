@@ -1,9 +1,7 @@
 package ua.artcode.utils;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,32 +16,56 @@ public class Java8Test {
 
     public static void main(String[] args) {
 
-        List<User> users = Stream.generate(() -> {
-
-            String name = UUID.randomUUID().toString();
-            int userAge = MIN_USER_AGE + (int) (Math.random() * (MAX_USER_AGE - MIN_USER_AGE));
-
-            int randomPetTypeIndex = (int) (Math.random() * PetType.values().length);
-            PetType randomType = PetType.values()[randomPetTypeIndex];
-
-            return new User(name,
-                    userAge,
-                    Collections.singletonList(
-                            new PetBuilder()
-                                    .setHealth(true)
-                                    .setType(randomType)
-                                    .setName(name + randomType)
-                                    .build()));
-        }).limit(100).collect(Collectors.toList());
+        List<User> users = generateUsers();
 
 
-        users.forEach((User temp) -> {
-            System.out.println(temp);
+        List<Pet> pets = new ArrayList<>();
+        Map<PetType, Long> mapPets = users.stream().filter((user) -> user.age >= 18 && user.age < 30)
+                .flatMap(user -> user.pets.stream()).collect(
+                        Collectors.groupingBy(new Function<Pet, PetType>() {
+                            @Override
+                            public PetType apply(Pet t) {
+                                return t.type;
+                            }
+                        }, Collectors.counting()));
+
+
+        mapPets.forEach((key, value) -> {
+            System.out.printf("key %s, value %s\n", key, value);
         });
 
 
 
+    }
 
+    private static List<User> generateUsers() {
+        return Stream.generate(() -> {
+
+            String name = UUID.randomUUID().toString();
+            int userAge = MIN_USER_AGE + (int) (Math.random() * (MAX_USER_AGE - MIN_USER_AGE));
+
+            List<Pet> pets = generatePets(10);
+
+            return new User(name, userAge, pets);
+
+        }).limit(100).collect(Collectors.toList());
+    }
+
+    private static List<Pet> generatePets(int size) {
+        return Stream.generate(() -> generatePet()).limit(size)
+                .collect(Collectors.toList());
+    }
+
+    private static Pet generatePet() {
+        String name = UUID.randomUUID().toString();
+        int randomPetTypeIndex = (int) (Math.random() * PetType.values().length);
+        PetType randomType = PetType.values()[randomPetTypeIndex];
+
+        return new PetBuilder()
+                .setHealth(true)
+                .setType(randomType)
+                .setName(name + randomType)
+                .build();
     }
 
 
@@ -103,6 +125,18 @@ public class Java8Test {
             this.type = type;
             this.name = name;
             this.health = healt;
+        }
+
+        public PetType getType() {
+            return type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public boolean isHealth() {
+            return health;
         }
 
         @Override
