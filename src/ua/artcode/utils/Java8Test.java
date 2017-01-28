@@ -25,8 +25,6 @@ public class Java8Test {
 
         System.out.println(filteredList.toString());
 
-
-
     }
 
 
@@ -136,11 +134,11 @@ public class Java8Test {
         return userList.stream().flatMap(user -> user.pets.stream().
                 filter(pet -> pet.type.equals(petType))).collect(Collectors.toList());
     }
-    /*
+/*
     public static Map<PetType, Long> countUsersPets(List<User> userList){
-        return userList.stream().flatMap(user -> user.pets.stream()).collect(Collectors.groupingBy(Pet::), Collectors.counting());
+        return userList.stream().flatMap(user -> user.pets.stream()).
+                collect(Collectors.groupingBy(Pet::pe), Collectors.counting());
     }*/
-
 }
 
 

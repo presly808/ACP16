@@ -13,7 +13,7 @@ public class BinarySearch {
     public int binarySearchOfIndex(int element){
         int start = 0;
         int end = mas.length - 1;
-        int middle = start + (end - start) / 2;
+        int middle = start + (end - start);
 
         while (start <= end) {
 
