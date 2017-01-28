@@ -37,7 +37,7 @@ public class CustomHashSet<E> implements Set<E> {
         } else {
             Node iterator = table[position];
 
-            while (iterator != null){
+            while (iterator.next != null){
                 if (iterator.equals(o)) {
                     return true;
                 }
@@ -98,26 +98,7 @@ public class CustomHashSet<E> implements Set<E> {
         if (contains(o)) {
             int position = getElementPosition(o);
             Node current = table[position];
-
-            if (position == 0 && current.equals(o)) {
-                current = null;
-                return true;
-            }
-
-            Node before = null;
-            Node after = null;
-            while (!current.equals(o)){
-                before = current;
-                current = current.next;
-
-                if (current.next != null) {
-                    after = current.next;
-                } else {
-                    after = null;
-                }
-            }
-            before.next = after;
-            return true;
+            current = null;
         }
         return false;
     }

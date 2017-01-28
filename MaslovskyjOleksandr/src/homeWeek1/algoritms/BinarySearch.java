@@ -11,14 +11,29 @@ public class BinarySearch {
         this.mas = mas;
     }
 
-    public void binarySearch(int element){
+    public int binarySearchOfIndex(int element){
+        int start = 0;
+        int end = mas.length - 1;
+        int middle = start + (end - start) / 2;
 
+        while (start <= end) {
+
+            if (element < middle) {
+                end = (middle - 1) / 2;
+            } else if (element > middle) {
+                start = middle + 1;
+            } else {
+                return middle;
+            }
+        }
+        return -1;
     }
 
-    public void sort(){
+    public void sort(int[] mas){
         Arrays.sort(mas);
     }
 
-
-
+    public int[] getMas() {
+        return mas;
+    }
 }

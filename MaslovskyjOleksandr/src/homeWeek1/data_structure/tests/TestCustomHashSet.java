@@ -60,6 +60,5 @@ public class TestCustomHashSet {
         emptyCustomHashSet.add(node4);
         emptyCustomHashSet.remove(node3);
         Assert.assertEquals(3, emptyCustomHashSet.size());
-
     }
 }
