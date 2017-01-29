@@ -22,6 +22,6 @@ public class Run {
         IStoreView applicationView = new StoreConsoleViewImpl(controller);
 
         applicationView.run();
+        storeDao.saveProducts(products);
     }
-
 }

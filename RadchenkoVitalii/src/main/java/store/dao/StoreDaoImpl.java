@@ -14,6 +14,10 @@ import java.util.*;
 
 public class StoreDaoImpl implements IStoreDao {
 
+    private static String phoneInputPaths = Paths.get("RadchenkoVitalii", "src", "resources", "data", "phone.json").toString();
+    private static String laptopInputPaths = Paths.get("RadchenkoVitalii", "src", "resources", "data", "laptop.json").toString();
+    private static String productsOutputPaths = Paths.get("RadchenkoVitalii", "src", "resources", "data", "output", "products.json").toString();
+
     public Set<Product> getAllProducts() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String phonesFilePath = PropertyReader.readProperty("db.phones.path");
@@ -31,8 +35,18 @@ public class StoreDaoImpl implements IStoreDao {
         return products;
     }
 
-    public boolean saveProducts(Collection<Product> products) {
-        return false; //TODO
+public boolean saveProducts(Collection<Product> products) {
+        ObjectMapper mapper = new ObjectMapper();
+
+
+        try {
+            mapper.writeValue(new File(productsOutputPaths), products);//TODO
+        } catch (IOException e) {
+            return false;
+        }
+
+
+        return true; //TODO
     }
 
     public static void createFakeDbData() throws IOException {
@@ -45,7 +59,7 @@ public class StoreDaoImpl implements IStoreDao {
         List<MobilePhone> phones = Arrays.asList(samsung, htc);
         List<Laptop> laptops = Arrays.asList(laptopHp, laptopLenovo);
 
-        mapper.writeValue(new File(Paths.get("RadchenkoVitalii", "src", "resources", "data", "phone.json").toString()), phones);
-        mapper.writeValue(new File(Paths.get("RadchenkoVitalii", "src", "resources", "data", "laptop.json").toString()), laptops);
+        mapper.writeValue(new File(phoneInputPaths), phones);
+        mapper.writeValue(new File(laptopInputPaths), laptops);
     }
 }

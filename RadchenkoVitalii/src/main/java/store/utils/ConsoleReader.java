@@ -26,7 +26,7 @@ public class ConsoleReader {
             } catch (IOException e) {
                 System.out.print("Error reading value. Please, enter again: ");
             } catch (NumberFormatException e){
-                System.out.println("Error parsing: Wrong format. Not Double. Please, enter again: ");
+                System.out.print("Error parsing: Wrong format. Not Double. Please, enter again: ");
             }
         }
 
@@ -67,13 +67,14 @@ public class ConsoleReader {
             } catch (IOException e) {
                 System.out.print("Error reading value. Please, enter again: ");
             } catch (NumberFormatException e){
-                System.out.println("Error parsing: Wrong format. Not Integer. Please, enter again: ");
+                System.out.print("Error parsing: Wrong format. Not Integer. Please, enter again: ");
             }
         }
 
         return value;
     }
 
+    //TODO: change for creation product
     public  String enterData(int index, String fieldName)  {
         System.out.print(String.format("%d. %s: ", index, fieldName));
         return enterLine();

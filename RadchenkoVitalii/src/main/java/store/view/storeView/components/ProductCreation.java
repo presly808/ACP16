@@ -30,7 +30,7 @@ public class ProductCreation {
             switch (choice){
                 case 1: list.add(createMobilePhone()); System.out.println("Phone was created.\n"); break;
                 case 2: list.add(createLaptop()); System.out.println("Laptop was created.\n"); break;
-                case 0: System.out.println("Exit from creation mode.\n");
+                case 0: System.out.println("Exit from creation mode.\n"); break;
                 default:
                     System.out.println("Error: Unknown code. ");
             }
