@@ -17,7 +17,7 @@ public class StoreDaoImpl implements IStoreDao {
     public Set<Product> getAllProducts() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String phonesFilePath = PropertyReader.readProperty("db.phones.path");
-        String laptopsFilePath = PropertyReader.readProperty("db.laptops.path"); // TODO: readPropertyWorks bad
+        String laptopsFilePath = PropertyReader.readProperty("db.laptops.path");
 
         String jsonPhoneAsString = StringUtils.loadFileIntoString(phonesFilePath);
         String jsonLaptopAsString = StringUtils.loadFileIntoString(laptopsFilePath);

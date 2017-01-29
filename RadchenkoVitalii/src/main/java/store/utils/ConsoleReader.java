@@ -8,30 +8,61 @@ import java.io.InputStreamReader;
 
 public class ConsoleReader {
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static final int MAX_ATTEMPT_NUMBER = 3;
 
-    //TODO: to think?
+    //TODO: hm? better way?
     public Double enterDouble()  {
-        try {
-            return Double.parseDouble(reader.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
+        Double value = null;
+        int count = 1;
+
+        while (count <= MAX_ATTEMPT_NUMBER || value != null){
+            try {
+                String valueAsString = reader.readLine();
+                value = Double.parseDouble(valueAsString);
+            } catch (IOException e) {
+                System.out.print("Error reading value. Please, enter again: ");
+                count++;
+            } catch (NumberFormatException e){
+                System.out.println("Error parsing: Wrong format. Not Double. Please, enter again: ");
+            }
         }
 
-        return null;
+        return value;//throw Exception?
     }
 
     public String enterLine()  {
-        try {
-            return reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+        String value = null;
+        int count = 1;
+        while (count <= MAX_ATTEMPT_NUMBER || value != null){
+            try {
+                value = reader.readLine();
+                return value;
+            } catch (IOException e) {
+                System.out.print("Error reading value. Please, enter again: ");
+                count++;
+            }
         }
 
-        return null;
+        return value;//throw Exception?
     }
 
-    public int enterInteger() {
-        return Integer.parseInt(enterLine());
+    public Integer enterInteger() {
+        Integer value = null;
+        int count = 1;
+
+        while (count <= MAX_ATTEMPT_NUMBER || value != null){
+            try {
+                String valueAsString = reader.readLine();
+                value = Integer.parseInt(valueAsString);
+            } catch (IOException e) {
+                System.out.print("Error reading value. Please, enter again: ");
+                count++;
+            } catch (NumberFormatException e){
+                System.out.println("Error parsing: Wrong format. Not Integer. Please, enter again: ");
+            }
+        }
+
+        return value;//throw Exception?
     }
 
     public  String enterData(int index, String fieldName)  {

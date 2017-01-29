@@ -8,8 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface IStoreController {
-    boolean addProduct(Collection<Product> products);
-
     boolean addProduct(Product product);
 
     Product removeProduct(Product product);

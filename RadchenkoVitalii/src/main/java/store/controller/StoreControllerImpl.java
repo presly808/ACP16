@@ -6,7 +6,7 @@ import store.model.Product;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static store.Messages.NOT_FOUND_PRODUCT_BY_ID;
@@ -26,14 +26,6 @@ public class StoreControllerImpl implements IStoreController {
         return false;
     }
 
-    @Override
-    public boolean addProduct(Collection<Product> products) {
-
-        return false;
-    }
-
-
-
     @Override//TODO: no validation here for a product
     public Product removeProduct(Product product){
         productList.remove(product);
@@ -42,12 +34,10 @@ public class StoreControllerImpl implements IStoreController {
 
     @Override
     public Product getProduct(String id) throws ProductNotFoundException {
-        try {
-            Product foundedProduct = productList.stream().filter(product -> product.getId().equals(id)).findFirst().get();
-            return foundedProduct;
-        } catch (NoSuchElementException e){
-            throw new ProductNotFoundException(String.format(NOT_FOUND_PRODUCT_BY_ID, id));
-        }
+        Optional<Product> foundedProduct = productList.stream().filter(product -> product.getId().equals(id)).findFirst();
+        if (foundedProduct.isPresent()) return foundedProduct.get();
+
+        throw new ProductNotFoundException(String.format(NOT_FOUND_PRODUCT_BY_ID, id));
     }
 
     @Override

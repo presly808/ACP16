@@ -25,25 +25,11 @@ public enum ProductField implements Comparator<Product> {
         }
     }, Description {
         public int compare(Product o1, Product o2) {
-            return 0;
+            throw new UnsupportedOperationException("Can not compare nu Description Type");
         }
     }, Type {
         public int compare(Product o1, Product o2) {
             return o1.getType().compareTo(o2.getType());
         }
     };
-
-    private static Set<ProductField> creationFields =
-            new LinkedHashSet<>(Arrays.asList(Name, Price, Description, Type));
-
-    public static void displayCreationField(){
-        final int[] startIndex = {1};
-        creationFields.forEach(field ->
-                System.out.println(String.format(DEFAULT_DISPLAY_FIELD_PATTERN, startIndex[0]++, field.name())));
-    }
-
-    public static void displayFields(String indexValuePattern){
-        Arrays.stream(values()).
-                forEach(field -> System.out.println(String.format(indexValuePattern, field.ordinal()+1, field.name())));
-    }
 }
