@@ -9,6 +9,7 @@ import store.utils.ConsoleReader;
 import store.view.storeView.components.ProductCreation;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static store.Messages.CREATION_PRODUCT;
 
@@ -16,7 +17,7 @@ public class StoreConsoleViewImpl implements IStoreView {
     private IStoreController controller;
     private ConsoleReader consoleReader;
 
-    public StoreConsoleViewImpl(IStoreController controller){
+    public StoreConsoleViewImpl(IStoreController controller) {
         this.controller = controller;
         consoleReader = new ConsoleReader();
     }
@@ -70,14 +71,16 @@ public class StoreConsoleViewImpl implements IStoreView {
         ProductCreation productCreation = new ProductCreation();
         List<Product> productList = productCreation.createProducts();
         productList.stream().forEach(product -> {
-            String addingResultMessage = controller.addProduct(product) ? String.format("Done! Product was added. Product Id: %s\n", product.getId()) : "Error: Failed to add Product\n";
+            String addingResultMessage = controller.addProduct(product) ?
+                    String.format("Done! Product was added. Product Id: %s\n", product.getId())
+                    : "Error: Failed to add Product\n";
             System.out.print(addingResultMessage);
         });
         System.out.println();
     }
 
     @Override
-    public void removeProduct(){
+    public void removeProduct() {
         System.out.print("Enter product id: ");
         String id = consoleReader.enterLine();
         Product product;
@@ -117,7 +120,7 @@ public class StoreConsoleViewImpl implements IStoreView {
 
         List<Product> filtered = controller.filterByPriceRange(startPrice, finalPrice);
         System.out.println("Filter Result: ");
-        filtered.stream().forEach(System.out::println);
+        filtered.forEach(System.out::println);
         System.out.println();
     }
 
@@ -127,7 +130,7 @@ public class StoreConsoleViewImpl implements IStoreView {
         String name = consoleReader.enterLine();
         List<Product> filtered = controller.filterByName(name);
         System.out.println("Result: ");
-        filtered.stream().forEach(System.out::println);
+        filtered.forEach(System.out::print);
     }
 
     @Override
@@ -137,7 +140,7 @@ public class StoreConsoleViewImpl implements IStoreView {
         int choice = consoleReader.enterInteger();
         List<Product> sorted = null;
 
-        switch (choice){
+        switch (choice) {
             case 1:
                 sorted = controller.sort(ProductField.Name);
                 break;
@@ -152,16 +155,16 @@ public class StoreConsoleViewImpl implements IStoreView {
         System.out.println();
     }
 
-    private void displayMainMenu(){
-            System.out.println("What would you like to do: \n1. Add product\n2. Get product\n3. Remove product\n" +
-                    "4. Filter by Price\n5. Filter by Name\n6. Sort Menu\n0. Exit\n");
+    private void displayMainMenu() {
+        System.out.println("What would you like to do: \n1. Add product\n2. Get product\n3. Remove product\n" +
+                "4. Filter by Price\n5. Filter by Name\n6. Sort Menu\n0. Exit\n");
     }
 
-    private void displaySortMenu(){
+    private void displaySortMenu() {
         System.out.println("Choose field that you would like sort by:\n1. Name\n2. Price");
     }
 
-    private int userChoice(){
+    private int userChoice() {
         System.out.print("Please, make your choice: ");
         int choice = consoleReader.enterInteger();
         System.out.println("Danke!\n");
