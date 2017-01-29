@@ -18,7 +18,24 @@ public class Java8Test {
 
     public static void main(String[] args) {
 
-        List<User> users = Stream.generate(() -> {
+        List<User> users = getUsers();
+
+
+        users.forEach((User temp) -> {
+            System.out.println(temp);
+        });
+
+
+        List<Pet>  pets = users.stream().filter(u -> u.age >= 20).filter(u -> u.age <= 30).flatMap(u -> u.pets.stream()).collect(Collectors.toList());
+
+        pets.forEach((Pet pet) -> {
+            System.out.println(pet);
+        });
+
+    }
+
+    private static List<User> getUsers() {
+        return Stream.generate(() -> {
 
             String name = UUID.randomUUID().toString();
             int userAge = MIN_USER_AGE + (int) (Math.random() * (MAX_USER_AGE - MIN_USER_AGE));
@@ -35,15 +52,6 @@ public class Java8Test {
                                     .setName(name + randomType)
                                     .build()));
         }).limit(100).collect(Collectors.toList());
-
-
-        users.forEach((User temp) -> {
-            System.out.println(temp);
-        });
-
-
-
-
     }
 
 
