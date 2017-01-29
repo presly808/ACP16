@@ -13,56 +13,65 @@ public class ConsoleReader {
     //TODO: hm? better way?
     public Double enterDouble()  {
         Double value = null;
-        int count = 1;
 
-        while (count <= MAX_ATTEMPT_NUMBER || value != null){
+        for (int count = 1;  value == null; count++){
+            if (count == MAX_ATTEMPT_NUMBER){
+                System.out.println("Error: ...");
+                break;
+                //throw Exception
+            }
             try {
                 String valueAsString = reader.readLine();
                 value = Double.parseDouble(valueAsString);
             } catch (IOException e) {
                 System.out.print("Error reading value. Please, enter again: ");
-                count++;
             } catch (NumberFormatException e){
                 System.out.println("Error parsing: Wrong format. Not Double. Please, enter again: ");
             }
         }
 
-        return value;//throw Exception?
+        return value;
     }
 
     public String enterLine()  {
         String value = null;
-        int count = 1;
-        while (count <= MAX_ATTEMPT_NUMBER || value != null){
+
+        for (int count = 1;  value == null; count++) {
+            if (count == MAX_ATTEMPT_NUMBER) {
+                System.out.println("Error: ...");
+                break;
+                //or throw Exception
+            }
             try {
                 value = reader.readLine();
-                return value;
             } catch (IOException e) {
                 System.out.print("Error reading value. Please, enter again: ");
-                count++;
             }
         }
 
-        return value;//throw Exception?
+        return value;
     }
 
     public Integer enterInteger() {
         Integer value = null;
-        int count = 1;
 
-        while (count <= MAX_ATTEMPT_NUMBER || value != null){
+        for (int count = 1;  value == null; count++){
+            if (count == MAX_ATTEMPT_NUMBER){
+                System.out.println("Error: ...");
+                break;
+                //throw Exception
+            }
             try {
                 String valueAsString = reader.readLine();
                 value = Integer.parseInt(valueAsString);
             } catch (IOException e) {
                 System.out.print("Error reading value. Please, enter again: ");
-                count++;
             } catch (NumberFormatException e){
                 System.out.println("Error parsing: Wrong format. Not Integer. Please, enter again: ");
             }
         }
 
-        return value;//throw Exception?
+        return value;
     }
 
     public  String enterData(int index, String fieldName)  {
