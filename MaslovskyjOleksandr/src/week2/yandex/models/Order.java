@@ -44,7 +44,7 @@ public class Order {
         return location;
     }
 
-    public void setTaxi(Taxi taxi) {
+    public void setTaxi(Taxi taxi){
         this.taxi = taxi;
     }
 
