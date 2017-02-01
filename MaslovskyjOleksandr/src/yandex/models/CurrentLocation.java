@@ -1,4 +1,4 @@
-package week2.yandex.models;
+package yandex.models;
 
 public class CurrentLocation {
 

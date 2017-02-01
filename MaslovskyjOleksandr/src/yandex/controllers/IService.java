@@ -1,10 +1,10 @@
-package week2.yandex.controllers;
+package yandex.controllers;
 
-import week2.yandex.exception.NoAvailableCars;
-import week2.yandex.models.Client;
-import week2.yandex.models.Location;
-import week2.yandex.models.Order;
-import week2.yandex.models.Taxi;
+import yandex.exception.NoAvailableCars;
+import yandex.models.Client;
+import yandex.models.Location;
+import yandex.models.Order;
+import yandex.models.Taxi;
 
 import java.util.List;
 

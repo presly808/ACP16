@@ -1,4 +1,4 @@
-package week2.yandex.exception;
+package yandex.exception;
 
 /**
  * Created by ubuntu on 31.01.17.

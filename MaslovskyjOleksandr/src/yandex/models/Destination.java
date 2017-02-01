@@ -1,4 +1,4 @@
-package week2.yandex.models;
+package yandex.models;
 
 /**
  * Created by oleksandr.maslovskyj on 2/1/2017.
