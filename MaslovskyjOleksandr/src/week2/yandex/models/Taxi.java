@@ -9,9 +9,12 @@ public class Taxi {
 
     private CarModels carModel;
 
-    public Taxi(User owner, CarModels carModel) {
+    private boolean busy;
+
+    public Taxi(User owner, CarModels carModel, boolean busy) {
         this.owner = owner;
         this.carModel = carModel;
+        this.busy = busy;
     }
 
     public User getOwner() {
@@ -28,5 +31,13 @@ public class Taxi {
 
     public void setCarModel(CarModels carModel) {
         this.carModel = carModel;
+    }
+
+    public boolean isBusy() {
+        return busy;
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy = busy;
     }
 }

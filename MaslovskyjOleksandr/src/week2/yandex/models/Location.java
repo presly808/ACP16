@@ -5,50 +5,28 @@ package week2.yandex.models;
  */
 public class Location {
 
-    private double startLongitude;
+    private CurrentLocation currentLocation;
 
-    private double endLongitude;
+    private Destination destinationLocation;
 
-    private double startLatitude;
-
-    private double endLatitude;
-
-    public Location(double startLongitude, double endLongitude, double startLatitude, double endLatitude) {
-        this.startLongitude = startLongitude;
-        this.endLongitude = endLongitude;
-        this.startLatitude = startLatitude;
-        this.endLatitude = endLatitude;
+    public Location(CurrentLocation currecntLocation, Destination destination) {
+        this.currentLocation = currecntLocation;
+        this.destinationLocation = destination;
     }
 
-    public double getStartLongitude() {
-        return startLongitude;
+    public CurrentLocation getCurrectLocation() {
+        return currentLocation;
     }
 
-    public void setStartLongitude(double startLongitude) {
-        this.startLongitude = startLongitude;
+    public void setCurrectLocation(CurrentLocation currectLocation) {
+        this.currentLocation = currectLocation;
     }
 
-    public double getEndLongitude() {
-        return endLongitude;
+    public Destination getDestinationLocation() {
+        return destinationLocation;
     }
 
-    public void setEndLongitude(double endLongitude) {
-        this.endLongitude = endLongitude;
-    }
-
-    public double getStartLatitude() {
-        return startLatitude;
-    }
-
-    public void setStartLatitude(double startLatitude) {
-        this.startLatitude = startLatitude;
-    }
-
-    public double getEndLatitude() {
-        return endLatitude;
-    }
-
-    public void setEndLatitude(double endLatitude) {
-        this.endLatitude = endLatitude;
+    public void setDestinationLocation(Destination destinationLocation) {
+        this.destinationLocation = destinationLocation;
     }
 }
