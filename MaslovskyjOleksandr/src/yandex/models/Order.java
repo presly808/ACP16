@@ -1,5 +1,9 @@
 package yandex.models;
 
+import yandex.controllers.ILocation;
+import yandex.utils.IdGenerator;
+
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -15,14 +19,14 @@ public class Order {
 
     private double price;
 
-    private Location location;
+    private ILocation location;
 
-    public Order(Taxi taxi, Client client, double price, Location location, UUID id) {
+    public Order(Taxi taxi, Client client, double price, ILocation location) {
         this.taxi = taxi;
         this.client = client;
         this.price = price;
         this.location = location;
-        this.id = id;
+        this.id = IdGenerator.generateId();
     }
 
     public UUID getId() {
@@ -41,7 +45,7 @@ public class Order {
         return price;
     }
 
-    public Location getLocation() {
+    public ILocation getLocation() {
         return location;
     }
 
@@ -57,7 +61,7 @@ public class Order {
         this.price = price;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(ILocation location) {
         this.location = location;
     }
 }

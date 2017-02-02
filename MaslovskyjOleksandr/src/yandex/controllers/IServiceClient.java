@@ -2,22 +2,23 @@ package yandex.controllers;
 
 import yandex.exception.NoAvailableCarsException;
 import yandex.exception.NoOrderFoundException;
+import yandex.exception.NotValidPriceException;
+import yandex.exception.WrongCoordinatesException;
 import yandex.models.Client;
 import yandex.models.Location;
 import yandex.models.Order;
 import yandex.models.Taxi;
 
 import java.util.List;
+import java.util.Optional;
 
-/**
- * Created by ubuntu on 31.01.17.
- */
 public interface IServiceClient {
 
-    Order makeOrder(Client client, Location location) throws NoAvailableCarsException;
+    Order makeOrder(Location currentLocation, Location destination) throws NoAvailableCarsException, NotValidPriceException, WrongCoordinatesException;
 
-    List<Taxi> showTaxiList(Location location) throws NoAvailableCarsException;
+    List<Taxi> showTaxiList() throws NoAvailableCarsException;
 
     boolean cancelOrder(Order order) throws NoOrderFoundException;
 
+    Taxi findFreeTaxi(Location location) throws NoAvailableCarsException;
 }

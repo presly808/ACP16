@@ -7,9 +7,6 @@ import org.junit.Test;
  */
 public class TestServiceClient {
 
-
-
-
     @Test
     public void testMakeOrderMethod(){
 

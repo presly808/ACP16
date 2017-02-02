@@ -1,32 +1,29 @@
 package yandex.models;
 
-/**
- * Created by ubuntu on 31.01.17.
- */
 public class Location {
 
-    private CurrentLocation currentLocation;
+    private double x;
 
-    private Destination destinationLocation;
+    private double y;
 
-    public Location(CurrentLocation currecntLocation, Destination destination) {
-        this.currentLocation = currecntLocation;
-        this.destinationLocation = destination;
+    public Location(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public CurrentLocation getCurrectLocation() {
-        return currentLocation;
+    public double getX() {
+        return x;
     }
 
-    public void setCurrectLocation(CurrentLocation currectLocation) {
-        this.currentLocation = currectLocation;
+    public void setX(double x) {
+        this.x = x;
     }
 
-    public Destination getDestinationLocation() {
-        return destinationLocation;
+    public double getY() {
+        return y;
     }
 
-    public void setDestinationLocation(Destination destinationLocation) {
-        this.destinationLocation = destinationLocation;
+    public void setY(double y) {
+        this.y = y;
     }
 }
