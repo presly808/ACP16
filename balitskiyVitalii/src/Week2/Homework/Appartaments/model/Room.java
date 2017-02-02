@@ -1,5 +1,7 @@
 package Week2.Homework.Appartaments.model;
 
+import java.util.Set;
+
 /**
  * Created by vitalii on 01.02.17.
  */
@@ -7,7 +9,13 @@ public class Room extends RentObject {
 
     private boolean communRoom;
 
-    public Room() {
+    public Room(long id, String address, float square, String comments, Set<Accessory> accessories, District district) {
+        super(id, address, square, comments, accessories, district);
+    }
+
+    public Room(long id, String address, float square, String comments, Set<Accessory> accessories, District district, boolean communRoom) {
+        this(id, address, square, comments, accessories, district);
+        this.communRoom = communRoom;
     }
 
     @Override

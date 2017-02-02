@@ -1,9 +1,11 @@
 package Week2.Homework.Appartaments.dao;
 
-import Week2.Homework.Appartaments.Model.AppartamentsStorage;
-import Week2.Homework.Appartaments.Model.Flat;
-import Week2.Homework.Appartaments.Model.House;
-import Week2.Homework.Appartaments.Model.Room;
+import Week2.Homework.Appartaments.model.AppartamentsStorage;
+import Week2.Homework.Appartaments.model.Flat;
+import Week2.Homework.Appartaments.model.House;
+import Week2.Homework.Appartaments.model.Room;
+
+import java.util.Map;
 
 /**
  * Created by vitalii on 01.02.17.
@@ -17,32 +19,32 @@ public class JSONRentObjectDAO implements RentObjectDAO {
     }
 
     @Override
-    public AppartamentsStorage getFlats(int offset) {
+    public Map<Long, Flat> getFlats(int offset) {
         return null;
     }
 
     @Override
-    public AppartamentsStorage getRooms(int offset) {
+    public Map<Long, Room> getRooms(int offset) {
         return null;
     }
 
     @Override
-    public AppartamentsStorage getHouses(int offset) {
+    public Map<Long, House> getHouses(int offset) {
         return null;
     }
 
     @Override
-    public AppartamentsStorage addFlats(Flat... flats) {
+    public Map<Long, Flat> addFlats(Flat... flats) {
         return null;
     }
 
     @Override
-    public AppartamentsStorage addRooms(Room... rooms) {
+    public Map<Long, Room> addRooms(Room... rooms) {
         return null;
     }
 
     @Override
-    public AppartamentsStorage addHouses(House... houses) {
+    public Map<Long, House> addHouses(House... houses) {
         return null;
     }
 }

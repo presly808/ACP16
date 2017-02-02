@@ -1,5 +1,7 @@
 package Week2.Homework.Appartaments.model;
 
+import java.util.Set;
+
 /**
  * Created by vitalii on 01.02.17.
  */
@@ -8,7 +10,15 @@ public class House extends RentObject {
     private int floors;
     private float houseTerritory;
 
-    public House() {
+    public House(long id, String address, float square, String comments, Set<Accessory> accessories, District district) {
+        super(id, address, square, comments, accessories, district);
+    }
+
+
+    public House(long id, String address, float square, String comments, Set<Accessory> accessories, District district, int floors, float houseTerritory) {
+        this(id, address, square, comments, accessories, district);
+        this.floors = floors;
+        this.houseTerritory = houseTerritory;
     }
 
     public int getFloors() {

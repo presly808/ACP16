@@ -37,14 +37,14 @@ class SamsungTV implements TVSet{
 
     @Override
     public void turnOn() {
-        System.out.println("Dobrui ve4er druzya @SAMSUNG");
+        System.out.println("Dobrui ve4ir druzi @SAMSUNG");
     }
 }
 class SamsungRadio implements Radio{
 
     @Override
     public void turnOn() {
-        System.out.println("Kyiv na zvyzku @SAMSUNG");
+        System.out.println("Kyiv na zvyazku @SAMSUNG");
     }
 }
 

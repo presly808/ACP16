@@ -9,22 +9,22 @@ import java.util.Set;
  */
 public class RentObject {
 
-    private long id;
-    private String address;
-    private float square;
-    private String comments;
-    private Set<Accessory> accessories;
-    private District district;
-    private int floor;
-    private LocalDate creatingDate;
-    private LocalTime creatingTime;
+    protected long id;
+    protected String address;
+    protected float square;
+    protected String comments;
+    protected Set<Accessory> accessories;
+    protected District district;
+    protected int floor;
+    protected LocalDate creatingDate;
+    protected LocalTime creatingTime;
 
     public RentObject() {
         creatingDate = LocalDate.now();
         creatingTime = LocalTime.now();
     }
 
-    public RentObject(long id, String address, float square, String comments, Set<Accessory> accessories, District district, int floor) {
+    public RentObject(long id, String address, float square, String comments, Set<Accessory> accessories, District district) {
         this();
         this.id = id;
         this.address = address;
@@ -32,7 +32,6 @@ public class RentObject {
         this.comments = comments;
         this.accessories = accessories;
         this.district = district;
-        this.floor = floor;
     }
 
     @Override

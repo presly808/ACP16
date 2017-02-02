@@ -1,27 +1,29 @@
 package Week2.Homework.Appartaments.test;
 
-import Week2.Homework.Appartaments.dao.JSONRentObjectDAO;
-import Week2.Homework.Appartaments.model.AppartamentsStorage;
-import Week2.Homework.Appartaments.Utils.FlatFactory;
-import org.junit.Before;
-import org.mockito.Mock;
+import org.junit.Test;
 
-import static org.mockito.Mockito.when;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by vitalii on 01.02.17.
  */
-public class JSONRentObjectDAOTest {
+public class JSONRentObjectDAOTest extends InitMocksContext {
 
-    @Mock
-    private JSONRentObjectDAO objectDAO;
-    private AppartamentsStorage storage;
 
-    @Before
-    public void setUp(){
-        storage = new AppartamentsStorage();
-        storage.addFlat(FlatFactory.createFlat());
-        when(objectDAO.getFlats(0)).thenReturn(new AppartamentsStorage());
+    @Test
+    public void getFlatsTest(){
+        assertThat(flats, is(objectDAO.getFlats(0)));
+    }
+
+    @Test
+    public void getHousesTest(){
+        assertThat(houses, is(objectDAO.getHouses(0)));
+    }
+
+    @Test
+    public void getRoomsTest(){
+        assertThat(rooms, is(objectDAO.getRooms(0)));
     }
 }
 

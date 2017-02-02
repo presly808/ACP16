@@ -1,22 +1,24 @@
 package Week2.Homework.Appartaments.dao;
 
-import Week2.Homework.Appartaments.Model.AppartamentsStorage;
-import Week2.Homework.Appartaments.Model.Flat;
-import Week2.Homework.Appartaments.Model.House;
-import Week2.Homework.Appartaments.Model.Room;
+import Week2.Homework.Appartaments.model.AppartamentsStorage;
+import Week2.Homework.Appartaments.model.Flat;
+import Week2.Homework.Appartaments.model.House;
+import Week2.Homework.Appartaments.model.Room;
+
+import java.util.Map;
 
 /**
  * Created by vitalii on 01.02.17.
  */
 public interface RentObjectDAO {
 
-    AppartamentsStorage getFlats(int offset);
-    AppartamentsStorage getRooms(int offset);
-    AppartamentsStorage getHouses(int offset);
+    Map<Long, Flat> getFlats(int offset);
+    Map<Long, Room> getRooms(int offset);
+    Map<Long, House> getHouses(int offset);
 
-    AppartamentsStorage addFlats(Flat...flats);
-    AppartamentsStorage addRooms(Room...rooms);
-    AppartamentsStorage addHouses(House...houses);
+    Map<Long, Flat> addFlats(Flat...flats);
+    Map<Long, Room> addRooms(Room...rooms);
+    Map<Long, House> addHouses(House...houses);
 
 
 
