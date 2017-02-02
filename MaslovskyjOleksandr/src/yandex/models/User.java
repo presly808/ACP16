@@ -1,25 +1,19 @@
 package yandex.models;
 
-/**
- * Created by ubuntu on 31.01.17.
- */
+import java.util.UUID;
+
 public class User {
 
-    private final long id;
+    private final UUID id;
 
     private String name;
 
     private String phone;
 
-    //TODO change id init
-    public User(String name, String phone) {
+    public User(String name, String phone, UUID id) {
         this.name = name;
         this.phone = phone;
-        this.id = 1;
-    }
-
-    public long getId() {
-        return id;
+        this.id = id;
     }
 
     public String getName() {
@@ -38,4 +32,7 @@ public class User {
         this.phone = phone;
     }
 
+    public UUID getId() {
+        return id;
+    }
 }

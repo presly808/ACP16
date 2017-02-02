@@ -1,11 +1,13 @@
 package yandex.models;
 
+import java.util.UUID;
+
 /**
  * Created by ubuntu on 31.01.17.
  */
 public class Order {
 
-    private final long id;
+    private final UUID id;
 
     private Taxi taxi;
 
@@ -15,16 +17,15 @@ public class Order {
 
     private Location location;
 
-    //TODO change id init
-    public Order(Taxi taxi, Client client, double price, Location location) {
+    public Order(Taxi taxi, Client client, double price, Location location, UUID id) {
         this.taxi = taxi;
         this.client = client;
         this.price = price;
         this.location = location;
-        this.id = 1;
+        this.id = id;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
