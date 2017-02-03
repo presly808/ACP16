@@ -68,7 +68,6 @@ public class FileSaver {
     public Contact searchByName(String name){
 
         List<Contact> contacts = read();
-
         return contacts.stream().filter(contact -> contact.getName().equals(name)).findFirst().get();
 
     }

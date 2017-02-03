@@ -25,6 +25,6 @@ public class ContactDao implements IContactDao {
 
     @Override
     public Contact searchName(String name) {
-        return fileSaver.searchByName(name);
+            return fileSaver.searchByName(name);
     }
 }
