@@ -7,7 +7,7 @@ import ua.artcode.model.Contact;
  */
 public interface IContactDao {
 
-    boolean saveContact(Contact contact);
+    boolean addContact(Contact contact);
     boolean removeContact(Contact contact);
-    boolean searchName(String name);
+    Contact searchName(String name);
 }
