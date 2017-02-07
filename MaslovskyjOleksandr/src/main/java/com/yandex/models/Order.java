@@ -11,13 +11,9 @@ import java.util.UUID;
 public class Order {
 
     private final UUID id;
-
     private Taxi taxi;
-
     private Client client;
-
     private double price;
-
     private ILocation location;
 
     public Order(Taxi taxi, Client client, double price, ILocation location) {

@@ -9,14 +9,17 @@ import com.yandex.models.Order;
 import com.yandex.models.Taxi;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IServiceClient {
 
     Order makeOrder(Location currentLocation, Location destination) throws NoAvailableCarsException, NotValidPriceException, WrongCoordinatesException;
 
+    boolean confirmOrder() throws NoOrderFoundException;
+
     List<Taxi> showTaxiList() throws NoAvailableCarsException;
 
     boolean cancelOrder(Order order) throws NoOrderFoundException;
 
-    Taxi findFreeTaxi(Location location) throws NoAvailableCarsException;
+    Optional<Taxi> findFreeTaxi(Location location) throws NoAvailableCarsException;
 }

@@ -15,9 +15,7 @@ import static org.mockito.Mockito.*;
 public class TestServiceLocation {
 
     private Location currentLocation;
-
     private Location destination;
-
     private ServiceLocation serviceLocation;
 
     @Before
