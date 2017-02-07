@@ -16,5 +16,4 @@ public interface IDto {
     boolean saveTaxiToDb(Taxi taxi);
 
     boolean removeTaxiFromDB(UUID id) throws NoTaxiFoundException;
-
 }
