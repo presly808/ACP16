@@ -63,6 +63,7 @@ public class ServiceClient implements IServiceClient {
         return false;
     }
 
+    //TODO change after DB implementation
     @Override
     public Optional<Taxi> findFreeTaxi(Location currentLocation) throws NoAvailableCarsException{
         return taxiList.stream().filter(taxi -> taxi.isBusy() == false &&
