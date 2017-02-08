@@ -3,7 +3,7 @@ package com.yandex.controllers;
 import com.yandex.exception.NoOrderFoundException;
 import com.yandex.models.Order;
 import com.yandex.models.Taxi;
-import yandex.exception.NoTaxiFoundException;
+import com.yandex.exception.NoTaxiFoundException;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package yandex.exception;
+package com.yandex.exception;
 
 
 public class NotValidAdminPasswordException extends Exception{

@@ -7,7 +7,7 @@ import com.yandex.controllers.IServiceClient;
 import com.yandex.service.ServiceAdmin;
 import com.yandex.service.ServiceClient;
 import com.yandex.service.ServiceLocation;
-import yandex.exception.NotValidAdminPasswordException;
+import com.yandex.exception.NotValidAdminPasswordException;
 
 public class YandexFactory {
 
