@@ -8,11 +8,8 @@ import com.yandex.controllers.ILocation;
 public class Taxi {
 
     private User owner;
-
     private CarModels carModel;
-
     private boolean busy;
-
     private ILocation currentLocation;
 
     public Taxi(User owner, CarModels carModel, boolean busy, ILocation currentLocation) {
