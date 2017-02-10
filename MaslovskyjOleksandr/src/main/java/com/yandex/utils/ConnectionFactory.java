@@ -8,11 +8,29 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    public static Connection getConnection() throws IOException, ClassNotFoundException, SQLException {
-        Class.forName(GetProperties.getDriverPath());
-        return DriverManager.getConnection(GetProperties.getDbURL() +
-                        GetProperties.getDbName(),
-                            GetProperties.getUser(),
-                                GetProperties.getPassword());
+    public static Connection getConnection() {
+
+        try {
+            Class.forName(GetProperties.getDriverPath());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            try {
+                return DriverManager.getConnection(GetProperties.getDbURL() +
+                                GetProperties.getDbName(),
+                                    GetProperties.getUser(),
+                                        GetProperties.getPassword());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return getConnection();
     }
 }
