@@ -33,18 +33,26 @@ public class InitMocksContext {
     @Mock
     public RentObjectServiceImpl rentObjectService;
 
-    protected Map<Long, Flat> flats;
+    protected List<Flat> flats;
+    protected Map<Long, Flat> flatMap;
     protected Map<Long, Room> rooms;
     protected Map<Long, House> houses;
     protected  List<Flat> flatList;
     protected List<Room> roomList;
     protected List<House> houseList;
+    protected AppartamentsStorage storage;
 
     @Before
     public void setUp() throws InvalidFlatException {
-        Flat flat = FlatFactory.createFlat();
-        flats = new HashMap<>();
-        flats.put(flat.getId(), flat);
+        storage = new AppartamentsStorage();
+
+        Flat flat1 = FlatFactory.createFlat();
+        Flat flat2 = FlatFactory.createFlat();
+        flats = new ArrayList<>();
+        flats.add(flat1);
+//        flats.put(flat2.getId(), flat2);
+        flatMap = new HashMap<>();
+        flatMap.put(flat1.getId(), flat1);
 
         House house = HouseFactory.createHouse();
         houses = new HashMap<>();
@@ -55,7 +63,7 @@ public class InitMocksContext {
         rooms.put(room.getId(), room);
 
 
-        when(objectDAO.getFlats(0)).thenReturn(flats);
+        when(objectDAO.getFlats(0)).thenReturn(flatMap);
         when(objectDAO.getHouses(0)).thenReturn(houses);
         when(objectDAO.getRooms(0)).thenReturn(rooms);
 

@@ -5,6 +5,7 @@ import Week2.Homework.Appartaments.model.Flat;
 import Week2.Homework.Appartaments.model.House;
 import Week2.Homework.Appartaments.model.Room;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,9 +17,9 @@ public interface RentObjectDAO {
     Map<Long, Room> getRooms(int offset);
     Map<Long, House> getHouses(int offset);
 
-    Map<Long, Flat> addFlats(Flat...flats);
-    Map<Long, Room> addRooms(Room...rooms);
-    Map<Long, House> addHouses(House...houses);
+    List<Flat> addFlats(List<Flat> flats);
+    List<Room> addRooms(List<Room> rooms);
+    List<House> addHouses(List<House> houses);
 
 
 

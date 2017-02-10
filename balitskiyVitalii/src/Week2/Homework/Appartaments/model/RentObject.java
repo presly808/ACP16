@@ -15,7 +15,6 @@ public class RentObject {
     protected String comments;
     protected Set<Accessory> accessories;
     protected District district;
-    protected int floor;
     protected LocalDate creatingDate;
     protected LocalTime creatingTime;
 
@@ -43,7 +42,6 @@ public class RentObject {
                 ", comments='" + comments + '\'' +
                 ", accessories=" + accessories +
                 ", district=" + district +
-                ", floor=" + floor +
                 ", creatingDate=" + creatingDate +
                 ", creatingTime=" + creatingTime +
                 '}';
@@ -58,7 +56,6 @@ public class RentObject {
 
         if (id != that.id) return false;
         if (Float.compare(that.square, square) != 0) return false;
-        if (floor != that.floor) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
         if (accessories != null ? !accessories.equals(that.accessories) : that.accessories != null) return false;
@@ -76,7 +73,6 @@ public class RentObject {
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
         result = 31 * result + (accessories != null ? accessories.hashCode() : 0);
         result = 31 * result + (district != null ? district.hashCode() : 0);
-        result = 31 * result + floor;
         result = 31 * result + (creatingDate != null ? creatingDate.hashCode() : 0);
         result = 31 * result + (creatingTime != null ? creatingTime.hashCode() : 0);
         return result;
@@ -145,14 +141,6 @@ public class RentObject {
 
     public void setAccessories(Set<Accessory> accessories) {
         this.accessories = accessories;
-    }
-
-    public int getFloor() {
-        return floor;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
     }
 
 }

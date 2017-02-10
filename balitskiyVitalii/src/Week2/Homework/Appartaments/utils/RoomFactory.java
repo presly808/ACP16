@@ -11,7 +11,10 @@ import java.util.HashSet;
  * Created by vitalii on 02.02.17.
  */
 public class RoomFactory {
+    private static Long id = 0L;
+
     public static Room createRoom() {
-        return new Room(1, "Metalistov 15", 22, "good room", new HashSet<Accessory>(), District.SVYATOSHINO, true);
+        id++;
+        return new Room(id, "Metalistov 15", 22, "good room", new HashSet<Accessory>(), District.SVYATOSHINO, true);
     }
 }

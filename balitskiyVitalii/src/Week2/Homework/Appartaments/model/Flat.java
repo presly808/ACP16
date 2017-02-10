@@ -54,6 +54,14 @@ public class Flat extends RentObject {
     @Override
     public String toString() {
         return "Flat{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", square=" + square +
+                ", comments='" + comments + '\'' +
+                ", accessories=" + accessories +
+                ", district=" + district +
+                ", creatingDate=" + creatingDate +
+                ", creatingTime=" + creatingTime +
                 "roomsCount=" + roomsCount +
                 ", communRoom=" + communRoom +
                 '}';
@@ -75,12 +83,10 @@ public class Flat extends RentObject {
         this.communRoom = communRoom;
     }
 
-    @Override
     public int getFloor() {
         return floor;
     }
 
-    @Override
     public void setFloor(int floor) {
         this.floor = floor;
     }

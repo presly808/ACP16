@@ -10,9 +10,12 @@ import java.util.HashSet;
  * Created by vitalii on 01.02.17.
  */
 public class FlatFactory {
+    private static Long id = 1L;
 
     public static Flat createFlat(){
-        return new Flat(2, false, 1, "Mendelleva 2", 80, "", new HashSet<Accessory>(), District.GOLOSIEVO, 3);
+        //id++;
+        return new Flat(2, false, id, "Mendelleva 2", 80, "", new HashSet<Accessory>(), District.GOLOSIEVO, 3);
+
     }
 
 }
