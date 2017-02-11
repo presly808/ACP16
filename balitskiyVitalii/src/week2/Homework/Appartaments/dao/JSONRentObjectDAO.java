@@ -1,14 +1,12 @@
-package Week2.Homework.Appartaments.dao;
+package week2.Homework.Appartaments.dao;
 
-import Week2.Homework.Appartaments.model.AppartamentsStorage;
-import Week2.Homework.Appartaments.model.Flat;
-import Week2.Homework.Appartaments.model.House;
-import Week2.Homework.Appartaments.model.Room;
+import week2.Homework.Appartaments.model.AppartamentsStorage;
+import week2.Homework.Appartaments.model.Flat;
+import week2.Homework.Appartaments.model.House;
+import week2.Homework.Appartaments.model.Room;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -47,7 +45,6 @@ public class JSONRentObjectDAO implements RentObjectDAO {
         Type responseType = new TypeToken<List<Flat>>(){}.getType();
 
         List<Flat> listItemsDes = parser.fromJson(reader, responseType);
-        System.out.println(listItemsDes.toString());
 
         Map<Long, Flat> resultFlats =  listItemsDes.stream().collect(Collectors.toMap(x -> x.getId(), x -> x));
         return resultFlats;

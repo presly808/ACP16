@@ -1,8 +1,8 @@
-package Week2.Homework.Appartaments.utils;
+package week2.Homework.Appartaments.utils;
 
-import Week2.Homework.Appartaments.model.Accessory;
-import Week2.Homework.Appartaments.model.District;
-import Week2.Homework.Appartaments.model.Flat;
+import week2.Homework.Appartaments.model.Accessory;
+import week2.Homework.Appartaments.model.District;
+import week2.Homework.Appartaments.model.Flat;
 
 import java.util.HashSet;
 

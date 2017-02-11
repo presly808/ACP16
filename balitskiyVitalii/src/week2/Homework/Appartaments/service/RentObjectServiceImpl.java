@@ -1,9 +1,9 @@
-package Week2.Homework.Appartaments.service;
+package week2.Homework.Appartaments.service;
 
-import Week2.Homework.Appartaments.exceptions.NoSuchRentObjectException;
-import Week2.Homework.Appartaments.model.Flat;
-import Week2.Homework.Appartaments.model.House;
-import Week2.Homework.Appartaments.model.Room;
+import week2.Homework.Appartaments.exceptions.NoSuchRentObjectException;
+import week2.Homework.Appartaments.model.Flat;
+import week2.Homework.Appartaments.model.House;
+import week2.Homework.Appartaments.model.Room;
 
 import java.util.List;
 

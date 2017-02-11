@@ -1,8 +1,8 @@
-package Week2.Homework.Appartaments.model;
+package week2.Homework.Appartaments.model;
 
-import Week2.Homework.Appartaments.exceptions.InvalidFlatException;
-import Week2.Homework.Appartaments.exceptions.InvalidHouseException;
-import Week2.Homework.Appartaments.exceptions.InvalidRoomException;
+import week2.Homework.Appartaments.exceptions.InvalidFlatException;
+import week2.Homework.Appartaments.exceptions.InvalidHouseException;
+import week2.Homework.Appartaments.exceptions.InvalidRoomException;
 
 import java.util.HashMap;
 import java.util.Map;

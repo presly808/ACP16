@@ -1,12 +1,8 @@
-package Week2.Homework.Appartaments.test;
+package week2.Homework.Appartaments.test;
 
-import Week2.Homework.Appartaments.dao.JSONRentObjectDAO;
-import Week2.Homework.Appartaments.dao.RentObjectDAO;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import week2.Homework.Appartaments.dao.JSONRentObjectDAO;
+import week2.Homework.Appartaments.dao.RentObjectDAO;
 import org.junit.Test;
-
-import java.util.Collections;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

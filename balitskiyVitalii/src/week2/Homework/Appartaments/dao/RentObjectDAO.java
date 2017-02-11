@@ -1,9 +1,8 @@
-package Week2.Homework.Appartaments.dao;
+package week2.Homework.Appartaments.dao;
 
-import Week2.Homework.Appartaments.model.AppartamentsStorage;
-import Week2.Homework.Appartaments.model.Flat;
-import Week2.Homework.Appartaments.model.House;
-import Week2.Homework.Appartaments.model.Room;
+import week2.Homework.Appartaments.model.Flat;
+import week2.Homework.Appartaments.model.House;
+import week2.Homework.Appartaments.model.Room;
 
 import java.util.List;
 import java.util.Map;

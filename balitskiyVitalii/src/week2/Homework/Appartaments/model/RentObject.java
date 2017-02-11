@@ -1,4 +1,4 @@
-package Week2.Homework.Appartaments.model;
+package week2.Homework.Appartaments.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

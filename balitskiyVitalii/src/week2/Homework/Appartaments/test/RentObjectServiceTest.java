@@ -1,6 +1,6 @@
-package Week2.Homework.Appartaments.test;
+package week2.Homework.Appartaments.test;
 
-import Week2.Homework.Appartaments.exceptions.NoSuchRentObjectException;
+import week2.Homework.Appartaments.exceptions.NoSuchRentObjectException;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

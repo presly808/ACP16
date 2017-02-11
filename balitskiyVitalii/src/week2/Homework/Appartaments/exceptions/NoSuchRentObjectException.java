@@ -1,4 +1,4 @@
-package Week2.Homework.Appartaments.exceptions;
+package week2.Homework.Appartaments.exceptions;
 
 /**
  * Created by vitalii on 02.02.17.
