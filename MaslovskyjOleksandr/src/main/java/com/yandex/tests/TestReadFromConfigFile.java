@@ -16,12 +16,31 @@ public class TestReadFromConfigFile {
     private String PASSWORD = "maslik106";
 
     @Test
-    public void testReadFromConfigPropertiesFile() throws IOException {
+    public void testReadFromConfigPropertiesFilepath() throws IOException {
         Assert.assertEquals(DRIVER_PATH, GetProperties.getDriverPath());
-        Assert.assertEquals(DB_URL, GetProperties.getDbURL());
-        Assert.assertEquals(DB_NAME, GetProperties.getDbName());
-        Assert.assertEquals(USER, GetProperties.getUser());
-        Assert.assertEquals(PASSWORD, GetProperties.getPassword());
+
     }
 
+    @Test
+    public void testReadFromConfigPropertiesFileURl() throws IOException {
+        Assert.assertEquals(DB_URL, GetProperties.getDbURL());
+
+    }
+
+    @Test
+    public void testReadFromConfigPropertiesFileName() throws IOException {
+        Assert.assertEquals(DB_NAME, GetProperties.getDbName());
+
+    }
+
+    @Test
+    public void testReadFromConfigPropertiesFileUser() throws IOException {
+        Assert.assertEquals(USER, GetProperties.getUser());
+
+    }
+
+    @Test
+    public void testReadFromConfigPropertiesFilePass() throws IOException {
+        Assert.assertEquals(PASSWORD, GetProperties.getPassword());
+    }
 }

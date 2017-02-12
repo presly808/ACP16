@@ -9,7 +9,7 @@ public class ReadFromConfigProperties {
 
     private Properties properties;
     private InputStream inputStream;
-    private String fileName = "/java/com/yandex/db.properties";
+    private String fileName = "db.properties";
 
 
     public ReadFromConfigProperties() {
