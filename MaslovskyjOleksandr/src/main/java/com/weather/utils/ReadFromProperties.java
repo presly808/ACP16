@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Created by ubuntu on 12.02.17.
- */
 public class ReadFromProperties {
 
     private static final Logger LOGGER = Logger.getLogger(ReadFromProperties.class);
@@ -17,6 +14,7 @@ public class ReadFromProperties {
     private Properties properties;
     private String fileName = "weather.properties";
     private final String WEATHER_URL = "urlToServer";
+    private final String WEATHER_PORT = "port";
 
     private Properties readFromFile() throws IOException {
         properties = new Properties();
@@ -33,6 +31,12 @@ public class ReadFromProperties {
     }
 
     private String getWeatherUrlFromFile() throws IOException {
+        LOGGER.info("Get value from " + WEATHER_URL);
         return readFromFile().getProperty(WEATHER_URL);
+    }
+
+    private String getWeatherPortFromFile() throws IOException {
+        LOGGER.info("Get value from " + WEATHER_PORT);
+        return readFromFile().getProperty(WEATHER_PORT);
     }
 }
