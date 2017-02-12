@@ -2,7 +2,7 @@ package com.yandex.db;
 
 import com.yandex.controllers.IQuery;
 import com.yandex.utils.ConnectionFactory;
-import yandex.exception.DbNotAvailableException;
+import com.yandex.exception.DbNotAvailableException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

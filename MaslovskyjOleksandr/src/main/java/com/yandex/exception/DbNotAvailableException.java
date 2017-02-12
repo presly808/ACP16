@@ -1,4 +1,4 @@
-package yandex.exception;
+package com.yandex.exception;
 
 /**
  * Created by ubuntu on 10.02.17.
