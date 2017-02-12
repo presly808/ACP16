@@ -30,7 +30,29 @@ public class MyServer {
                 while (true) {
                     try {
                         Socket client = serverSocket.accept();
-                        inputMessagesObserver.subscribe(new SocketClient(client));
+                        SocketClient socketClient = new SocketClient(client);
+
+                        inputMessagesObserver.subscribe(socketClient);
+
+                        MyAsynchRunner.runAsynch(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (true) {
+                                    try {
+                                        MyMessage clientMessage = socketClient.readMessage();
+                                        System.out.printf("Received message %s\n" , clientMessage);
+                                        inputMessagesObserver.notifyAllSubs(clientMessage);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        inputMessagesObserver.unsubscribe(socketClient);
+                                        return; // terminate method, thus thread will be terminated
+                                    }
+
+                                }
+                            }
+                        });
+
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -45,7 +67,7 @@ public class MyServer {
         // separate action
 
 
-        new Thread(() -> {
+        /*new Thread(() -> {
             while (true) {
 
                 inputMessagesObserver.notifyAllSubs(new MyMessage("server",LocalDateTime.now(),"hello"));
@@ -57,9 +79,16 @@ public class MyServer {
                 }
 
             }
-        }).start();
+        }).start();*/
 
 
+    }
+}
+
+class MyAsynchRunner {
+
+    public static void runAsynch(Runnable runnable) {
+        new Thread(runnable).start();
     }
 }
 
@@ -71,11 +100,11 @@ class InputMessagesObserver {
         subscribers = new ArrayList<>();
     }
 
-    public void subscribe(SocketClient socketClient){
+    public void subscribe(SocketClient socketClient) {
         subscribers.add(socketClient);
     }
 
-    public void notifyAllSubs(MyMessage message){
+    public void notifyAllSubs(MyMessage message) {
 
         subscribers.stream()
                 .filter((sub) -> !sub.getIp().equals(message.getFrom()))
@@ -84,6 +113,9 @@ class InputMessagesObserver {
     }
 
 
+    public void unsubscribe(SocketClient socketClient) {
+        subscribers.remove(socketClient);
+    }
 }
 
 class MyMessage {
@@ -108,6 +140,15 @@ class MyMessage {
 
     public String getBody() {
         return body;
+    }
+
+    @Override
+    public String toString() {
+        return "MyMessage{" +
+                "from='" + from + '\'' +
+                ", creationTime=" + creationTime +
+                ", body='" + body + '\'' +
+                '}';
     }
 }
 
@@ -141,9 +182,31 @@ class SocketClient {
         return bufferedReader;
     }
 
+    public MyMessage readMessage() throws IOException {
+
+        String messageLine = bufferedReader.readLine();
+        return new MyMessage(ip, LocalDateTime.now(), messageLine);
+
+    }
+
     public void sendMessage(MyMessage message) {
-        printWriter.printf("Time %s, From %s, Message %s \n",
-                message.getCreationTime().toString(), message.getFrom(), message.getBody());
+        printWriter.println(message);
         printWriter.flush();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SocketClient that = (SocketClient) o;
+
+        return !(ip != null ? !ip.equals(that.ip) : that.ip != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return ip != null ? ip.hashCode() : 0;
     }
 }
