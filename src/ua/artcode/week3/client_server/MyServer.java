@@ -61,7 +61,7 @@ public class MyServer {
 
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Could not start server");
+            throw new RuntimeException("Could not start runner");
         }
 
         // separate action
@@ -70,7 +70,7 @@ public class MyServer {
         /*new Thread(() -> {
             while (true) {
 
-                inputMessagesObserver.notifyAllSubs(new MyMessage("server",LocalDateTime.now(),"hello"));
+                inputMessagesObserver.notifyAllSubs(new MyMessage("runner",LocalDateTime.now(),"hello"));
 
                 try {
                     Thread.sleep(2000);

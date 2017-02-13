@@ -39,10 +39,10 @@ public class MyServer {
                 while (true) {
                     try {
                         Socket client = serverSocket.accept();
-                        LOGGER.info("accept socket server");
+                        LOGGER.info("accept socket runner");
                         inputMessagesObserver.subscribe(new SocketClient(client));
                     } catch (IOException e) {
-                        LOGGER.error("can`t accept socket server");
+                        LOGGER.error("can`t accept socket runner");
                         e.printStackTrace();
                     }
                 }
@@ -50,16 +50,16 @@ public class MyServer {
             LOGGER.info("Start thread");
 
         } catch (IOException e) {
-            LOGGER.error("Could not start server");
+            LOGGER.error("Could not start runner");
             e.printStackTrace();
-            throw new RuntimeException("Could not start server");
+            throw new RuntimeException("Could not start runner");
         }
 
         // separate action
 
         new Thread(() -> {
             while (true) {
-                inputMessagesObserver.notifyAllSubs(new MyMessage("server",LocalDateTime.now(),"GET. THANKS"),
+                inputMessagesObserver.notifyAllSubs(new MyMessage("runner",LocalDateTime.now(),"GET. THANKS"),
                         true);
 
                 try {

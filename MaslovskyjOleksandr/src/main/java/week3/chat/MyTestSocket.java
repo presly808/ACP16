@@ -30,7 +30,7 @@ public class MyTestSocket {
     }
 
     private static MyMessage createMessage(){
-        return new MyMessage("server", LocalDateTime.now(),"HI!!!!!");
+        return new MyMessage("runner", LocalDateTime.now(),"HI!!!!!");
     }
 
     private static void readStream(InputStream inputStream) throws IOException {
