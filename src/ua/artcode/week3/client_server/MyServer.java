@@ -1,5 +1,8 @@
 package ua.artcode.week3.client_server;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * @author Serhii Bilobrov
@@ -19,17 +23,20 @@ public class MyServer {
     // new thread that accepts messages from client then notifyAll subscribers
     public static void main(String[] args) {
 
+        Logger LOGGER = Logger.getLogger(MyServer.class.toString());
         InputMessagesObserver inputMessagesObserver = new InputMessagesObserver();
+
         //192.168.1.115
         try {
             ServerSocket serverSocket = new ServerSocket(8888);
-            System.out.println(serverSocket.getLocalSocketAddress());
+            LOGGER.info(serverSocket.getLocalSocketAddress().toString());
 
             //asynch action
             new Thread(() -> {
                 while (true) {
                     try {
                         Socket client = serverSocket.accept();
+                        LOGGER.info("New client has connected" + client.getInetAddress());
                         inputMessagesObserver.subscribe(new SocketClient(client));
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -48,7 +55,7 @@ public class MyServer {
         new Thread(() -> {
             while (true) {
 
-                inputMessagesObserver.notifyAllSubs(new MyMessage("server",LocalDateTime.now(),"hello"));
+                inputMessagesObserver.notifyAllSubs(new MyMessage("server", LocalDateTime.now(), "hello"));
 
                 try {
                     Thread.sleep(2000);
@@ -56,6 +63,18 @@ public class MyServer {
                     e.printStackTrace();
                 }
 
+            }
+        }).start();
+
+        new Thread(() -> {
+            while (true) {
+                Gson gson = new GsonBuilder().create();
+                String inputMessage =  inputMessagesObserver.scanAllSubs();
+                if(inputMessage != null) {
+                    MyMessage message = gson.fromJson(inputMessage, MyMessage.class);
+                    inputMessagesObserver.notifyAllSubs(message);
+                    LOGGER.info(message.getCreationTime() + message.getFrom() + message.getBody());
+                }
             }
         }).start();
 
@@ -71,15 +90,29 @@ class InputMessagesObserver {
         subscribers = new ArrayList<>();
     }
 
-    public void subscribe(SocketClient socketClient){
+    public void subscribe(SocketClient socketClient) {
         subscribers.add(socketClient);
     }
 
-    public void notifyAllSubs(MyMessage message){
+    public void notifyAllSubs(MyMessage message) {
 
         subscribers.stream()
                 .filter((sub) -> !sub.getIp().equals(message.getFrom()))
                 .forEach((sub) -> sub.sendMessage(message));
+
+    }
+
+    public String scanAllSubs() {
+
+       for (SocketClient clien : subscribers){
+
+           try {
+               return clien.getBufferedReader().readLine();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+        return null;
 
     }
 
@@ -142,8 +175,9 @@ class SocketClient {
     }
 
     public void sendMessage(MyMessage message) {
-        printWriter.printf("Time %s, From %s, Message %s \n",
-                message.getCreationTime().toString(), message.getFrom(), message.getBody());
+        Gson gson = new GsonBuilder().create();
+
+        printWriter.println(gson.toJson(message));
         printWriter.flush();
     }
 }

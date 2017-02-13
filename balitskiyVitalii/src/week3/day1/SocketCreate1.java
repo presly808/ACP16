@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Created by vitalii on 11.02.17.
  */
-public class SocketCreate {
+public class SocketCreate1{
     private static String ADDRESS = "localhost";
     private static int PORT = 8888;
 
@@ -21,7 +21,7 @@ public class SocketCreate {
         Gson gson = new GsonBuilder().create();
         OutputStream os = socket.getOutputStream();
 
-        MyMessage1 message1 = new MyMessage1("client1", LocalDateTime.now(), "hello");
+        MyMessage1 message1 = new MyMessage1("client2", LocalDateTime.now(), "hello");
 
         os.write((gson.toJson(message1) + "\n").getBytes());
         os.flush();
@@ -65,13 +65,13 @@ public class SocketCreate {
 
 }
 
-class MyMessage {
+class MyMessage1 {
 
     private String from;
     private LocalDateTime creationTime;
     private String body;
 
-    public MyMessage(String from, LocalDateTime creationTime, String body) {
+    public MyMessage1(String from, LocalDateTime creationTime, String body) {
         this.from = from;
         this.creationTime = creationTime;
         this.body = body;
