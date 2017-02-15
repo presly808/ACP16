@@ -24,6 +24,6 @@ public class WeatherProviderTest {
 
     @Test
     public void getCurrentWeatherTest(){
-        System.out.println(weatherProvider.CurrentWeather());
+        System.out.println(weatherProvider.currentWeather());
     }
 }

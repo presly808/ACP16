@@ -2,13 +2,17 @@ package week3.homework.checkTheWeather.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
-import java.util.logging.Logger;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 /**
  * Created by Vitalii on 13.02.2017.
@@ -16,41 +20,44 @@ import java.util.logging.Logger;
 public class WeatherProvider {
 
     private final String USER_AGENT = "Mozilla/5.0";
-    private static Logger logger = Logger.getLogger(WeatherProvider.class.toString());
-    private static String providerAddress = "http://api.openweathermap.org/data/2.5/forecast/city?id=703448&APPID=5157501f93d7a5f0eb66e2084430b6c7";
+    private static Logger logger = Logger.getLogger(WeatherProvider.class);
+    private static String providerAddress = "http://api.aerisapi.com/observations/kiev,ua?fields=ob.tempC,ob.weather&client_id=6JuzIFUUSoewQ5otwYD9h&client_secret=zMHKs3d9qQUk0W0Aw7EdhBMjv2ovukhKZMXsbq7Y";
     private Gson gson;
     private URL url;
-    private URLConnection connection;
-    String paramValue = "param\\with\\backslash";
+    private HttpURLConnection connection;
 
     public WeatherProvider() throws MalformedURLException {
         gson = new GsonBuilder().create();
         url = new URL(providerAddress);
     }
 
-    public Weather CurrentWeather(){
+    public Weather currentWeather(){
         StringBuilder inputWeather = new StringBuilder();
         try{
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-            logger.info("\nSending 'GET' request to URL : " + url);
-            logger.info("Response Code : " + connection.getResponseCode());
-
-
+//            logger.info("Sending 'GET' request to URL : " + url);
+//            logger.info("Response Code : " + connection.getResponseCode());
 
             String line;
             while ((line = reader.readLine()) != null){
-                inputWeather.append(line + "\n");
+                inputWeather.append(line);
             }
             reader.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         logger.info(inputWeather.toString());
-        Weather weather = gson.fromJson(inputWeather.toString(), Weather.class);
+        Weather weather = getWeather(inputWeather);
+
         return weather;
+    }
+
+    private Weather getWeather(StringBuilder inputWeather) {
+        JsonObject jResponse = gson.fromJson(inputWeather.toString(), JsonObject.class);
+        return gson.fromJson(jResponse.getAsJsonObject("response").getAsJsonObject("ob"), Weather.class);
     }
 }
