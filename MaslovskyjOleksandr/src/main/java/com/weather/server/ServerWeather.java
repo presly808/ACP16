@@ -15,12 +15,12 @@ public class ServerWeather {
 
     private String ipAddress;
     private int port;
-    private ServerSocket connection;
+    private ServerSocket server;
 
-    public ServerWeather(ServerSocket connection) throws IOException {
-        this.connection = connection;
-        ipAddress = connection.getInetAddress().toString();
-        port = connection.getLocalPort();
+    public ServerWeather(int port) throws IOException {
+        server = new ServerSocket(port);
+        ipAddress = server.getInetAddress().toString();
+        this.port = port;
     }
 
     public void listeningClientConnection(){
@@ -28,7 +28,7 @@ public class ServerWeather {
         new Thread(() -> {
             while (true){
                 try {
-                    Socket client = connection.accept();
+                    Socket client = server.accept();
                     sendToClientTempResponse(client);
                 } catch (IOException e) {
                     LOGGER.error("CONNECTION REFUSED");

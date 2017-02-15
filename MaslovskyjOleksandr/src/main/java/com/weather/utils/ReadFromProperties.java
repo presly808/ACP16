@@ -15,6 +15,8 @@ public class ReadFromProperties {
     private static String fileName = "weather.properties";
     private static final String WEATHER_URL = "urlToServer";
     private static final String WEATHER_PORT = "port";
+    private static final String LOCAL_YRL = "localURL";
+    private static final String LOCAL_PORT = "localport";
 
     public ReadFromProperties() throws IOException {
         properties = readFromFile();
@@ -44,11 +46,29 @@ public class ReadFromProperties {
         return readFromFile().getProperty(WEATHER_PORT);
     }
 
+    private String getLocalUrlFromFile() throws IOException {
+        LOGGER.info("Get value from " + LOCAL_YRL);
+        return readFromFile().getProperty(LOCAL_YRL);
+    }
+
+    private String getLocalPortFromFile() throws IOException {
+        LOGGER.info("Get value from " + LOCAL_PORT);
+        return readFromFile().getProperty(LOCAL_PORT);
+    }
+
     public static String getWeatherUrl() throws IOException {
         return new ReadFromProperties().getWeatherUrlFromFile();
     }
 
-    public static String getWeatherPort() throws IOException {
-        return new ReadFromProperties().getWeatherPortFromFile();
+    public static int  getWeatherPort() throws IOException {
+        return Integer.parseInt(new ReadFromProperties().getWeatherPortFromFile());
+    }
+
+    public static String getLocalYrl() throws IOException {
+        return new ReadFromProperties().getLocalUrlFromFile();
+    }
+
+    public static int  getLocalPort() throws IOException {
+        return Integer.parseInt(new ReadFromProperties().getLocalPortFromFile());
     }
 }

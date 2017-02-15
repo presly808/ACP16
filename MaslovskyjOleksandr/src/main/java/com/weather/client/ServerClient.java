@@ -19,8 +19,8 @@ public class ServerClient implements ClientActions{
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
 
-    public ServerClient(Socket connection) throws IOException {
-        this.connection = connection;
+    public ServerClient(String ipAddress, int port) throws IOException {
+        this.connection = new Socket(ipAddress, port);
         this.ipAddress = connection.getInetAddress().toString();
         this.port = connection.getPort();
         this.bufferedReader = new BufferedReader(
