@@ -8,11 +8,10 @@
     <artifactId>MaslovskyjOleksandr</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <parent>
-        <groupId>MaslovskyjOleksandr</groupId>
+        <groupId>acp16id</groupId>
         <artifactId>ACP16</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <build>

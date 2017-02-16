@@ -16,5 +16,4 @@ public class WeatherServerRunner {
         serverWeather.listeningClientConnection();
 
     }
-
 }
