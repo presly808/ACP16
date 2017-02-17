@@ -20,6 +20,7 @@ public class ServerWeather {
     private final String WEATHER = ReadWriteProperties.getWeatherUrl();
     private final int PORT = ReadWriteProperties.getLocalPort();
     private final String TEMP_ID = "weather-widget-temperature";
+    private String weather_message = "\"GET / HTTP/1.1\\n\"";
 
     private String ipAddress;
     private int port;
@@ -63,46 +64,6 @@ public class ServerWeather {
 
     }
 
-    private void sendToClientTempResponse(Socket client) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(client.getOutputStream()));
-        bufferedWriter.write(gson.toJson(WAIT_MESSAGE) + "\n");
-        LOGGER.info("SEND DEFAULT RESPONSE TO USER: " + gson.toJson(WAIT_MESSAGE));
-        bufferedWriter.flush();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private InputStream sendRequestToWeatherServer() throws IOException {
-        LOGGER.info("SEND REQUEST TO WEATHER SERVER");
-        Socket socket = new Socket(WEATHER, PORT);
-        socket.getOutputStream();
-        return socket.getInputStream();
-    }
-
-    private Document getHTMLSource() throws IOException {
-        return HtmlParser.getPageSource(ReadWriteProperties.getWeatherUrl());
-    }
-
-    public String getValueFromWeather() throws IOException {
-        Document document = getHTMLSource();
-        Element element = HtmlParser.getElement(document, TEMP_ID);
-        LOGGER.info("GET VALUE FROM ELEMENT");
-        return element.data();
-    }
-
-    private void sendToClientResponseWithTemperature(Socket client) throws IOException {
-        String value = gson.toJson(getValueFromWeather());
-        BufferedWriter bufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(client.getOutputStream()));
-        bufferedWriter.write(value);
-        LOGGER.info("SEND RESPONSE WITH TEMPERATURE TO USER: " + value);
-        bufferedWriter.flush();
-    }
-
     public String listenWeatherGson() throws IOException {
         final String[] response = {""};
         new Thread(() -> {
@@ -118,6 +79,48 @@ public class ServerWeather {
         }
         ).start();
         return response[0];
+    }
+
+    public void sendToClientTempResponse(Socket client) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(
+                new OutputStreamWriter(client.getOutputStream()));
+        bufferedWriter.write(gson.toJson(WAIT_MESSAGE) + "\n");
+        LOGGER.info("SEND DEFAULT RESPONSE TO USER: " + gson.toJson(WAIT_MESSAGE));
+        bufferedWriter.flush();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendToClientResponseWithTemperature(Socket client) throws IOException {
+        String value = gson.toJson(getValueFromWeather());
+        BufferedWriter bufferedWriter = new BufferedWriter(
+                new OutputStreamWriter(client.getOutputStream()));
+        bufferedWriter.write(value);
+        LOGGER.info("SEND RESPONSE WITH TEMPERATURE TO USER: " + value);
+        bufferedWriter.flush();
+    }
+
+    public InputStream sendRequestToWeatherServer() throws IOException {
+        LOGGER.info("SEND REQUEST TO WEATHER SERVER");
+        Socket socket = new Socket(WEATHER, PORT);
+        PrintWriter pw = new PrintWriter(socket.getOutputStream());
+        pw.println(gson.toJson(weather_message));
+        pw.flush();
+        return socket.getInputStream();
+    }
+
+    public String getValueFromWeather() throws IOException {
+        Document document = getHTMLSource();
+        Element element = HtmlParser.getElement(document, TEMP_ID);
+        LOGGER.info("GET VALUE FROM ELEMENT");
+        return element.data();
+    }
+
+    private Document getHTMLSource() throws IOException {
+        return HtmlParser.getPageSource(ReadWriteProperties.getWeatherUrl());
     }
 
     private String convertInputStreamToString(InputStream inputStream){
