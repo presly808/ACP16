@@ -1,28 +1,22 @@
 package com.weather.runner;
 
-import com.weather.client.ServerClient;
 import com.weather.client.ServerMessage;
+import com.weather.client.WeatherClient;
 import com.weather.exceptions.NoServerFoundException;
-import com.weather.utils.ReadFromProperties;
+import com.weather.utils.ReadWriteProperties;
 
 import java.io.IOException;
 
-/**
- * Created by ubuntu on 12.02.17.
- */
+
 public class WeatherClientRunner {
 
     public static void main(String[] args) throws IOException, NoServerFoundException {
-        String url = ReadFromProperties.getLocalYrl();
-        int port = ReadFromProperties.getLocalPort();
 
         ServerMessage message = new ServerMessage("1234", "give me weather");
-        ServerClient serverClient = new ServerClient(url, port);
+        WeatherClient serverClient = new WeatherClient(ReadWriteProperties.getServerPort());
 
-        while (true){
-            serverClient.sendGsonMessageToServer(message);
-        }
-
+        serverClient.sendGsonMessageToServer(message);
+        serverClient.getGsonMessageFromServer();
     }
 
 }

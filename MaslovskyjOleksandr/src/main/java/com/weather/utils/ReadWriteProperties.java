@@ -2,24 +2,24 @@ package com.weather.utils;
 
 import org.apache.log4j.Logger;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
-public class ReadFromProperties {
+public class ReadWriteProperties {
 
-    private static final Logger LOGGER = Logger.getLogger(ReadFromProperties.class);
+    private static final Logger LOGGER = Logger.getLogger(ReadWriteProperties.class);
 
     private static Properties properties;
     private static String fileName = "weather.properties";
     private static final String WEATHER_URL = "urlToServer";
-    private static final String WEATHER_PORT = "port";
+    private static final String SERVER_PORT = "port";
     private static final String LOCAL_YRL = "localURL";
     private static final String LOCAL_PORT = "localport";
+    private static File file;
 
-    public ReadFromProperties() throws IOException {
+    public ReadWriteProperties() throws IOException {
         properties = readFromFile();
+        this.file = new File(fileName);
     }
 
     private Properties readFromFile() throws IOException {
@@ -41,9 +41,9 @@ public class ReadFromProperties {
         return readFromFile().getProperty(WEATHER_URL);
     }
 
-    private String getWeatherPortFromFile() throws IOException {
-        LOGGER.info("Get value from " + WEATHER_PORT);
-        return readFromFile().getProperty(WEATHER_PORT);
+    private String getServerPortFromFile() throws IOException {
+        LOGGER.info("Get value from " + SERVER_PORT);
+        return readFromFile().getProperty(SERVER_PORT);
     }
 
     private String getLocalUrlFromFile() throws IOException {
@@ -57,18 +57,27 @@ public class ReadFromProperties {
     }
 
     public static String getWeatherUrl() throws IOException {
-        return new ReadFromProperties().getWeatherUrlFromFile();
+        return new ReadWriteProperties().getWeatherUrlFromFile();
     }
 
-    public static int  getWeatherPort() throws IOException {
-        return Integer.parseInt(new ReadFromProperties().getWeatherPortFromFile());
+    public static int getServerPort() throws IOException {
+        return Integer.parseInt(new ReadWriteProperties().getServerPortFromFile());
     }
 
     public static String getLocalYrl() throws IOException {
-        return new ReadFromProperties().getLocalUrlFromFile();
+        return new ReadWriteProperties().getLocalUrlFromFile();
     }
 
     public static int  getLocalPort() throws IOException {
-        return Integer.parseInt(new ReadFromProperties().getLocalPortFromFile());
+        return Integer.parseInt(new ReadWriteProperties().getLocalPortFromFile());
     }
+
+    public static void writePortIntoProperties(int port) throws IOException {
+        LOGGER.info("WRITE PORT TO PROPERTIES FILE");
+        properties.setProperty(SERVER_PORT, String.valueOf(port));
+        FileWriter fileWriter = new FileWriter(file);
+        properties.store(fileWriter, "");
+        fileWriter.close();
+    }
+
 }

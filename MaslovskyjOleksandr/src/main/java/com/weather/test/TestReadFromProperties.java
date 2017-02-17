@@ -1,7 +1,7 @@
 package com.weather.test;
 
 
-import com.weather.utils.ReadFromProperties;
+import com.weather.utils.ReadWriteProperties;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +19,6 @@ public class TestReadFromProperties {
 
     @Test
     public void testReadFromConfigPropertiesFilepath() throws IOException {
-        Assert.assertEquals(serverUrl, ReadFromProperties.getWeatherUrl());
+        Assert.assertEquals(serverUrl, ReadWriteProperties.getWeatherUrl());
     }
 }

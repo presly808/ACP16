@@ -1,6 +1,6 @@
 package com.weather.server;
 
-import com.weather.client.ServerClient;
+import com.weather.client.WeatherClient;
 import org.apache.log4j.Logger;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,20 +10,20 @@ public class ClientsQueue {
 
     final static Logger LOGGER = Logger.getLogger(ClientsQueue.class);
 
-    private ServerClient client;
-    private Set<ServerClient> clientList;
+    private WeatherClient client;
+    private Set<WeatherClient> clientList;
 
-    public ClientsQueue(ServerClient client) {
+    public ClientsQueue(WeatherClient client) {
         this.client = client;
         clientList = new HashSet<>();
     }
 
-    public boolean addClientToQueue(ServerClient client){
+    public boolean addClientToQueue(WeatherClient client){
         LOGGER.info("ADD CLIENT " + client.toString());
         return clientList.add(client);
     }
 
-    public boolean removeClientFromQueue(ServerClient client){
+    public boolean removeClientFromQueue(WeatherClient client){
         LOGGER.info("REMOVE CLIENT " + client.toString());
         return clientList.remove(client);
     }

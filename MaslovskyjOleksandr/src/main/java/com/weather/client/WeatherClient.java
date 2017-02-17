@@ -4,14 +4,15 @@ package com.weather.client;
 import com.google.gson.Gson;
 import com.weather.controllers.ClientActions;
 import com.weather.exceptions.NoServerFoundException;
+import com.weather.utils.ReadWriteProperties;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.Socket;
 
-public class ServerClient implements ClientActions{
+public class WeatherClient implements ClientActions{
 
-    final static Logger LOGGER = Logger.getLogger(ServerClient.class);
+    final static Logger LOGGER = Logger.getLogger(WeatherClient.class);
 
     private String ipAddress;
     private int port;
@@ -19,8 +20,8 @@ public class ServerClient implements ClientActions{
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
 
-    public ServerClient(String ipAddress, int port) throws IOException {
-        this.connection = new Socket(ipAddress, port);
+    public WeatherClient(int port) throws IOException {
+        this.connection = new Socket(ReadWriteProperties.getLocalYrl(), port);
         this.ipAddress = connection.getInetAddress().toString();
         this.port = connection.getPort();
         this.bufferedReader = new BufferedReader(
@@ -46,7 +47,7 @@ public class ServerClient implements ClientActions{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ServerClient that = (ServerClient) o;
+        WeatherClient that = (WeatherClient) o;
 
         return ipAddress.equals(that.ipAddress);
 
@@ -59,7 +60,7 @@ public class ServerClient implements ClientActions{
 
     @Override
     public String toString() {
-        return "ServerClient{" +
+        return "WeatherClient{" +
                 "ipAddress='" + ipAddress + '\'' +
                 ", port='" + port + '\'' +
                 ", connection=" + connection +
@@ -83,7 +84,7 @@ public class ServerClient implements ClientActions{
     public void getGsonMessageFromServer() throws NoServerFoundException, IOException {
         LOGGER.info("START READING MESSAGE");
         while (bufferedReader.readLine() != null){
-            System.out.println(bufferedReader.readLine());
+            LOGGER.info(bufferedReader.readLine());
         }
         LOGGER.info("FINISH READING MESSAGE");
     }
