@@ -2,6 +2,7 @@ package week3.homework.checkTheWeather.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.log4j.Logger;
 import week3.day1.SocketCreate;
 
 import java.io.*;
@@ -12,6 +13,8 @@ import java.time.LocalDateTime;
  * Created by Vitalii on 13.02.2017.
  */
 public class WeatherClient implements Runnable {
+
+    Logger logger = Logger.getLogger(WeatherClient.class);
 
     private Socket socket;
     private PrintWriter writer;
@@ -39,7 +42,7 @@ public class WeatherClient implements Runnable {
                 weather = gson.fromJson(inputMessage, Weather.class);
                 System.out.println(LocalDateTime.now().toString() + weather + "CLIENT");
             }catch(IOException e){
-                e.printStackTrace();
+                logger.info(e.getMessage());
             }
         }
     }

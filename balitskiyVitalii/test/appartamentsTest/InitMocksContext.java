@@ -1,4 +1,4 @@
-package week2.homework.appartaments.test;
+package appartamentsTest;
 
 import week2.homework.appartaments.dao.JSONRentObjectDAO;
 import week2.homework.appartaments.exceptions.InvalidFlatException;

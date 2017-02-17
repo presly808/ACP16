@@ -1,7 +1,6 @@
 package week3.homework.checkTheWeather.model;
 
 import org.apache.log4j.Logger;
-import week3.day1.SocketCreate;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,13 +13,13 @@ public class WeatherServer implements Runnable{
 
     private static Logger logger = Logger.getLogger(WeatherProvider.class);
     private ServerSocket serverSocket;
-    private WeatherObserver clients;
+    private WeatherObserver clientsObserver;
     private WeatherProvider provider;
 
     public WeatherServer() throws IOException {
         serverSocket = new ServerSocket(8880);
         provider = new WeatherProvider();
-        clients = new WeatherObserver();
+        clientsObserver = new WeatherObserver();
     }
 
     @Override
@@ -30,9 +29,9 @@ public class WeatherServer implements Runnable{
                 Socket clientSocket = serverSocket.accept();
                 logger.info("New client has connected" + clientSocket.getInetAddress());
                 WeatherClient  client = new WeatherClient(clientSocket);
-                clients.addClient(client);
+                clientsObserver.addClient(client);
                 Weather weather = provider.currentWeather();
-                clients.notifyAll(weather);
+                clientsObserver.notifyAll(weather);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -5,17 +5,17 @@ package week3.homework.checkTheWeather.model;
  */
 public class Weather {
 
-    private String tempC;
+    private float tempC;
     private String weather;
 
     public Weather() {
     }
 
-    public String getTempC() {
+    public float getTempC() {
         return tempC;
     }
 
-    public void setTempC(String tempC) {
+    public void setTempC(float tempC) {
         this.tempC = tempC;
     }
 
