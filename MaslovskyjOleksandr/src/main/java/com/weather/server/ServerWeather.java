@@ -3,6 +3,7 @@ package com.weather.server;
 
 import com.google.gson.Gson;
 import com.weather.client.Location;
+import com.weather.client.WeatherClient;
 import com.weather.utils.HtmlParser;
 import com.weather.utils.HttpService;
 import com.weather.utils.PhantomJsUtils;
@@ -47,6 +48,7 @@ public class ServerWeather {
                     Socket client = server.accept();
                     sendToClientTempResponse(client);
                     sendRequestToWeatherServer();
+                    sendWeatherToClient(client);
                 } catch (IOException e) {
                     LOGGER.error("CONNECTION REFUSED");
                     e.printStackTrace();
@@ -59,21 +61,17 @@ public class ServerWeather {
 
     }
 
-    public String listenWeatherGson() throws IOException {
-        final String[] response = {""};
+    public void sendWeatherToClient(Socket client) throws IOException {
         new Thread(() -> {
             LOGGER.info("NEW THREAD CREATED");
-            InputStream inputStream = null;
             try {
-                inputStream = sendRequestToWeatherServer();
-                response[0] = gson.toJson(convertInputStreamToString(inputStream));;
+                sendGetHttpRequestToWeatherServer(getMessageFromClient(client));
             } catch (IOException e) {
                 LOGGER.error("CONNECTION REFUSED");
                 e.printStackTrace();
             }
         }
         ).start();
-        return response[0];
     }
 
     public void sendToClientTempResponse(Socket client) throws IOException {
@@ -121,8 +119,8 @@ public class ServerWeather {
         return element.data();
     }
 
-    public String sendGetRequestToWeatherServer(Location location) throws IOException {
-        String url = generateGetUrl(location);
+    public String sendGetHttpRequestToWeatherServer(String city) throws IOException {
+        String url = generateGetUrl(city);
         String response = HttpService.sendGetQuery(url);
         return response;
     }
@@ -147,11 +145,14 @@ public class ServerWeather {
         return result.toString();
     }
 
-    private String generateGetUrl(Location location) throws IOException {
+    private String getMessageFromClient(Socket client) throws IOException {
+        return convertInputStreamToString(client.getInputStream());
+    }
+
+    private String generateGetUrl(String city) throws IOException {
         String token = ReadWriteProperties.getToken();
         LOGGER.info("GENERATE GET URL");
-        return WEATHER + "/data/2.5/weather?q=" + location.getCityName() + "," +
-                location.getCountryCode() + "&appid=" + token;
+        return WEATHER + "/data/2.5/weather?q=" + city + "&appid=" + token;
     }
 
 }

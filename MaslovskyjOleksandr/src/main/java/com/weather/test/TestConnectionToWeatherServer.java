@@ -14,13 +14,13 @@ public class TestConnectionToWeatherServer {
 
     private ServerWeather server;
     private String expectedTemp;
-    private Location location;
+    private String location;
 
     @Before
     public void prepareForTesting() throws IOException {
         server = new ServerWeather();
         this.expectedTemp = "7.5";
-        this.location = new Location("London", "uk");
+        this.location = "London";
     }
 
     @Test
@@ -37,7 +37,7 @@ public class TestConnectionToWeatherServer {
 
     @Test
     public void testSendGetRequestToWeatherServer() throws IOException {
-        Assert.assertNotNull(server.sendGetRequestToWeatherServer(location));
+        Assert.assertNotNull(server.sendGetHttpRequestToWeatherServer(location));
     }
 
     @Test

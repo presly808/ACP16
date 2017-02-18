@@ -34,18 +34,6 @@ public class WeatherClient implements ClientActions{
         this.gson = new Gson();
     }
 
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public Socket getConnection() {
-        return connection;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,6 +68,12 @@ public class WeatherClient implements ClientActions{
     public void sendGsonMessageToServer(ServerMessage message) throws IOException, NoServerFoundException {
         LOGGER.info("CONVERT MESSAGE TO JSON");
         bufferedWriter.write(gson.toJson(message));
+        bufferedWriter.flush();
+    }
+
+    public void sendGsonMessageToServer(String city) throws IOException, NoServerFoundException {
+        LOGGER.info("CONVERT MESSAGE TO JSON");
+        bufferedWriter.write(gson.toJson(city));
         bufferedWriter.flush();
     }
 

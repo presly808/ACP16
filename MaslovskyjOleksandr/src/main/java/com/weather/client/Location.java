@@ -3,27 +3,19 @@ package com.weather.client;
 
 public class Location {
 
-    private String countryCode;
-    private String cityName;
+    private CountryAndCityNames countryCode;
+    private CountryAndCityNames cityName;
 
-    public Location(String countryCode, String cityName) {
+    public Location(CountryAndCityNames countryCode, CountryAndCityNames cityName) {
         this.countryCode = countryCode;
         this.cityName = cityName;
     }
 
-    public String getCountryCode() {
+    public CountryAndCityNames getCountryCode() {
         return countryCode;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getCityName() {
+    public CountryAndCityNames getCityName() {
         return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
     }
 }

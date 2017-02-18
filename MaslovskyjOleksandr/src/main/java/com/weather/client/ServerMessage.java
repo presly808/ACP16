@@ -1,8 +1,6 @@
 package com.weather.client;
 
-/**
- * Created by ubuntu on 13.02.17.
- */
+
 public class ServerMessage{
 
     private String ip;
