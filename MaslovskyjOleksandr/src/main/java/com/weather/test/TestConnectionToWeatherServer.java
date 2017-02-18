@@ -12,13 +12,13 @@ import java.io.InputStream;
 public class TestConnectionToWeatherServer {
 
     private ServerWeather server;
-    private String ectualTemp;
+    private String expectedTemp;
 
 
     @Before
     public void prepareForTesting() throws IOException {
         server = new ServerWeather();
-        this.ectualTemp = "7.5";
+        this.expectedTemp = "7.5";
     }
 
 
@@ -31,7 +31,7 @@ public class TestConnectionToWeatherServer {
     @Test
     public void testGetValueFromWeather() throws IOException {
         Assert.assertNotNull(server.getValueFromWeather());
-        Assert.assertTrue(ectualTemp.equals(server.getValueFromWeather()));
+        Assert.assertTrue(expectedTemp.equals(server.getValueFromWeather()));
     }
 
     @Test
