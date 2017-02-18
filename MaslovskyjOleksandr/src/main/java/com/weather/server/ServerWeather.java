@@ -2,7 +2,10 @@ package com.weather.server;
 
 
 import com.google.gson.Gson;
+import com.weather.client.Location;
 import com.weather.utils.HtmlParser;
+import com.weather.utils.HttpService;
+import com.weather.utils.PhantomJsUtils;
 import com.weather.utils.ReadWriteProperties;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
@@ -34,14 +37,6 @@ public class ServerWeather {
         this.port = server.getLocalPort();
         this.gson = new Gson();
         //ReadWriteProperties.writePortIntoProperties(port);
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
     }
 
     public void listeningClients(){
@@ -95,7 +90,7 @@ public class ServerWeather {
     }
 
     public void sendToClientResponseWithTemperature(Socket client) throws IOException {
-        String value = gson.toJson(getValueFromWeather());
+        String value = gson.toJson(getValueFromWeatherFantom());
         BufferedWriter bufferedWriter = new BufferedWriter(
                 new OutputStreamWriter(client.getOutputStream()));
         bufferedWriter.write(value);
@@ -112,6 +107,13 @@ public class ServerWeather {
         return socket.getInputStream();
     }
 
+    public String getValueFromWeatherFantom() throws IOException {
+        Document document = getHTMLSourceFromPhantomDriver();
+        Element element = HtmlParser.getElement(document, TEMP_ID);
+        LOGGER.info("GET VALUE FROM ELEMENT");
+        return element.data();
+    }
+
     public String getValueFromWeather() throws IOException {
         Document document = getHTMLSource();
         Element element = HtmlParser.getElement(document, TEMP_ID);
@@ -119,13 +121,37 @@ public class ServerWeather {
         return element.data();
     }
 
-    private Document getHTMLSource() throws IOException {
-        return HtmlParser.getPageSource(ReadWriteProperties.getWeatherUrl());
+    public String sendGetRequestToWeatherServer(Location location) throws IOException {
+        String url = generateGetUrl(location);
+        String response = HttpService.sendGetQuery(url);
+        return response;
     }
 
-    private String convertInputStreamToString(InputStream inputStream){
-        return new BufferedReader(new InputStreamReader(inputStream))
-                .lines().collect(Collectors.joining("\n")).toString();
+    private Document getHTMLSource() throws IOException {
+        return HtmlParser.getPageSource(WEATHER);
+    }
+
+    private Document getHTMLSourceFromPhantomDriver(){
+        return PhantomJsUtils.getSourcePage(WEATHER);
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder result = new StringBuilder();
+        String line;
+        LOGGER.info("READ RESPONSE FROM SERVER");
+        while ((line = bufferedReader.readLine()) != null){
+            result.append(line);
+        }
+        bufferedReader.close();
+        return result.toString();
+    }
+
+    private String generateGetUrl(Location location) throws IOException {
+        String token = ReadWriteProperties.getToken();
+        LOGGER.info("GENERATE GET URL");
+        return WEATHER + "/data/2.5/weather?q=" + location.getCityName() + "," +
+                location.getCountryCode() + "&appid=" + token;
     }
 
 }

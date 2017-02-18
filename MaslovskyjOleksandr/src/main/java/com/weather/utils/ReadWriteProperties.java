@@ -11,6 +11,7 @@ public class ReadWriteProperties {
 
     private static Properties properties;
     private static String fileName = "weather.properties";
+    private static final String TOKEN = "token";
     private static final String WEATHER_URL = "urlToServer";
     private static final String SERVER_PORT = "port";
     private static final String LOCAL_YRL = "localURL";
@@ -54,6 +55,15 @@ public class ReadWriteProperties {
     private String getLocalPortFromFile() throws IOException {
         LOGGER.info("Get value from " + LOCAL_PORT);
         return readFromFile().getProperty(LOCAL_PORT);
+    }
+
+    private String getTokenFromFile() throws IOException {
+        LOGGER.info("Get value from " + TOKEN);
+        return readFromFile().getProperty(TOKEN);
+    }
+
+    public static String getToken() throws IOException {
+        return new ReadWriteProperties().getTokenFromFile();
     }
 
     public static String getWeatherUrl() throws IOException {

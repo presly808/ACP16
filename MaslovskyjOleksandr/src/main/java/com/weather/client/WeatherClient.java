@@ -2,12 +2,14 @@ package com.weather.client;
 
 
 import com.google.gson.Gson;
+import com.schema.JSonSchema;
 import com.weather.controllers.ClientActions;
 import com.weather.exceptions.NoServerFoundException;
 import com.weather.utils.ReadWriteProperties;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.Socket;
 
 public class WeatherClient implements ClientActions{
@@ -19,6 +21,7 @@ public class WeatherClient implements ClientActions{
     private Socket connection;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
+    private Gson gson;
 
     public WeatherClient(int port) throws IOException {
         this.connection = new Socket(ReadWriteProperties.getLocalYrl(), port);
@@ -28,6 +31,7 @@ public class WeatherClient implements ClientActions{
                 new InputStreamReader(connection.getInputStream()));
         this.bufferedWriter = new BufferedWriter(
                 new OutputStreamWriter(connection.getOutputStream()));
+        this.gson = new Gson();
     }
 
     public String getIpAddress() {
@@ -74,18 +78,28 @@ public class WeatherClient implements ClientActions{
     }
 
     public void sendGsonMessageToServer(ServerMessage message) throws IOException, NoServerFoundException {
-        Gson gson = new Gson();
         LOGGER.info("CONVERT MESSAGE TO JSON");
         bufferedWriter.write(gson.toJson(message));
         bufferedWriter.flush();
     }
 
     @Override
-    public void getGsonMessageFromServer() throws NoServerFoundException, IOException {
-        LOGGER.info("START READING MESSAGE");
-        while (bufferedReader.readLine() != null){
-            LOGGER.info(bufferedReader.readLine());
-        }
+    public <T>T getGsonMessageFromServer() throws NoServerFoundException, IOException {
         LOGGER.info("FINISH READING MESSAGE");
+        JSonSchema schema = gson.fromJson(readResponse(), (Type) JSonSchema.class);
+        LOGGER.info("PARSE STRING TO OBJECT");
+        LOGGER.info(schema);
+        return (T) schema;
+    }
+
+    private String readResponse() throws IOException {
+        StringBuilder result = new StringBuilder();
+        String line;
+        LOGGER.info("READ RESPONSE FROM SERVER");
+        while ((line = bufferedReader.readLine()) != null){
+            result.append(line);
+        }
+        bufferedReader.close();
+        return result.toString();
     }
 }

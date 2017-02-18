@@ -1,6 +1,7 @@
 package com.weather.test;
 
 
+import com.weather.client.Location;
 import com.weather.server.ServerWeather;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,14 +14,14 @@ public class TestConnectionToWeatherServer {
 
     private ServerWeather server;
     private String expectedTemp;
-
+    private Location location;
 
     @Before
     public void prepareForTesting() throws IOException {
         server = new ServerWeather();
         this.expectedTemp = "7.5";
+        this.location = new Location("London", "uk");
     }
-
 
     @Test
     public void testSendRequestToWeatherServer() throws IOException {
@@ -30,8 +31,13 @@ public class TestConnectionToWeatherServer {
 
     @Test
     public void testGetValueFromWeather() throws IOException {
-        Assert.assertNotNull(server.getValueFromWeather());
-        Assert.assertTrue(expectedTemp.equals(server.getValueFromWeather()));
+        Assert.assertNotNull(server.getValueFromWeatherFantom());
+        Assert.assertTrue(expectedTemp.equals(server.getValueFromWeatherFantom()));
+    }
+
+    @Test
+    public void testSendGetRequestToWeatherServer() throws IOException {
+        Assert.assertNotNull(server.sendGetRequestToWeatherServer(location));
     }
 
     @Test
@@ -43,6 +49,5 @@ public class TestConnectionToWeatherServer {
     public void testListenWeatherGson(){
 
     }
-
 
 }

@@ -12,6 +12,6 @@ public interface ClientActions {
 
     void sendGsonMessageToServer(ServerMessage message) throws NoServerFoundException, IOException;
 
-    void getGsonMessageFromServer() throws NoServerFoundException, IOException;
+    abstract <T>T getGsonMessageFromServer() throws NoServerFoundException, IOException;
 
 }
