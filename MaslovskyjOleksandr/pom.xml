@@ -8,19 +8,14 @@
     <artifactId>MaslovskyjOleksandr</artifactId>
     <version>1.0</version>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
+    <parent>
+        <groupId>acp16id</groupId>
+        <artifactId>ACP16</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    
     <dependencies>
 
         <dependency>
