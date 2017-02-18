@@ -1,0 +1,4 @@
+For running project go to runner package.
+1. first start WeatherServerRunner
+2. second start WeatherClientRunner
+3. in weather.properties token hardcoded
