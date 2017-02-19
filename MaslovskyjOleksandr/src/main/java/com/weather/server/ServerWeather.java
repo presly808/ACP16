@@ -87,7 +87,7 @@ public class ServerWeather {
         }
     }
 
-    public void sendToClientResponseWithTemperature(Socket client) throws IOException {
+    public void sendToClientResponseWithTemperature(Socket client) throws IOException, InterruptedException {
         String value = gson.toJson(getValueFromWeatherFantom());
         BufferedWriter bufferedWriter = new BufferedWriter(
                 new OutputStreamWriter(client.getOutputStream()));
@@ -105,7 +105,7 @@ public class ServerWeather {
         return socket.getInputStream();
     }
 
-    public String getValueFromWeatherFantom() throws IOException {
+    public String getValueFromWeatherFantom() throws IOException, InterruptedException {
         Document document = getHTMLSourceFromPhantomDriver();
         Element element = HtmlParser.getElement(document, TEMP_ID);
         LOGGER.info("GET VALUE FROM ELEMENT");
@@ -129,7 +129,7 @@ public class ServerWeather {
         return HtmlParser.getPageSource(WEATHER);
     }
 
-    private Document getHTMLSourceFromPhantomDriver(){
+    private Document getHTMLSourceFromPhantomDriver() throws InterruptedException {
         return PhantomJsUtils.getSourcePage(WEATHER);
     }
 

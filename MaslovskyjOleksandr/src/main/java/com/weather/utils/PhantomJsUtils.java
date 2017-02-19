@@ -7,6 +7,8 @@ import org.jsoup.nodes.Document;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
+import java.util.concurrent.TimeUnit;
+
 public class PhantomJsUtils {
 
     private static final Logger LOGGER = Logger.getLogger(PhantomJsUtils.class);
@@ -18,8 +20,9 @@ public class PhantomJsUtils {
         this.driver = new PhantomJSDriver();
     }
 
-    public static Document getSourcePage(String url){
+    public static Document getSourcePage(String url) throws InterruptedException {
         new PhantomJsUtils();
+        driver.manage().timeouts().pageLoadTimeout(5000, TimeUnit.MILLISECONDS);
         driver.get(url);
         LOGGER.info("GET SOURCE PAGE FROM PHANTOM DRIVER");
         Document document = Jsoup.parse(driver.getPageSource());

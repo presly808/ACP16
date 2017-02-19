@@ -30,7 +30,7 @@ public class TestConnectionToWeatherServer {
     }
 
     @Test
-    public void testGetValueFromWeather() throws IOException {
+    public void testGetValueFromWeather() throws IOException, InterruptedException {
         Assert.assertNotNull(server.getValueFromWeatherFantom());
         Assert.assertTrue(expectedTemp.equals(server.getValueFromWeatherFantom()));
     }
