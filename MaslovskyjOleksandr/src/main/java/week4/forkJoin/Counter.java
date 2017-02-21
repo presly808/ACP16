@@ -1,4 +1,4 @@
-package com.bank.forkJoin;
+package week4.forkJoin;
 
 import org.apache.log4j.Logger;
 

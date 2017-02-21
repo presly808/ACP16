@@ -1,6 +1,4 @@
-package com.bank.mathCounting;
-
-import com.bank.mathCounting.MatchCounter;
+package week4.mathCounting;
 
 import java.io.File;
 import java.util.Scanner;

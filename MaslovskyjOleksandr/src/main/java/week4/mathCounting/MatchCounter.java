@@ -1,4 +1,4 @@
-package com.bank.mathCounting;
+package week4.mathCounting;
 
 import org.apache.log4j.Logger;
 

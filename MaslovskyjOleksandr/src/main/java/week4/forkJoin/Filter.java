@@ -1,4 +1,4 @@
-package com.bank.forkJoin;
+package week4.forkJoin;
 
 public interface Filter {
 

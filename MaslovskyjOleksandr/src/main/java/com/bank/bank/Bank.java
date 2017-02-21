@@ -26,7 +26,7 @@ public class Bank {
         LOGGER.info("TOTAL BALANCE: " + getTotalBalance());
     }
 
-    private double getTotalBalance() {
+    public double getTotalBalance() {
         double sum = 0;
         LOGGER.info("CALCULATE TOTAL BALANCE");
         for (double a: accounts){

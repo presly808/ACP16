@@ -1,7 +1,4 @@
-package com.bank.forkJoin;
-
-import com.bank.forkJoin.Counter;
-import com.bank.forkJoin.Filter;
+package week4.forkJoin;
 
 import java.util.concurrent.ForkJoinPool;
 

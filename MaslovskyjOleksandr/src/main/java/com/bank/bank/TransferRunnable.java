@@ -11,10 +11,10 @@ public class TransferRunnable implements Runnable {
     private double maxAmount;
     private int DELAY;
 
-    public TransferRunnable(Bank bank, int from, double max) {
+    public TransferRunnable(Bank bank, int fromAccount, double max) {
         LOGGER.info("INITIALIZE TRANSFER");
         this.bank = bank;
-        fromAccount = from;
+        this.fromAccount = fromAccount;
         maxAmount = max;
         this.DELAY  = 10;
     }
