@@ -1,5 +1,8 @@
 package com.bank.forkJoin;
 
+import com.bank.forkJoin.Counter;
+import com.bank.forkJoin.Filter;
+
 import java.util.concurrent.ForkJoinPool;
 
 public class ForkJoinTest {

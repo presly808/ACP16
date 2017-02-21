@@ -1,4 +1,7 @@
-package com.bank.bank;
+package com.bank.test;
+
+import com.bank.bank.Bank;
+import com.bank.bank.TransferRunnable;
 
 public class UnsynchBankTest {
 

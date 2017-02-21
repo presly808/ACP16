@@ -1,22 +1,28 @@
 package com.bank.mathCounting;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MatchCounter {
 
+    static final Logger LOGGER = Logger.getLogger(MatchCounter.class);
+
     private File directory;
     private String keyword;
     private int count;
 
     public MatchCounter(File directory, String keyword) {
+        LOGGER.info("INITIALIZE MATCH COUNTER");
         this.directory = directory;
         this.keyword = keyword;
     }
 
     public int find(){
         count = 0;
+        LOGGER.info("CALCULATE QUANTITY OF MATCHES");
         File[] files = directory.listFiles();
         for (File file : files){
             if (file.isDirectory()){
@@ -31,6 +37,7 @@ public class MatchCounter {
     }
 
     public boolean search(File file){
+        LOGGER.info("SEARCH " + keyword + " IN FILE");
         try (Scanner in = new Scanner(file)){
             boolean found = false;
             while (!found && in.hasNextLine()){
