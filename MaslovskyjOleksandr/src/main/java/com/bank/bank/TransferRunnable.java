@@ -25,12 +25,25 @@ public class TransferRunnable implements Runnable {
         try {
             while (true){
                 LOGGER.info("RUN ACTION");
-                int toAccount = (int) (bank.size()*Math.random());
-                double amount = maxAmount*Math.random();
+                int toAccount = generateDestinationAccount();
+                double amount = generateAmount();
                 bank.transfer(fromAccount, toAccount, amount);
-                Thread.sleep((int) (DELAY*Math.random()));
+                Thread.sleep(generateTime());
             }
         }
         catch (InterruptedException e){}
     }
+
+    private int generateTime() {
+        return (int) (DELAY*Math.random());
+    }
+
+    private double generateAmount() {
+        return maxAmount*Math.random();
+    }
+
+    private int generateDestinationAccount(){
+        return (int) (bank.size()*Math.random());
+    }
+
 }
