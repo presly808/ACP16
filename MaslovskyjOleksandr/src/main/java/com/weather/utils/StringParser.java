@@ -1,7 +1,7 @@
 package com.weather.utils;
 
 import com.google.gson.Gson;
-import com.schema.JSonSchema;
+import com.weather.schema.JSonSchema;
 
 public class StringParser {
 

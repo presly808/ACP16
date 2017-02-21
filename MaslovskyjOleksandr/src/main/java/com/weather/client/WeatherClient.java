@@ -2,7 +2,7 @@ package com.weather.client;
 
 
 import com.google.gson.Gson;
-import com.schema.JSonSchema;
+import com.weather.schema.JSonSchema;
 import com.weather.controllers.ClientActions;
 import com.weather.exceptions.NoServerFoundException;
 import com.weather.utils.ReadWriteProperties;
