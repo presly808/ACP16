@@ -34,16 +34,31 @@ public class TransferRunnable implements Runnable {
         catch (InterruptedException e){}
     }
 
-    private int generateTime() {
+    protected int generateTime() {
         return (int) (DELAY*Math.random());
     }
 
-    private double generateAmount() {
+    protected double generateAmount() {
         return maxAmount*Math.random();
     }
 
-    private int generateDestinationAccount(){
+    protected int generateDestinationAccount(){
         return (int) (bank.size()*Math.random());
     }
 
+    public Bank getBank() {
+        return bank;
+    }
+
+    public int getFromAccount() {
+        return fromAccount;
+    }
+
+    public double getMaxAmount() {
+        return maxAmount;
+    }
+
+    public int getDELAY() {
+        return DELAY;
+    }
 }

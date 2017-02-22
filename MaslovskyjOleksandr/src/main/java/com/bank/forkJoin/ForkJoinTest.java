@@ -1,4 +1,4 @@
-package week4.forkJoin;
+package com.bank.forkJoin;
 
 import java.util.concurrent.ForkJoinPool;
 

@@ -1,4 +1,4 @@
-package week4.mathCounting;
+package com.bank.mathCounting;
 
 import org.apache.log4j.Logger;
 
@@ -48,5 +48,17 @@ public class MatchCounter {
         } catch (FileNotFoundException e) {
             return false;
         }
+    }
+
+    public File getDirectory() {
+        return directory;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public int getCount() {
+        return count;
     }
 }

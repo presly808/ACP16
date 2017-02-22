@@ -1,13 +1,11 @@
-package com.bank.test;
+package com.bank.bank.test;
 
 import com.bank.bank.Bank;
 import com.bank.bank.TransferRunnable;
+import com.bank.bank.TransferRunnableReadWriteLock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class UnsynchBankTest {
 
@@ -23,11 +21,29 @@ public class UnsynchBankTest {
     }
 
     @Test
-    public void testUnSyncBankAction() throws InterruptedException {
+    public void testUnSyncBankLockAction() throws InterruptedException {
         Bank bank = new Bank(accounts, initialBalance);
 
         for (int account = 0; account < accounts; account++) {
             TransferRunnable runnable = new TransferRunnable(bank, account, initialBalance);
+            Thread thread = new Thread(runnable);
+            thread.start();
+        }
+
+        double actualBalance = 0;
+        for (double account : bank.getAccounts()) {
+            actualBalance = bank.getTotalBalance();
+        }
+
+        Assert.assertTrue(expectedBalance == actualBalance);
+    }
+
+    @Test
+    public void testUnSyncBankReadWriteAction() throws InterruptedException {
+        Bank bank = new Bank(accounts, initialBalance);
+
+        for (int account = 0; account < accounts; account++) {
+            TransferRunnable runnable = new TransferRunnableReadWriteLock(bank, account, initialBalance);
             Thread thread = new Thread(runnable);
             thread.start();
         }
