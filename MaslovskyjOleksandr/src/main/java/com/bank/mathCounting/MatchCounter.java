@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class MatchCounter {
 
@@ -23,17 +25,18 @@ public class MatchCounter {
     public int find(){
         count = 0;
         LOGGER.info("CALCULATE QUANTITY OF MATCHES");
+
         File[] files = directory.listFiles();
-        for (File file : files){
-            if (file.isDirectory()){
-                MatchCounter counter = new MatchCounter(file, keyword);
-                count += counter.find();
-            }
-            else {
-                if (search(file)) {count++;}
-            }
+        return runByFiles(files);
+    }
+
+    public int find(boolean flag){
+        ConcurrentMap<Integer, File> files= new ConcurrentHashMap<>();
+        int i = 0;
+        for (File file : directory.listFiles()) {
+            files.put(i++, file);
         }
-        return count;
+        return runByFiles(files);
     }
 
     public boolean search(File file){
@@ -50,15 +53,31 @@ public class MatchCounter {
         }
     }
 
-    public File getDirectory() {
-        return directory;
+    private int runByFiles(File[] files) {
+        LOGGER.info("RUN BY ARRAY");
+        for (File file : files){
+            if (file.isDirectory()){
+                MatchCounter counter = new MatchCounter(file, keyword);
+                count += counter.find();
+            }
+            else {
+                if (search(file)) {count++;}
+            }
+        }
+        return count;
     }
 
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public int getCount() {
+    private int runByFiles(ConcurrentMap<Integer, File> files) {
+        LOGGER.info("RUN BY ConcurrentMap");
+        for (File file : files.values()) {
+            if (file.isDirectory()){
+                MatchCounter counter = new MatchCounter(file, keyword);
+                count += counter.find();
+            }
+            else {
+                if (search(file)) {count++;}
+            }
+        }
         return count;
     }
 }

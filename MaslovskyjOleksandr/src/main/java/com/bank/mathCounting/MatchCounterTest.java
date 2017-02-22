@@ -5,10 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.RunnableFuture;
+import java.util.concurrent.*;
 
 public class MatchCounterTest {
 
@@ -43,7 +40,7 @@ public class MatchCounterTest {
         int actualResult = 0;
         for (int i = 0; i < THREADS_NUMBER; i++) {
             try {
-                RunnableFuture<Integer> future = new FutureTask(new MultiThreadingMatcher(matchCounter));
+                RunnableFuture<Integer> future = new FutureTask(() -> matchCounter.find(true));
                 future.run();
                 actualResult += future.get();
             } catch (Exception e) {

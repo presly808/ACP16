@@ -2,8 +2,6 @@ package com.bank.mathCounting;
 
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 public class MultiThreadingMatcher implements Callable<Integer>{
 
