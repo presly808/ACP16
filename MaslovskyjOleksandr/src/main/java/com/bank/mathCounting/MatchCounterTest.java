@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.*;
 
 public class MatchCounterTest {
@@ -12,8 +13,6 @@ public class MatchCounterTest {
     private String directoryPath;
     private String keyWord;
     private int expectedResult;
-    private long oneThreadTime;
-    private final int THREADS_NUMBER = 10;
 
     @Before
     public void prepareData(){
@@ -28,30 +27,28 @@ public class MatchCounterTest {
         MatchCounter matchCounter = new MatchCounter(new File(directoryPath), keyWord);
         int actualResult = matchCounter.find();
         long end= System.currentTimeMillis();
-        oneThreadTime = end - start;
         Assert.assertTrue(expectedResult == actualResult);
     }
 
     @Test
-    public void testMatchCounterInMultyThreading() throws ExecutionException, InterruptedException {
+    public void testMatchCounterInMultyThreading() throws ExecutionException, InterruptedException, IOException {
         long start= System.currentTimeMillis();
         MatchCounter matchCounter = new MatchCounter(new File(directoryPath), keyWord);
 
-        int actualResult = 0;
-        for (int i = 0; i < THREADS_NUMBER; i++) {
-            try {
-                RunnableFuture<Integer> future = new FutureTask(() -> matchCounter.find(true));
-                future.run();
-                actualResult += future.get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        long actualResult = matchCounter.findQuantityOf();
 
         long end= System.currentTimeMillis();
         long multiThreadTime = end - start;
 
-        Assert.assertTrue(multiThreadTime < oneThreadTime);
         Assert.assertTrue(expectedResult == actualResult);
+        Assert.assertTrue(multiThreadTime < calculateMatchCounterInOneThread());
+    }
+
+    private long calculateMatchCounterInOneThread(){
+        long start= System.currentTimeMillis();
+        MatchCounter matchCounter = new MatchCounter(new File(directoryPath), keyWord);
+        matchCounter.find();
+        long end= System.currentTimeMillis();
+        return end - start;
     }
 }

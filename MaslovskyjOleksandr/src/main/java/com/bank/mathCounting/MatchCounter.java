@@ -4,9 +4,12 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MatchCounter {
 
@@ -22,6 +25,10 @@ public class MatchCounter {
         this.keyword = keyword;
     }
 
+    public MatchCounter(File directory) {
+        this.directory = directory;
+    }
+
     public int find(){
         count = 0;
         LOGGER.info("CALCULATE QUANTITY OF MATCHES");
@@ -30,14 +37,11 @@ public class MatchCounter {
         return runByFiles(files);
     }
 
-    public int find(boolean flag){
-        ConcurrentMap<Integer, File> files= new ConcurrentHashMap<>();
-        int i = 0;
-        for (File file : directory.listFiles()) {
-            files.put(i++, file);
-        }
-        return runByFiles(files);
+    public Long findQuantityOf() throws IOException {
+        LOGGER.info("CALCULATE QUANTITY OF MATCHES");
+        return getFileList().parallelStream().filter(File -> search(File)).collect(Collectors.counting());
     }
+
 
     public boolean search(File file){
         LOGGER.info("SEARCH " + keyword + " IN FILE");
@@ -67,17 +71,11 @@ public class MatchCounter {
         return count;
     }
 
-    private int runByFiles(ConcurrentMap<Integer, File> files) {
-        LOGGER.info("RUN BY ConcurrentMap");
-        for (File file : files.values()) {
-            if (file.isDirectory()){
-                MatchCounter counter = new MatchCounter(file, keyword);
-                count += counter.find();
-            }
-            else {
-                if (search(file)) {count++;}
-            }
-        }
-        return count;
+    private List<File> getFileList() throws IOException {
+        return Files.walk(Paths.get(directory.getPath()))
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .collect(Collectors.toList());
     }
+
 }
