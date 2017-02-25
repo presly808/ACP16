@@ -45,10 +45,7 @@ public class UnsynchBankTest {
             thread.start();
         }
 
-        double actualBalance = 0;
-        for (double account : bank.getAccounts()) {
-            actualBalance = bank.getTotalBalance();
-        }
+        double actualBalance = bank.getTotalBalance();
 
         Assert.assertTrue(expectedBalance == actualBalance);
     }
