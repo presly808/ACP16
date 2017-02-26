@@ -1,4 +1,5 @@
-package artcode.week3;
+package week3.socket;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,16 +7,14 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-/**
- * @author Serhii Bilobrov
- * @since 1.7
- */
-public class TestSocket {
+public class MyTestSocket {
+ private static String ipAddressName = "192.168.1.115";
+    private static int port = 8888;
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("google.com", 80);
+        Socket socket = new Socket(ipAddressName, port);
         PrintWriter pw = new PrintWriter(socket.getOutputStream());
-        pw.println("GET / HTTP/1.1\n");
+        pw.println("Ops");
         pw.flush();
 
         readStream(socket.getInputStream());
@@ -23,10 +22,12 @@ public class TestSocket {
 
     private static void readStream(InputStream inputStream) throws IOException {
         Scanner sc = new Scanner(inputStream);
-
-        while (sc.hasNextLine()) {
-            System.out.println(sc.nextLine());
+        while (true){
+            while (sc.hasNextLine()) {
+                System.out.println(sc.nextLine());
+            }
         }
     }
-
 }
+
+
