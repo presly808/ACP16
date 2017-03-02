@@ -7,6 +7,7 @@
     <groupId>idProject</groupId>
     <artifactId>MaslovskyjOleksandr</artifactId>
     <version>1.0</version>
+    <packaging>pom</packaging>
 
 
     <parent>
@@ -80,4 +81,5 @@
 
     </dependencies>
 
+    
 </project>
