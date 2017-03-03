@@ -3,11 +3,14 @@ package utils;
 
 import org.apache.log4j.Logger;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
 
 import static utils.PropertyReader.*;
 
+@NamedQuery(name="Assignment.findAll", query ="SELECT * FROM candidates")
 public class ManagerCreator {
 
     private static Logger LOG = Logger.getLogger(ManagerCreator.class);
@@ -20,12 +23,8 @@ public class ManagerCreator {
         }
     }
 
-    private EntityManagerFactory getManagerFactory() {
-        return managerFactory;
-    }
-
-    public static EntityManagerFactory getManager(){
+    public static EntityManager getManager(){
         LOG.info("CREATE EntityManagerFactory ");
-        return new ManagerCreator().getManagerFactory();
+        return new ManagerCreator().managerFactory.createEntityManager();
     }
 }

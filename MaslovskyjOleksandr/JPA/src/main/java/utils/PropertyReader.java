@@ -2,7 +2,11 @@ package utils;
 
 
 import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 
@@ -10,25 +14,45 @@ public class PropertyReader {
 
     private static  final Logger LOGGER = Logger.getLogger(PropertyReader.class);
 
-    private static final String DB_PROPERTIES = "db.properties";
+    private static String fileName = "db.properties";
     private static final String UNIT = "unit";
     private static Properties properties;
+    private static File file;
 
     public PropertyReader() {
-        if (properties == null) {
-            this.properties = new Properties();
-            try {
-                properties.load(this.getClass().getResourceAsStream(DB_PROPERTIES));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            properties = readFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        this.file = new File(fileName);
+    }
+
+    private Properties readFromFile() throws IOException {
+        properties = new Properties();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+
+        if (inputStream != null) {
+            properties.load(inputStream);
+        } else {
+            LOGGER.error("Can`t read from properties file");
+            throw new FileNotFoundException();
+        }
+        return properties;
+    }
+
+    private String getUnit() {
+        LOGGER.info("READ UNIT NAME FROM PROPERTIES FILE");
+        try {
+            return readFromFile().getProperty(UNIT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String getUnitName() {
-        properties = new Properties();
-        LOGGER.info("READ UNIT NAME FROM PROPERTIES FILE");
-        return properties.getProperty(UNIT);
+        return new PropertyReader().getUnit();
     }
 
 }
