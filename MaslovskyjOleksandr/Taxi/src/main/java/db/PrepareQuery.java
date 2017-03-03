@@ -1,7 +1,7 @@
 package db;
 
 
-import controllers.IQuery;
+import dao.IQuery;
 import exception.DbNotAvailableException;
 import utils.ConnectionFactory;
 

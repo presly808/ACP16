@@ -4,11 +4,10 @@ import javax.persistence.*;
 
 @Table(name = "clans")
 @Entity
-public class Clan {
+public class Clan extends IdGenerator{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @OneToMany(mappedBy = "clan")
+    private Candidate candidate;
 
     @Column(unique = true, name = "name", nullable = false)
     private String name;
@@ -16,12 +15,16 @@ public class Clan {
     @Column(name = "rate", nullable = false)
     private int rate;
 
-    public long getId() {
-        return id;
+    public Clan() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Clan(String name) {
+        this.name = name;
+    }
+
+    public Clan(String name, int rate) {
+        this.name = name;
+        this.rate = rate;
     }
 
     public String getName() {
@@ -41,25 +44,9 @@ public class Clan {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Clan clan = (Clan) o;
-
-        return id == clan.id;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
-
-    @Override
     public String toString() {
         return "Clan{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", rate=" + rate +
                 '}';

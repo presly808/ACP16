@@ -1,6 +1,6 @@
 package service;
 
-import controllers.ILocation;
+import dao.ILocation;
 import exception.NotValidPriceException;
 import exception.WrongCoordinatesException;
 import models.Location;

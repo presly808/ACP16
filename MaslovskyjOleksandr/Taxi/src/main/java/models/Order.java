@@ -1,6 +1,6 @@
 package models;
 
-import controllers.ILocation;
+import dao.ILocation;
 import utils.DateGenerator;
 import utils.IdGenerator;
 

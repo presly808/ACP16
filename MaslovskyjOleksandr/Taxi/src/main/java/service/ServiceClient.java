@@ -1,7 +1,7 @@
 package service;
 
-import controllers.ILocation;
-import controllers.IServiceClient;
+import dao.ILocation;
+import dao.IServiceClient;
 import exception.NoAvailableCarsException;
 import exception.NoOrderFoundException;
 import exception.NotValidPriceException;

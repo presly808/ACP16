@@ -3,12 +3,8 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name= "candidates")
-public class Candidate {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+@Table(name = "candidates")
+public class Candidate extends IdGenerator{
 
     @Column(nullable = false, length = 40)
     private String name;
@@ -17,26 +13,31 @@ public class Candidate {
     private int age;
 
     @ManyToOne
-    @JoinColumn(name = "clan_id")
+    @JoinColumn(name = "clan_id", referencedColumnName = "id")
     private Clan clan;
 
     @ManyToOne
-    @JoinColumn(name = "region_id")
+    @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
 
     @ManyToOne
-    @JoinColumn(name = "interest_id")
+    @JoinColumn(name = "interest_id", referencedColumnName = "id")
     private Interest interest;
 
     public Candidate() {
     }
 
-    public long getId() {
-        return id;
+    public Candidate(String name, int age, Clan clan, Region region, Interest interest) {
+        this.name = name;
+        this.age = age;
+        this.clan = clan;
+        this.region = region;
+        this.interest = interest;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Candidate(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
     public String getName() {
@@ -80,25 +81,9 @@ public class Candidate {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Candidate candidate = (Candidate) o;
-
-        return id == candidate.id;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
-
-    @Override
     public String toString() {
         return "Candidate{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", clan=" + clan +

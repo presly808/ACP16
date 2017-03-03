@@ -3,7 +3,7 @@ package client;
 
 import com.google.gson.Gson;
 
-import controllers.ClientActions;
+import dao.ClientActions;
 import exceptions.NoServerFoundException;
 import org.apache.log4j.Logger;
 import schema.JSonSchema;

@@ -2,7 +2,7 @@ package service;
 
 import exception.NotUniqueTaxiException;
 import models.Taxi;
-import controllers.IServiceAdmin;
+import dao.IServiceAdmin;
 
 public class ServiceAdmin implements IServiceAdmin {
 

@@ -4,21 +4,19 @@ import javax.persistence.*;
 
 @Table (name = "interests")
 @Entity
-public class Interest {
+public class Interest extends IdGenerator{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @OneToMany(mappedBy = "interest")
+    private Candidate candidate;
 
     @Enumerated(EnumType.STRING)
     private InterestsType type;
 
-    public long getId() {
-        return id;
+    public Interest() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Interest(InterestsType type) {
+        this.type = type;
     }
 
     public InterestsType getType() {
@@ -32,24 +30,9 @@ public class Interest {
     @Override
     public String toString() {
         return "Interest{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", type=" + type +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Interest interest = (Interest) o;
-
-        return id == interest.id;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
 }

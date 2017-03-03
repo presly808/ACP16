@@ -4,21 +4,19 @@ import javax.persistence.*;
 
 @Table(name = "regions")
 @Entity
-public class Region {
+public class Region extends IdGenerator{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @OneToMany(mappedBy = "region")
+    private Candidate candidate;
 
     @Enumerated(EnumType.STRING)
     private RegionType regionType;
 
-    public long getId() {
-        return id;
+    public Region() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Region(RegionType regionType) {
+        this.regionType = regionType;
     }
 
     public RegionType getRegionType() {
@@ -30,28 +28,9 @@ public class Region {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Region region = (Region) o;
-
-        if (id != region.id) return false;
-        return regionType == region.regionType;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (regionType != null ? regionType.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Region{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", regionType=" + regionType +
                 '}';
     }

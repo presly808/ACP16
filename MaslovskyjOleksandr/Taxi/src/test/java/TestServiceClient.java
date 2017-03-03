@@ -1,5 +1,5 @@
 
-import controllers.IServiceClient;
+import dao.IServiceClient;
 import exception.NoAvailableCarsException;
 import exception.NoOrderFoundException;
 import exception.NotValidPriceException;

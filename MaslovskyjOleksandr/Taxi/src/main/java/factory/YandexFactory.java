@@ -1,9 +1,9 @@
 package factory;
 
 
-import controllers.ILocation;
-import controllers.IServiceAdmin;
-import controllers.IServiceClient;
+import dao.ILocation;
+import dao.IServiceAdmin;
+import dao.IServiceClient;
 import exception.NotValidAdminPasswordException;
 import service.ServiceAdmin;
 import service.ServiceClient;

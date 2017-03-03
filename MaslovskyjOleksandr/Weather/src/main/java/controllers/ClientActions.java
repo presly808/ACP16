@@ -1,4 +1,4 @@
-package controllers;
+package dao;
 
 import client.ServerMessage;
 import exceptions.NoServerFoundException;

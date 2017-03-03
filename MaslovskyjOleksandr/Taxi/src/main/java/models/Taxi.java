@@ -1,6 +1,6 @@
 package models;
 
-import controllers.ILocation;
+import dao.ILocation;
 
 /**
  * Created by ubuntu on 31.01.17.
