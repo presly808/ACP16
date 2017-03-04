@@ -15,4 +15,5 @@ public interface Dao<T> {
 
     List<T> showAllObjects() throws NoObjectFoundException;
 
+    void clearDataFromDatabase();
 }

@@ -3,6 +3,8 @@ package dao;
 import exceptions.NoCandidatesFoundException;
 import exceptions.NotAvailableTableException;
 import models.Candidate;
+import models.RegionType;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +16,10 @@ import static utils.GenerateData.*;
 
 public class CandidateDaoTest {
 
-    public int expectedResult;
+    private int expectedResult;
     private int minAge;
     private int maxAge;
+    private RegionType region;
     private Candidate candidate1;
     private Candidate candidate2;
 
@@ -27,6 +30,12 @@ public class CandidateDaoTest {
         this.candidate1 = generateCandidate1();
         this.candidate2 = generateCandidate2();
         this.expectedResult = 2;
+        this.region = RegionType.REGION_4;
+    }
+
+    @After
+    public void cleanData(){
+        DbOperationFactory.newInstance().createDaoCandidate().clearDataFromDatabase();
     }
 
     @Test
@@ -54,13 +63,17 @@ public class CandidateDaoTest {
 
     @Test
     public void showAllObjects() throws Exception {
-
+        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
+        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
+        List<Candidate> candidateList = DbOperationFactory.newInstance().createDaoCandidate().showAllObjects();
+        Assert.assertNotNull(candidateList);
     }
-
 
     @Test
     public void getCandidatesByRegion() throws Exception {
-
+        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
+        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
+        DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByRegion(region);
     }
 
 }
