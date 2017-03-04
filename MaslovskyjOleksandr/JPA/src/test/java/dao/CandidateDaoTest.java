@@ -5,11 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import utils.DbOperationFactory;
+import static utils.GenerateData.*;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
-
 
 public class CandidateDaoTest {
 
@@ -21,6 +19,7 @@ public class CandidateDaoTest {
     public void dataPreparation(){
         minAge = 20;
         maxAge = 50;
+        this.candidate = generateCandidate();
     }
 
     @Test

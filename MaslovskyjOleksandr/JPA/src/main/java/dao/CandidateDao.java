@@ -59,13 +59,14 @@ public class CandidateDao implements DaoCandidate {
     private boolean makeTransactionsAction(Candidate candidate){
         EntityManager manager = callManager();
 
-        try {
+        try { // make cascade saving
             LOGGER.info("ADD CANDIDATE TO TABLE");
             manager.getTransaction().begin();
             manager.persist(candidate);
             manager.getTransaction().commit();
             return true;
         } catch (Exception e){
+            e.printStackTrace();
             manager.getTransaction().rollback();
             return false;
         }

@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 import static utils.PropertyReader.*;
 
-@NamedQuery(name="Assignment.findAll", query ="SELECT * FROM candidates")
+@NamedQuery(name="findAll", query ="SELECT * FROM candidates")
 public class ManagerCreator {
 
     private static Logger LOG = Logger.getLogger(ManagerCreator.class);

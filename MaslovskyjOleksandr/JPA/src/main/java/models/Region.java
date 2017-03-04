@@ -1,13 +1,14 @@
 package models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "regions")
 @Entity
 public class Region extends IdGenerator{
 
     @OneToMany(mappedBy = "region")
-    private Candidate candidate;
+    private List<Candidate > candidate;
 
     @Enumerated(EnumType.STRING)
     private RegionType regionType;
