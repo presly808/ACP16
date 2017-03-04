@@ -14,4 +14,6 @@ public interface DaoCandidate extends Dao<Candidate>{
     List<Candidate> getCandidatesByRegion(Region region) throws NoRegionFoundException;
 
     List<Candidate> getCandidatesByPopularity() throws NoCandidatesFoundException;
+
+    boolean removeCandidateById(long id) throws NoCandidatesFoundException;
 }

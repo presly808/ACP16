@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQuery(name="getAll", query ="SELECT * FROM candidates")
+@NamedQuery(name="getAllCandidates", query ="SELECT c.id, c.name, c.age FROM candidates c")
 public class CandidateDao implements DaoCandidate {
 
     private static final Logger LOGGER = Logger.getLogger(Candidate.class);
@@ -38,7 +38,7 @@ public class CandidateDao implements DaoCandidate {
 
     @Override
     public List<Candidate> getCandidatesByAge(int minAge, int maxAge) throws NoCandidatesFoundException {
-        return null;
+        return getCandidatesByAgeWithParam(minAge, maxAge);
     }
 
     @Override
@@ -51,6 +51,23 @@ public class CandidateDao implements DaoCandidate {
         return null;
     }
 
+    @Override
+    public boolean removeCandidateById(long id) throws NoCandidatesFoundException {
+        EntityManager manager = callManager();
+        try {
+            manager.getTransaction().begin();
+            manager.remove(manager.find(Candidate.class, id));
+            manager.getTransaction().commit();
+            LOGGER.info("DELETE CANDIDATE FROM DB");
+            return true;
+        } catch (Exception e) {
+            LOGGER.info("CANNOT DELETE CANDIDATE");
+            e.printStackTrace();
+            manager.getTransaction().rollback();
+            return false;
+        }
+    }
+
     private EntityManager callManager(){
         LOGGER.info("GET EntityManager");
         return ManagerCreator.getManager();
@@ -59,11 +76,11 @@ public class CandidateDao implements DaoCandidate {
     private boolean makeTransactionsAction(Candidate candidate){
         EntityManager manager = callManager();
 
-        try { // make cascade saving
-            LOGGER.info("ADD CANDIDATE TO TABLE");
+        try {
             manager.getTransaction().begin();
             manager.persist(candidate);
             manager.getTransaction().commit();
+            LOGGER.info("ADD CANDIDATE TO TABLE");
             return true;
         } catch (Exception e){
             e.printStackTrace();
@@ -74,7 +91,32 @@ public class CandidateDao implements DaoCandidate {
 
     private List<Candidate> getALL(){
         EntityManager manager = callManager();
-        Query query = manager.createNamedQuery("getAll");
-        return query.getResultList();
+        try {
+            manager.getTransaction().begin();
+            Query query = manager.createNamedQuery("getAllCandidates");
+            List<Candidate> candidateList = query.getResultList();
+            manager.getTransaction().commit();
+            LOGGER.info("SHOW ALL CANDIDATES");
+            return candidateList;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private List<Candidate> getCandidatesByAgeWithParam(int min, int max){
+        EntityManager manager = callManager();
+        try {
+            manager.getTransaction().begin();
+            Query query = manager.createNativeQuery("SELECT c.id, c.name, c.age FROM candidates c " +
+                    "WHERE c.age between " + min + " AND " + max);
+            List<Candidate> candidateList = query.getResultList();
+            manager.getTransaction().commit();
+            LOGGER.info("GET CANDIDATES BY AGE");
+            return candidateList;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -12,15 +12,15 @@ public class Candidate extends IdGenerator{
     @Column(nullable = false, length = 10)
     private int age;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "clan_id", referencedColumnName = "id")
     private Clan clan;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "interest_id", referencedColumnName = "id")
     private Interest interest;
 
