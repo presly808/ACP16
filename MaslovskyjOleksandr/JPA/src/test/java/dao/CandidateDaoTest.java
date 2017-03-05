@@ -62,18 +62,20 @@ public class CandidateDaoTest {
     }
 
     @Test
+    public void getCandidatesByRegion() throws Exception {
+        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
+        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
+        List<Candidate> candidateList = DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByRegion(region);
+        Assert.assertTrue(candidateList.size() == 1);
+        Assert.assertTrue(candidateList.contains(candidate2));
+    }
+
+    @Test
     public void showAllObjects() throws Exception {
         DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
         DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
         List<Candidate> candidateList = DbOperationFactory.newInstance().createDaoCandidate().showAllObjects();
         Assert.assertNotNull(candidateList);
-    }
-
-    @Test
-    public void getCandidatesByRegion() throws Exception {
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
-        DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByRegion(region);
     }
 
 }
