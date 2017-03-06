@@ -10,7 +10,7 @@ public class DbOperationFactory {
     private static DbOperationFactory dbOperationFactory;
 
     private DbOperationFactory() {
-        this.daoCandidate = new CandidateDao();
+        daoCandidate = new CandidateDao();
     }
 
     public static DbOperationFactory newInstance(){

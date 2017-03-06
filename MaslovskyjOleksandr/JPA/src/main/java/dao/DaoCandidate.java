@@ -3,7 +3,6 @@ package dao;
 import exceptions.NoCandidatesFoundException;
 import exceptions.NoRegionFoundException;
 import models.Candidate;
-import models.Region;
 import models.RegionType;
 
 import java.util.List;
@@ -16,5 +15,5 @@ public interface DaoCandidate extends Dao<Candidate>{
 
     List<Candidate> getCandidatesByPopularity() throws NoCandidatesFoundException;
 
-    boolean removeCandidateById(long id) throws NoCandidatesFoundException;
+    void removeCandidateById(long id) throws NoCandidatesFoundException;
 }

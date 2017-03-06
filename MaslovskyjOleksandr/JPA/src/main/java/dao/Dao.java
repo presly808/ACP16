@@ -9,11 +9,9 @@ import java.util.List;
 
 public interface Dao<T> {
 
-    boolean insertIntoTable(T object) throws NotAvailableTableException;
+    void insertIntoTable(T object) throws NotAvailableTableException;
 
     T getObjectFromTable(long id) throws InvalidInputObjectException;
 
     List<T> showAllObjects() throws NoObjectFoundException;
-
-    void clearDataFromDatabase();
 }

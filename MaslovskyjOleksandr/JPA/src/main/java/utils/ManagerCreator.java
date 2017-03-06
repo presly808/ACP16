@@ -14,17 +14,16 @@ import static utils.PropertyReader.*;
 public class ManagerCreator {
 
     private static Logger LOG = Logger.getLogger(ManagerCreator.class);
-
-    private EntityManagerFactory managerFactory;
+    private static EntityManager managerFactory;
 
     private ManagerCreator() {
         if (managerFactory == null) {
-            this.managerFactory = Persistence.createEntityManagerFactory(getUnitName());
+            managerFactory = Persistence.createEntityManagerFactory(getUnitName()).createEntityManager();
         }
     }
 
     public static EntityManager getManager(){
         LOG.info("CREATE EntityManagerFactory ");
-        return new ManagerCreator().managerFactory.createEntityManager();
+        return new ManagerCreator().managerFactory;
     }
 }

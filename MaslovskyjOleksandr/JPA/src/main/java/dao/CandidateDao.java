@@ -8,20 +8,16 @@ import utils.ManagerCreator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
-@NamedQuery(name="getAllCandidates", query ="SELECT c.id, c.name, c.age FROM candidates c")
 public class CandidateDao implements DaoCandidate {
 
     private static final Logger LOGGER = Logger.getLogger(Candidate.class);
 
     @Override
-    public boolean insertIntoTable(Candidate object) throws NotAvailableTableException {
-        if (makeTransactionsAction(object)) {
-            return true;
-        }
-        return false;
+    public void insertIntoTable(Candidate object) throws NotAvailableTableException {
+        makeTransactionsAction(object);
     }
 
     @Override
@@ -40,7 +36,7 @@ public class CandidateDao implements DaoCandidate {
     }
 
     @Override
-    public List<Candidate> getCandidatesByRegion(RegionType region) throws NoRegionFoundException {
+    public List<Candidate> getCandidatesByRegion( RegionType region) throws NoRegionFoundException {
         return getByRegion(region);
     }
 
@@ -50,55 +46,29 @@ public class CandidateDao implements DaoCandidate {
     }
 
     @Override
-    public boolean removeCandidateById(long id) throws NoCandidatesFoundException {
-        EntityManager manager = callManager();
-        try {
+    public void removeCandidateById(long id) throws NoCandidatesFoundException {
 
-            manager.getTransaction().begin();
-            manager.remove(manager.find(Candidate.class, id));
-            manager.getTransaction().commit();
-
+        QueryExecutor.execute((EntityManager em) -> {
+            Candidate candidate = em.find(Candidate.class, id);
+            em.remove(candidate);
             LOGGER.info("DELETE CANDIDATE FROM DB");
-            return true;
-        } catch (Exception e) {
-            LOGGER.info("CANNOT DELETE CANDIDATE");
-            e.printStackTrace();
-            manager.getTransaction().rollback();
-            return false;
-        }
+        });
     }
 
-    private EntityManager callManager(){
-        LOGGER.info("GET EntityManager");
-        return ManagerCreator.getManager();
-    }
+    private void  makeTransactionsAction(Candidate candidate){
 
-    private boolean makeTransactionsAction(Candidate candidate){
-        EntityManager manager = callManager();
-        try {
-
-            manager.getTransaction().begin();
-            manager.persist(candidate);
-            manager.getTransaction().commit();
-
-            LOGGER.info("ADD CANDIDATE TO TABLE");
-            return true;
-        } catch (Exception e){
-            e.printStackTrace();
-            manager.getTransaction().rollback();
-            return false;
-        }
+        QueryExecutor.execute((EntityManager em) -> {
+           em.persist(candidate);
+           LOGGER.info("ADD CANDIDATE TO TABLE");
+        });
     }
 
     private List<Candidate> getALL(){
-        EntityManager manager = callManager();
+
+        EntityManager manger = getManager();
+
         try {
-
-            manager.getTransaction().begin();
-            Query query = manager.createNamedQuery("getAllCandidates");
-            List<Candidate> candidateList = query.getResultList();
-            manager.getTransaction().commit();
-
+            List<Candidate> candidateList = manger.createNamedQuery("getAllCandidates", Candidate.class).getResultList();
             LOGGER.info("SHOW ALL CANDIDATES");
             return candidateList;
         } catch (Exception e){
@@ -108,17 +78,16 @@ public class CandidateDao implements DaoCandidate {
     }
 
     private List<Candidate> getCandidatesByAgeWithParam(int min, int max){
-        EntityManager manager = callManager();
+
+        EntityManager manager = getManager();
+
         try {
-
-            manager.getTransaction().begin();
-            Query query = manager.createNativeQuery("SELECT c.id, c.name, c.age FROM candidates c " +
-                    "WHERE c.age between " + min + " AND " + max);
-            List<Candidate> candidateList = query.getResultList();
-            manager.getTransaction().commit();
-
+            List<Candidate> resultList = manager.createQuery("SELECT c FROM Candidate c WHERE c.age between" +
+                    " :min and :max", Candidate.class)
+                    .setParameter("min", min)
+                    .setParameter("max", max).getResultList();
             LOGGER.info("FIND CANDIDATES BY AGE");
-            return candidateList;
+            return resultList;
         } catch (Exception e){
             e.printStackTrace();
             return null;
@@ -126,29 +95,23 @@ public class CandidateDao implements DaoCandidate {
     }
 
     private List<Candidate> getByRegion(RegionType region){
-        EntityManager manager = callManager();
+
+        EntityManager manager = getManager();
+
         try {
-
-            manager.getTransaction().begin();
-            List<Candidate> candidateList = manager.createNativeQuery("SELECT c.name, c.age, r.regionType " +
-                    "FROM candidates c " +
-                    "INNER JOIN regions r " +
-                    "ON c.id = r.id " +
-                    "WHERE r.regionType like '" + region + "';").getResultList();
-            manager.getTransaction().commit();
-
+            List<Candidate> candidateList = manager.createQuery("select c from Candidate c join c.region r where r.regionType like :region")
+                    .setParameter("region", region).getResultList();
             LOGGER.info("FIND CANDIDATES BY REGION");
             return candidateList;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+
     }
 
-    public void clearDataFromDatabase() {
-        EntityManager manager = callManager();
-        manager.getTransaction().begin();
-        manager.createNativeQuery("DROP TABLE candidates, clans, hibernate_sequence, interests, regions");
-        manager.getTransaction().commit();
+    private EntityManager getManager(){
+        return ManagerCreator.getManager();
     }
+
 }

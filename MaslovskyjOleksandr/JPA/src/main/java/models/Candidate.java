@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "candidates")
+@NamedQuery(name="getAllCandidates", query ="select c from Candidate c")
 public class Candidate extends IdGenerator{
 
     @Column(nullable = false, length = 40)

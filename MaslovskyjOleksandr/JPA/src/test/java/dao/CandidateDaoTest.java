@@ -9,13 +9,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import utils.DbOperationFactory;
+import utils.ManagerCreator;
 
+import javax.persistence.EntityManager;
 import java.util.List;
+import static org.hamcrest.Matchers.*;
 
 import static utils.GenerateData.*;
 
 public class CandidateDaoTest {
 
+    public static final String DROP_TABLE_CANDIDATES_CLANS_HIBERNATE_SEQUENCE_INTERESTS_REGIONS =
+            "DROP TABLE candidates, clans, hibernate_sequence, interests, regions;";
     private int expectedResult;
     private int minAge;
     private int maxAge;
@@ -27,38 +32,39 @@ public class CandidateDaoTest {
     public void dataPreparation(){
         minAge = 20;
         maxAge = 50;
+        this.region = RegionType.REGION_4;
+        this.expectedResult = 2;
         this.candidate1 = generateCandidate1();
         this.candidate2 = generateCandidate2();
-        this.expectedResult = 2;
-        this.region = RegionType.REGION_4;
     }
 
     @After
     public void cleanData(){
-        DbOperationFactory.newInstance().createDaoCandidate().clearDataFromDatabase();
+        clearDataFromDatabase();
     }
 
     @Test
     public void insertIntoTable() throws Exception {
-        boolean actual = DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
-        Assert.assertTrue(actual);
+        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
+        Assert.assertThat(getTableResult(), hasItem(candidate1));
     }
 
     @Test
     public void testRemoveCandidateById() throws NoCandidatesFoundException, NotAvailableTableException {
         DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
-        boolean actual = DbOperationFactory.newInstance().createDaoCandidate().removeCandidateById(candidate2.getId());
-        Assert.assertTrue(actual);
+        DbOperationFactory.newInstance().createDaoCandidate().removeCandidateById(candidate2.getId());
+        Assert.assertTrue(getTableResult().isEmpty());
     }
 
     @Test
     public void getCandidatesByAge() throws Exception {
         DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
         List<Candidate> candidates = DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByAge(minAge, maxAge);
-        Assert.assertTrue(candidates.contains(candidate1));
+        Assert.assertThat(candidates, hasItem(candidate1));
         DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
         candidates = DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByAge(minAge, maxAge);
         Assert.assertTrue(expectedResult == candidates.size());
+        Assert.assertThat(candidates, allOf(hasItem(candidate1), hasItem(candidate2)));
     }
 
     @Test
@@ -67,7 +73,7 @@ public class CandidateDaoTest {
         DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
         List<Candidate> candidateList = DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByRegion(region);
         Assert.assertTrue(candidateList.size() == 1);
-        Assert.assertTrue(candidateList.contains(candidate2));
+        Assert.assertThat(candidateList, contains(candidate2));
     }
 
     @Test
@@ -76,6 +82,19 @@ public class CandidateDaoTest {
         DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
         List<Candidate> candidateList = DbOperationFactory.newInstance().createDaoCandidate().showAllObjects();
         Assert.assertNotNull(candidateList);
+        Assert.assertThat(candidateList, allOf(hasItem(candidate1), hasItem(candidate2)));
     }
 
+    private void clearDataFromDatabase() {
+        EntityManager manager = ManagerCreator.getManager();
+        manager.getTransaction().begin();
+        manager.createNativeQuery(DROP_TABLE_CANDIDATES_CLANS_HIBERNATE_SEQUENCE_INTERESTS_REGIONS);
+        manager.getTransaction().commit();
+    }
+
+    private List<Candidate> getTableResult(){
+        EntityManager manager = ManagerCreator.getManager();
+        List<Candidate> result = manager.createNativeQuery("SELECT * FROM candidates", Candidate.class).getResultList();
+        return result;
+    }
 }
