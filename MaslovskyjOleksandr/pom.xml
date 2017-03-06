@@ -9,12 +9,20 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
-
     <parent>
         <groupId>acp16id</groupId>
         <artifactId>ACP16</artifactId>
         <version>1.0</version>
     </parent>
+
+    <modules>
+        <module>Work</module>
+        <module>Weather</module>
+        <module>Taxi</module>
+        <module>JPA</module>
+        <module>Jdbc</module>
+        <module>DB</module>
+    </modules>
 
     <dependencies>
 
