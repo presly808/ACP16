@@ -1,16 +1,11 @@
 package models;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Table(name = "interests")
-@Entity
 public class Interest extends IdGenerator{
 
-    @OneToMany(mappedBy = "interest")
     private List<Candidate > candidate;
 
-    @Enumerated(EnumType.STRING)
     private InterestsType type;
 
     public Interest() {

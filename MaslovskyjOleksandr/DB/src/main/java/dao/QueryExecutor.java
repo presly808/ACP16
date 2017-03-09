@@ -1,3 +1,4 @@
+/*
 package dao;
 
 import utils.ManagerCreator;
@@ -21,3 +22,4 @@ public class QueryExecutor {
         }
     }
 }
+*/
