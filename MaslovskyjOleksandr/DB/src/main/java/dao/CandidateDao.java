@@ -3,69 +3,42 @@ package dao;
 import exceptions.*;
 import models.Candidate;
 import models.RegionType;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Service
-public class CandidateDao implements DaoCandidate {
-
-    private static final Logger LOGGER = Logger.getLogger(Candidate.class);
+@Component(value = "candidateDao")
+public class CandidateDao implements Dao {
 
     @PersistenceContext
     private EntityManager manager;
 
-    @Override
-    public void insertIntoTable(Candidate object) throws NotAvailableTableException {
-        makeTransactionsAction(object);
+    public CandidateDao() {
     }
 
     @Override
-    public Candidate getObjectFromTable(long id) throws InvalidInputObjectException {
-        return null;
-    }
-
-    @Override
-    public List<Candidate> showAllObjects() throws NoObjectFoundException {
-        return getALL();
-    }
-
-    @Override
-    public List<Candidate> getCandidatesByAge(int minAge, int maxAge) throws NoCandidatesFoundException {
-        return getCandidatesByAgeWithParam(minAge, maxAge);
-    }
-
-    @Override
-    public List<Candidate> getCandidatesByRegion(RegionType region) throws NoRegionFoundException {
-        return getByRegion(region);
-    }
-
-    @Override
-    public List<Candidate> getCandidatesByPopularity() throws NoCandidatesFoundException {
-        return null;
-    }
-
-    @Override
-    public void removeCandidateById(long id) throws NoCandidatesFoundException {
-        Candidate candidate = manager.find(Candidate.class, id);
-        manager.remove(candidate);
-        LOGGER.info("DELETE CANDIDATE FROM DB");
-    }
-
-    private void makeTransactionsAction(Candidate candidate) {
+    public void insertIntoTable(Candidate candidate) throws NotAvailableTableException {
         manager.persist(candidate);
-        LOGGER.info("ADD CANDIDATE TO TABLE");
     }
 
-    private List<Candidate> getALL() {
+    @Override
+    public Candidate getCandidateFromDb(long id) throws InvalidInputObjectException {
+        return manager.find(Candidate.class, id);
+    }
 
+    @Override
+    public Candidate dropCandidate(long id) throws InvalidInputObjectException {
+        Candidate candidate = getCandidateFromDb(id);
+        manager.remove(candidate);
+        return candidate;
+    }
+
+    @Override
+    public List<Candidate> getAllObjects() throws NoCandidatesFoundException {
         try {
             List<Candidate> candidateList = manager.createNamedQuery
                     ("getAllCandidates", Candidate.class).getResultList();
-            LOGGER.info("SHOW ALL CANDIDATES");
             return candidateList;
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,14 +46,13 @@ public class CandidateDao implements DaoCandidate {
         }
     }
 
-    private List<Candidate> getCandidatesByAgeWithParam(int min, int max) {
-
+    @Override
+    public List<Candidate> getAllByAgeParam(int min, int max) throws NoCandidatesFoundException {
         try {
             List<Candidate> resultList = manager.createQuery("SELECT c FROM Candidate c WHERE c.age between" +
                     " :min and :max", Candidate.class)
                     .setParameter("min", min)
                     .setParameter("max", max).getResultList();
-            LOGGER.info("FIND CANDIDATES BY AGE");
             return resultList;
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,19 +60,24 @@ public class CandidateDao implements DaoCandidate {
         }
     }
 
-    private List<Candidate> getByRegion(RegionType region) {
-
+    @Override
+    public List<Candidate> getCandidateByRegionParam(RegionType region) throws NoCandidatesFoundException {
         try {
             List<Candidate> candidateList = manager.createQuery
                     ("select c from Candidate c join c.region r where r.regionType like :region")
                     .setParameter("region", region).getResultList();
-            LOGGER.info("FIND CANDIDATES BY REGION");
             return candidateList;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
     }
 
+    public EntityManager getManager() {
+        return manager;
+    }
+
+    public void setManager(EntityManager manager) {
+        this.manager = manager;
+    }
 }

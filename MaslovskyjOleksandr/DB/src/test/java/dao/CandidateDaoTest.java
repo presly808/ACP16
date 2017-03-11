@@ -6,23 +6,23 @@ import models.Candidate;
 import models.RegionType;
 import org.junit.After;
 import org.junit.Assert;
-
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import utils.DbOperationFactory;
-
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import service.ServiceCandidate;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-
 import static org.hamcrest.Matchers.*;
 import static utils.GenerateData.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class CandidateDaoTest {
 
     public static final String DROP_TABLE_CANDIDATES_CLANS_HIBERNATE_SEQUENCE_INTERESTS_REGIONS =
@@ -37,7 +37,9 @@ public class CandidateDaoTest {
     @PersistenceContext
     private EntityManager manager;
 
-    @Before
+    private ServiceCandidate candidate;
+
+    @Bean
     public void dataPreparation(){
         minAge = 20;
         maxAge = 50;
@@ -45,6 +47,8 @@ public class CandidateDaoTest {
         this.expectedResult = 2;
         this.candidate1 = generateCandidate1();
         this.candidate2 = generateCandidate2();
+        ApplicationContext context= new ClassPathXmlApplicationContext("/spring.xml");
+        candidate = context.getBean(ServiceCandidate.class);
     }
 
     @After
@@ -53,43 +57,43 @@ public class CandidateDaoTest {
     }
 
     @Test
-    public void insertIntoTable() throws Exception {
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
+    public void saveCandidate() throws Exception {
+        candidate.saveCandidate(candidate1);
         Assert.assertThat(getTableResult(), hasItem(candidate1));
     }
 
     @Test
-    public void testRemoveCandidateById() throws NoCandidatesFoundException, NotAvailableTableException {
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
-        DbOperationFactory.newInstance().createDaoCandidate().removeCandidateById(candidate2.getId());
+    public void testDeleteCandidate() throws NoCandidatesFoundException, NotAvailableTableException {
+        candidate.saveCandidate(candidate2);
+        candidate.deleteCandidate(candidate2.getId());
         Assert.assertTrue(getTableResult().isEmpty());
     }
 
     @Test
     public void getCandidatesByAge() throws Exception {
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
-        List<Candidate> candidates = DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByAge(minAge, maxAge);
+        candidate.saveCandidate(candidate1);
+        List<Candidate> candidates = candidate.getCandidatesByAge(minAge, maxAge);
         Assert.assertThat(candidates, hasItem(candidate1));
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
-        candidates = DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByAge(minAge, maxAge);
+        candidate.saveCandidate(candidate2);
+        candidates = candidate.getCandidatesByAge(minAge, maxAge);
         Assert.assertTrue(expectedResult == candidates.size());
         Assert.assertThat(candidates, allOf(hasItem(candidate1), hasItem(candidate2)));
     }
 
     @Test
     public void getCandidatesByRegion() throws Exception {
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
-        List<Candidate> candidateList = DbOperationFactory.newInstance().createDaoCandidate().getCandidatesByRegion(region);
+        candidate.saveCandidate(candidate1);
+        candidate.saveCandidate(candidate2);
+        List<Candidate> candidateList = candidate.getCandidatesByRegion(region);
         Assert.assertTrue(candidateList.size() == 1);
         Assert.assertThat(candidateList, contains(candidate2));
     }
 
     @Test
     public void showAllObjects() throws Exception {
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate1);
-        DbOperationFactory.newInstance().createDaoCandidate().insertIntoTable(candidate2);
-        List<Candidate> candidateList = DbOperationFactory.newInstance().createDaoCandidate().showAllObjects();
+        candidate.saveCandidate(candidate1);
+        candidate.saveCandidate(candidate2);
+        List<Candidate> candidateList = candidate.getAllCandidates();
         Assert.assertNotNull(candidateList);
         Assert.assertThat(candidateList, allOf(hasItem(candidate1), hasItem(candidate2)));
     }
