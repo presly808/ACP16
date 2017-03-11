@@ -1,13 +1,22 @@
 package models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
+@Table(name = "clans")
+@Entity
 public class Clan extends IdGenerator{
 
+    @OneToMany(mappedBy = "clan")
     private List<Candidate> candidate;
 
+    @Column(unique = true, name = "name", nullable = false)
     private String name;
 
+    @Column(name = "rate", nullable = false)
     private int rate;
 
     public Clan() {

@@ -1,16 +1,28 @@
 package models;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "candidates")
+@NamedQuery(name="getAllCandidates", query ="select c from Candidate c")
 public class Candidate extends IdGenerator{
 
+    @Column(nullable = false, length = 40)
     private String name;
 
+    @Column(nullable = false, length = 10)
     private int age;
 
+    @ManyToOne (cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "clan_id", referencedColumnName = "id")
     private Clan clan;
 
+    @ManyToOne (cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
 
+    @ManyToOne (cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "interest_id", referencedColumnName = "id")
     private Interest interest;
 
     public Candidate() {
