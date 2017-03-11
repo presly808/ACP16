@@ -6,8 +6,11 @@ import models.Candidate;
 import models.RegionType;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -22,7 +25,7 @@ import static org.hamcrest.Matchers.*;
 import static utils.GenerateData.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = AppConfiguration.class, loader = AnnotationConfigContextLoader.class)
 public class CandidateDaoTest {
 
     public static final String DROP_TABLE_CANDIDATES_CLANS_HIBERNATE_SEQUENCE_INTERESTS_REGIONS =
@@ -34,12 +37,13 @@ public class CandidateDaoTest {
     private Candidate candidate1;
     private Candidate candidate2;
 
-    @PersistenceContext
+    @Autowired
     private EntityManager manager;
 
+    @Autowired
     private ServiceCandidate candidate;
 
-    @Bean
+    @Before
     public void dataPreparation(){
         minAge = 20;
         maxAge = 50;
@@ -47,8 +51,6 @@ public class CandidateDaoTest {
         this.expectedResult = 2;
         this.candidate1 = generateCandidate1();
         this.candidate2 = generateCandidate2();
-        ApplicationContext context= new ClassPathXmlApplicationContext("/spring.xml");
-        candidate = context.getBean(ServiceCandidate.class);
     }
 
     @After
