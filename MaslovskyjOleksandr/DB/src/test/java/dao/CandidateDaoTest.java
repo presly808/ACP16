@@ -37,7 +37,7 @@ public class CandidateDaoTest {
     private Candidate candidate1;
     private Candidate candidate2;
 
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
 
     @Autowired

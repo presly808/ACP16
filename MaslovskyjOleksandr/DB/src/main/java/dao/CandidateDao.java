@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Component(value = "candidateDao")
+@Component
 public class CandidateDao implements Dao {
 
     @PersistenceContext

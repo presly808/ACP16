@@ -9,25 +9,24 @@ import models.Candidate;
 import models.RegionType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service(value = "serviceCandidate")
+@Service
 @Transactional
 public class ServiceCandidateImp implements ServiceCandidate {
 
     private final static Logger LOGGER = Logger.getLogger(ServiceCandidate.class);
 
+    @Autowired
     private Dao dao;
 
-    @Autowired
-    public ServiceCandidateImp(Dao dao) {
-        this.dao = dao;
-    }
-
     public ServiceCandidateImp() {
+
     }
 
     @Override
