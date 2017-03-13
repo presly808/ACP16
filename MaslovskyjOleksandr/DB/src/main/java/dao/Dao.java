@@ -23,4 +23,12 @@ public interface Dao{
     List<Candidate> getAllByAgeParam(int min, int max) throws NoCandidatesFoundException;
 
     List<Candidate> getCandidateByRegionParam(RegionType region) throws NoCandidatesFoundException;
+
+    void dropAllCandidateData();
+
+    void dropAllClanData();
+
+    void dropAllInterestsData();
+
+    void dropAllRegionsData();
 }

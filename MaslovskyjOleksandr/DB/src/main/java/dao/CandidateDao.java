@@ -73,6 +73,26 @@ public class CandidateDao implements Dao {
         }
     }
 
+    @Override
+    public void dropAllCandidateData() {
+        manager.createNativeQuery("truncate candidates");
+    }
+
+    @Override
+    public void dropAllClanData() {
+        manager.createNativeQuery("truncate clan");
+    }
+
+    @Override
+    public void dropAllInterestsData() {
+        manager.createNativeQuery("truncate interests");
+    }
+
+    @Override
+    public void dropAllRegionsData() {
+        manager.createNativeQuery("truncate regions");
+    }
+
     public EntityManager getManager() {
         return manager;
     }

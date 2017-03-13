@@ -12,9 +12,10 @@
     <context:annotation-config/>
     <tx:annotation-driven/>
 
-    <context:component-scan base-package="MaslovskyjOleksandr.DB"/>
+    <context:component-scan base-package="dao"/>
+    <context:component-scan base-package="service"/>
+    <context:component-scan base-package="utils"/>
 
-    <context:property-placeholder location="classpath:app.properties"/>
 
     <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -24,8 +25,8 @@
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="myDataSource" ref="myDataSource"/>
-        <property name="packagesToScan" value="classes.models"/>
+        <property name="dataSource" ref="myDataSource"/>
+        <property name="packagesToScan" value="models"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
