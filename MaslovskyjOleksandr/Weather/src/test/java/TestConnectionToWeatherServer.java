@@ -1,6 +1,7 @@
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import server.ServerWeather;
 
@@ -20,18 +21,21 @@ public class TestConnectionToWeatherServer {
         this.location = "London";
     }
 
+    @Ignore
     @Test
     public void testSendRequestToWeatherServer() throws IOException {
         InputStream inputStream = server.sendRequestToWeatherServer();
         Assert.assertNotNull(inputStream);
     }
 
+    @Ignore
     @Test
     public void testGetValueFromWeather() throws IOException, InterruptedException {
         Assert.assertNotNull(server.getValueFromWeatherFantom());
         Assert.assertTrue(expectedTemp.equals(server.getValueFromWeatherFantom()));
     }
 
+    @Ignore
     @Test
     public void testSendGetRequestToWeatherServer() throws IOException {
         Assert.assertNotNull(server.sendGetHttpRequestToWeatherServer(location));

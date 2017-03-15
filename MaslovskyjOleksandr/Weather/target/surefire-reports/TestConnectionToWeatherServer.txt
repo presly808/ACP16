@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: TestConnectionToWeatherServer
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 2, Skipped: 3, Time elapsed: 0.108 sec <<< FAILURE! - in TestConnectionToWeatherServer
+testListenWeatherGson(TestConnectionToWeatherServer)  Time elapsed: 0.031 sec  <<< ERROR!
+java.io.FileNotFoundException: null
+	at utils.ReadWriteProperties.readFromFile(ReadWriteProperties.java:35)
+	at utils.ReadWriteProperties.<init>(ReadWriteProperties.java:22)
+	at utils.ReadWriteProperties.getWeatherUrl(ReadWriteProperties.java:70)
+	at server.ServerWeather.<init>(ServerWeather.java:23)
+	at TestConnectionToWeatherServer.prepareForTesting(TestConnectionToWeatherServer.java:19)
+
+testSendToClientResponseWithTemperature(TestConnectionToWeatherServer)  Time elapsed: 0 sec  <<< ERROR!
+java.io.FileNotFoundException: null
+	at utils.ReadWriteProperties.readFromFile(ReadWriteProperties.java:35)
+	at utils.ReadWriteProperties.<init>(ReadWriteProperties.java:22)
+	at utils.ReadWriteProperties.getWeatherUrl(ReadWriteProperties.java:70)
+	at server.ServerWeather.<init>(ServerWeather.java:23)
+	at TestConnectionToWeatherServer.prepareForTesting(TestConnectionToWeatherServer.java:19)
+

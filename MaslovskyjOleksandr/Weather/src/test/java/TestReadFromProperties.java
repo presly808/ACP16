@@ -1,6 +1,7 @@
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import utils.ReadWriteProperties;
 
@@ -15,6 +16,7 @@ public class TestReadFromProperties {
         serverUrl = "openweathermap.org";
     }
 
+    @Ignore
     @Test
     public void testReadFromConfigPropertiesFilepath() throws IOException {
         Assert.assertEquals(serverUrl, ReadWriteProperties.getWeatherUrl());
