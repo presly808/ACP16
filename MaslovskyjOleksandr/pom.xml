@@ -7,6 +7,21 @@
     <groupId>idProject</groupId>
     <artifactId>MaslovskyjOleksandr</artifactId>
     <version>1.0</version>
+
+    <properties>
+        <jackson-annotations.version>2.8.6</jackson-annotations.version>
+        <junit.version>4.12</junit.version>
+        <hamcrest-core.version>1.3</hamcrest-core.version>
+        <mockito-all.version>1.9.5</mockito-all.version>
+        <mysql-connector-java.version>6.0.5</mysql-connector-java.version>
+        <log4j.version>1.${commons-dbcp2.version}7</log4j.version>
+        <gson.version>2.8.0</gson.version>
+        <jsoup.version>1.10.2</jsoup.version>
+        <selenium-java.version>3.0.1</selenium-java.version>
+        <spring-test.version>4.3.0.RELEASE</spring-test.version>
+        <commons-dbcp2.version>2.1</commons-dbcp2.version>
+        <spring-core.version>4.3.7.RELEASE</spring-core.version>
+    </properties>
     <packaging>pom</packaging>
 
     <parent>
@@ -22,6 +37,7 @@
         <module>JPA</module>
         <module>Jdbc</module>
         <module>DB</module>
+        <module>Servlets</module>
     </modules>
 
     <dependencies>
@@ -29,84 +45,107 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.8.6</version>
+            <version>${jackson-annotations.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
+            <version>${hamcrest-core.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
+            <version>${mockito-all.version}</version>
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.5</version>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
 
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.0</version>
+            <version>${gson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.10.2</version>
+            <version>${jsoup.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>phantomjsdriver</artifactId>
-            <version>1.3.0</version>
+            <version>${hamcrest-core.version}.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.0.1</version>
+            <version>${selenium-java.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-io</artifactId>
-            <version>1.3.2</version>
+            <version>${hamcrest-core.version}.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.3.0.RELEASE</version>
+            <version>${spring-test.version}</version>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
-            <version>2.1</version>
+            <version>${commons-dbcp2.version}</version>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring-core.version}</version>
+        </dependency>
+
+    </dependencies>
 
 </project>
