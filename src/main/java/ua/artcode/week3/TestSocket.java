@@ -1,4 +1,4 @@
-package ua.artcode.week3;
+package artcode.week3;
 
 import java.io.IOException;
 import java.io.InputStream;
