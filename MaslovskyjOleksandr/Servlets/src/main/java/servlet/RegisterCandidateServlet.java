@@ -2,6 +2,8 @@ package servlet;
 
 import models.*;
 import service.ServiceCandidate;
+import utils.CandidateValidation;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,12 +23,16 @@ public class RegisterCandidateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/pages/candidateRegistration.jsp").forward(req, resp);
+        req.getRequestDispatcher("/pages/candidateRegistration.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
+
+        if (req.getParameter("name").isEmpty()) {
+            req.getRequestDispatcher("/pages/error.jsp").forward(req, resp);
+        }
+        String name = name = req.getParameter("name");
         int age = Integer.parseInt(req.getParameter("age"));
         String clan = req.getParameter("clan");
         String region = req.getParameter("region");
@@ -35,10 +41,12 @@ public class RegisterCandidateServlet extends HttpServlet {
         Candidate candidate = new Candidate(name, age, new Clan(clan),
                 new Region(RegionType.REGION_1), new Interest(InterestsType.FINANCE));
 
-        serviceCandidate.saveCandidate(candidate);
-
-        req.setAttribute("candidate", candidate);
-        req.getRequestDispatcher("WEB-INF/pages/candidate-info.jsp").forward(req, resp);
+        if (serviceCandidate.saveCandidate(candidate)) {
+            req.setAttribute("candidate", candidate);
+            req.getRequestDispatcher("/pages/candidate-info.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("/pages/error.jsp").forward(req, resp);
+        }
 
     }
 }

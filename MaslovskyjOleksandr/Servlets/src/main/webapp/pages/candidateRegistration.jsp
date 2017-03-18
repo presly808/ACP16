@@ -1,58 +1,55 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-  <head>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
 
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-          crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
     <title>Candidate Registration Page</title>
-  </head>
+</head>
 
-  <body>
-        <div class = "container">
+<body>
+<div class="container">
 
-          <h1>Please put you info</h1>
+    <h1>Please put you info</h1>
 
-          <form method="post" action="register">
-            <ul>
-                <li>Input name:
-                  <input name="name" type="text">
-                </li>
+    <form method="post" action="register">
+        <div class="form-registration">
+            <label for="name">Name:</label>
+            <input name = "name" class="form-control" id="name" type="text">
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input name = "age" class="form-control input-lg" id="age" type="text">
+        </div>
+        <div class="form-group">
+            <label for="clan">Clan:</label>
+            <input name = "clan" class="form-control input-sm" id="clan" type="text">
+        </div>
 
-                <li>Input age:
-                  <input age="age" type="text">
-                </li>
+        <div class="form-group">
+            <label for="region">Region:</label>
+            <input name="region" class="form-control input-sm" id="region" type="text">
+        </div>
 
-                <li>Input clan:
-                  <input name="clan" type="text">
-                </li>
+        <div class="form-group">
+            <label for="hobbi">Hobbi:</label>
+            <input name="interests" class="form-control input-sm" id="hobbi" type="text">
+        </div>
 
-                <li>Choose your Region:
-                  <input name="region"  list="">
-                </li>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default" >Registration</button>
+        </div>
 
-                <li>Input your hobbi:
-                  <input name="interests" type="text">
-                </li>
-
-                <li>registration
-                  <button name="registration" type="submit">
-                </li>
-
-            </ul>
-
-          </form>
-
-  </body>
+    </form>
+</div>
+</body>
 </html>
