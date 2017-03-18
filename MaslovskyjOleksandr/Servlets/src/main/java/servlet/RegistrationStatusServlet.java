@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/status")
+@WebServlet(urlPatterns = {"/status"})
 public class RegistrationStatusServlet extends HttpServlet{
 
     private static final Logger LOGGER = Logger.getLogger(RegistrationStatusServlet.class);

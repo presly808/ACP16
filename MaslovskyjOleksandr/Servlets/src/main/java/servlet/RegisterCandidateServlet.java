@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/register")
+@WebServlet(urlPatterns = {"/register"})
 public class RegisterCandidateServlet extends HttpServlet {
 
     private ServiceCandidate serviceCandidate;

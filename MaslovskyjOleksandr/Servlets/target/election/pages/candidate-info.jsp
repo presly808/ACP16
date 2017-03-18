@@ -1,6 +1,6 @@
+<%@ page import="models.Candidate" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
-<%@ page import="models.Candidate.java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
