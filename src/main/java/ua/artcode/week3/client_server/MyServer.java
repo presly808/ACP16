@@ -105,13 +105,10 @@ class InputMessagesObserver {
     }
 
     public void notifyAllSubs(MyMessage message) {
-
         subscribers.stream()
                 .filter((sub) -> !sub.getIp().equals(message.getFrom()))
                 .forEach((sub) -> sub.sendMessage(message));
-
     }
-
 
     public void unsubscribe(SocketClient socketClient) {
         subscribers.remove(socketClient);
