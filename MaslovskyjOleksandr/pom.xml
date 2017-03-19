@@ -21,6 +21,7 @@
         <spring-test.version>4.3.0.RELEASE</spring-test.version>
         <commons-dbcp2.version>2.1</commons-dbcp2.version>
         <spring-core.version>4.3.7.RELEASE</spring-core.version>
+        <jquery.version>2.1.4</jquery.version>
     </properties>
     <packaging>pom</packaging>
 
@@ -145,6 +146,13 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring-core.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+        </dependency>
+
 
     </dependencies>
 

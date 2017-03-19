@@ -19,14 +19,16 @@
 <body>
 <div class="container">
 
-    <h1>Election Site</h1>
+    <h1>Election Site</h1><br>
 
     <div class="button">
         <a href="/webapp/status" target="_blank" style="" class="">Information Page</a>
     </div>
-
     <div class="form-group">
         <a href="/webapp/register" target="_blank" style="" class="">Register Form</a>
+    </div>
+    <div class="button">
+        <a href="/webapp/ajax" target="_blank" style="" class="">Ajax Form</a>
     </div>
 
     </form>

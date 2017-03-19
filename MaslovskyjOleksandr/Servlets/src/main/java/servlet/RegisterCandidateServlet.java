@@ -29,11 +29,14 @@ public class RegisterCandidateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        if (req.getParameter("name").isEmpty()) {
+        String age1 = req.getParameter("age");
+
+        if (age1.isEmpty()) {
             req.getRequestDispatcher("/pages/error.jsp").forward(req, resp);
         }
-        String name = name = req.getParameter("name");
-        int age = Integer.parseInt(req.getParameter("age"));
+
+        String name = req.getParameter("name");
+        int age = Integer.parseInt(age1);
         String clan = req.getParameter("clan");
         String region = req.getParameter("region");
         String interests = req.getParameter("interests");
