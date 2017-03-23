@@ -28,7 +28,11 @@
         <a href="/webapp/register" target="_blank" style="" class="">Register Form</a>
     </div>
     <div class="button">
-        <a href="/webapp/ajax" target="_blank" style="" class="">Ajax Form</a>
+        <a href="/webapp/ajax" target="_blank" style="" class="">Ajax Page</a>
+    </div>
+
+    <div class="button">
+        <a href="/webapp/ajax-json" target="_blank" style="" class="">Ajax-Json Page</a>
     </div>
 
     </form>

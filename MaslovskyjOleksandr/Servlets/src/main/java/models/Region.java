@@ -10,21 +10,21 @@ public class Region extends IdGenerator{
     @OneToMany(mappedBy = "region")
     private List<Candidate > candidate;
 
-    @Enumerated(EnumType.STRING)
-    private RegionType regionType;
+    @Column(name = "region")
+    private String regionType;
 
     public Region() {
     }
 
-    public Region(RegionType regionType) {
+    public Region(String regionType) {
         this.regionType = regionType;
     }
 
-    public RegionType getRegionType() {
+    public String getRegionType() {
         return regionType;
     }
 
-    public void setRegionType(RegionType regionType) {
+    public void setRegionType(String regionType) {
         this.regionType = regionType;
     }
 

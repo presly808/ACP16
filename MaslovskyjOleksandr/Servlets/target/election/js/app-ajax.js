@@ -16,8 +16,8 @@ $(document).ready(function () {
 })
 
 function confirmation() {
-    if (!confirm("You have empty fields. Are You want to continue?")) {
-        return true;
+    if (confirm("You have empty fields. Are You want to continue?")) {
+        return false;
     }
 }
 

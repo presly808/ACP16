@@ -10,21 +10,21 @@ public class Interest extends IdGenerator{
     @OneToMany(mappedBy = "interest")
     private List<Candidate > candidate;
 
-    @Enumerated(EnumType.STRING)
-    private InterestsType type;
+    @Column(name = "type")
+    private String type;
 
     public Interest() {
     }
 
-    public Interest(InterestsType type) {
+    public Interest(String type) {
         this.type = type;
     }
 
-    public InterestsType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(InterestsType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

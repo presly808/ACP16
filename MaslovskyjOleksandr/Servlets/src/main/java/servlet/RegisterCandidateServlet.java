@@ -42,7 +42,7 @@ public class RegisterCandidateServlet extends HttpServlet {
         String interests = req.getParameter("interests");
 
         Candidate candidate = new Candidate(name, age, new Clan(clan),
-                new Region(RegionType.REGION_1), new Interest(InterestsType.FINANCE));
+                new Region(region), new Interest(interests));
 
         if (serviceCandidate.saveCandidate(candidate)) {
             req.setAttribute("candidate", candidate);
