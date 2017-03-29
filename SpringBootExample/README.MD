@@ -8,5 +8,5 @@
 * mvn clean
 * mvn package
 
-##### 3) How to run
+##### 3) How to nativeServer.run
 * java -jar target/*.jar
