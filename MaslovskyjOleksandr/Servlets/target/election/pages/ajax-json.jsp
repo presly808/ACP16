@@ -48,7 +48,7 @@
 
 </div>
 
-<div id="candidateList">
+<div style ="float: right; width: 130px" id="candidateList">Text for candidates info</div><br>
 
 </div>
 

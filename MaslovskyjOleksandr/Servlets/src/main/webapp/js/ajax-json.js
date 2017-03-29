@@ -19,6 +19,26 @@ $(document).ready(function () {
     })
 })
 
+$("#showAllInfo").click(function () {
+    $.ajax({
+        type: "POST",
+        url: "ajax-json",
+        data: {type: "allCandidates"},
+        contentType: "application/json",
+        success: function(candidateInfo) {
+            $("#candidateList").text(JSON.stringify(candidateInfo));
+        },
+        error: function () {
+            $("#candidateList").text("failed to load result from server");
+        },
+        dataType: "application/json"
+    })
+});
+
+$("#showAjax").click(function () {
+    $("#registrationForm").show();
+});
+
 function getName() {
     return $("#name").val();
 }
@@ -43,24 +63,5 @@ function generateRate() {
     return Math.floor((Math.random() * 100) + 1);
 }
 
-$(document).ready(function () {
-        $("#showAjax").click(function () {
-            $("#registrationForm").show();
-        });
-    }
-);
 
-$(document).ready(function () {
-    $("#showAllInfo").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "ajax-json",
-            data: {type: "allCandidates"},
-            contentType: "application/json",
-            success: function(candidateInfo) {
-                $("#candidateList").html($.parent(candidateInfo));
-            },
-            dataType: "json"
-        })
-    })
-})
+
