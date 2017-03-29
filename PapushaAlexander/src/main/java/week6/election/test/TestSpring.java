@@ -13,10 +13,11 @@ import java.util.List;
 public class TestSpring {
     public static void main(String[] args) {
         ApplicationContext context =
-                new ClassPathXmlApplicationContext("week6/app-context.xml");
+                new ClassPathXmlApplicationContext("app-context.xml");
         MainServiceImp service = context.getBean(MainServiceImp.class);
         List<Candidate> candidates = service.getAllCandidate(0,2);
 
         candidates.stream().forEach(System.out::println);
     }
 }
+

@@ -39,9 +39,9 @@ public class RegisterServlet extends HttpServlet {
         if (name == null || ageStr == null){
             //redirect
             response.sendRedirect("http/error.jsp");
-            // current localhost:8080/testio/register
+            // current localhost:8080/election/register
             // Absolute path = /http/error.jsp localhost:8080/http/error
-            // Relative path = http/error.jsp localhost:8080/testio/http/error.jsp
+            // Relative path = http/error.jsp localhost:8080/election/http/error.jsp
         } else {
             Integer age = Integer.parseInt(ageStr);
             Candidate candidate = new Candidate(name, age);
@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
             try {
                 Candidate created = mainService.register(candidate);
                 request.setAttribute("candidate", created);
-                request.getRequestDispatcher("WEB-INF/pages/candidate-info.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/pages/candidate-info.jsp").forward(request, response);
             } catch (RegisterException e) {
                 LOG.error(e);
                 // forward to a error page

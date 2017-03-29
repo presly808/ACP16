@@ -16,8 +16,7 @@ public class InitSpringContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ApplicationContext context =
-                new ClassPathXmlApplicationContext("week6/app-context.xml");
-
+                new ClassPathXmlApplicationContext("app-context.xml");
         servletContextEvent.getServletContext().setAttribute("app-context", context);
     }
 

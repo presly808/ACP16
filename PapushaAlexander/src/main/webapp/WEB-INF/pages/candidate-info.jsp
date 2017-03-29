@@ -36,11 +36,6 @@
                 age : ${transfered.age}
             </div>
         </li>
-        <li>
-            <div class="column">
-                clan : ${transfered.clan}
-            </div>
-        </li>
     </ul>
 </div>
 </body>

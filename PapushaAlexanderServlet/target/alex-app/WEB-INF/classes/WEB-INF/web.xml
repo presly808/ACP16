@@ -9,8 +9,6 @@
         <servlet-class>ua.artcode.week8.servlet.HelloServlet</servlet-class>
     </servlet>
 
-
-
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/hello</url-pattern>

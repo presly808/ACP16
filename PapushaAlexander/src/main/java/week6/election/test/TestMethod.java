@@ -15,7 +15,7 @@ import java.util.List;
 public class TestMethod {
     public static void main(String[] args) {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("week6/app-context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("app-context.xml");
         MainServiceImp service = (MainServiceImp) context.getBean("service");
         Manager manager = (Manager) context.getBean("manager");
 
